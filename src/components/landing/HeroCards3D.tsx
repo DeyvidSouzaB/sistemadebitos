@@ -38,7 +38,7 @@ export function HeroCards3D() {
                 <div>
                   <h3 className="text-sm font-bold text-slate-900 tracking-tight flex items-center gap-2">
                     PAGMEFY
-                    <span className="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full border border-slate-200 font-mono">SaaS v2.4</span>
+                    <span className="text-[10px] bg-emerald-50 text-emerald-700 px-2.5 py-0.5 rounded-full border border-emerald-200 font-sans font-bold">Painel Conectado</span>
                   </h3>
                   <p className="text-[11px] text-slate-500">Painel Geral de Cobranças</p>
                 </div>

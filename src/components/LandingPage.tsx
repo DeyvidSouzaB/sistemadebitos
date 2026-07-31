@@ -49,6 +49,10 @@ import { AnimatedNumber, AnimatedCurrency } from './AnimatedCounter';
 import { fetchLiveSystemStats, calculateStatsFromDebtsArray, SystemLiveStats } from '../lib/supabaseService';
 import { LandingFaq } from './landing/LandingFaq';
 import { HeroCards3D } from './landing/HeroCards3D';
+import { PainPointsBento } from './landing/PainPointsBento';
+import { HowItWorksBento } from './landing/HowItWorksBento';
+import { FeaturesBento } from './landing/FeaturesBento';
+import { LiveStatsModern } from './landing/LiveStatsModern';
 import { Debt } from '../types';
 
 interface LandingPageProps {
@@ -436,315 +440,42 @@ export default function LandingPage({ onEnterApp, onOpenAuth, liveDebts }: Landi
       {/* ------------------------------------------------------------- */}
       {/* SECTION: LIVE SYSTEM METRICS (DADOS DO SISTEMA AO VIVO)        */}
       {/* ------------------------------------------------------------- */}
-      <section id="numeros-ao-vivo" className="relative z-20 -mt-10 mb-8 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-28">
-        <div className="bg-white/95 backdrop-blur-md border border-emerald-200/80 rounded-3xl p-6 sm:p-8 shadow-xl shadow-emerald-950/5">
-          
-          {/* Header Title */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-100">
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="relative flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
-                </span>
-                <span className="text-xs font-black text-emerald-800 tracking-wider uppercase">
-                  MÉTRICAS DO SISTEMA EM TEMPO REAL
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Grid of 5 Live System Stats with Reformulated Specific Icons */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5">
-            
-            {/* Stat 1: Clientes Cadastrados (UserCheck Icon) */}
-            <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-slate-50/80 border border-slate-100 hover:border-indigo-200 hover:bg-indigo-50/30 transition-all group">
-              <div className="w-12 h-12 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-indigo-600/20 group-hover:scale-105 transition-transform">
-                <UserCheck className="w-6 h-6" />
-              </div>
-              <div className="min-w-0">
-                <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-none font-display">
-                  <AnimatedNumber value={stats.totalClients} />
-                </div>
-                <p className="text-[10px] font-black text-slate-500 tracking-wider uppercase mt-1 truncate">
-                  CLIENTES CADASTRADOS
-                </p>
-              </div>
-            </div>
-
-            {/* Stat 2: Cobranças no App (Receipt Icon) */}
-            <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-slate-50/80 border border-slate-100 hover:border-amber-200 hover:bg-amber-50/30 transition-all group">
-              <div className="w-12 h-12 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0 shadow-md shadow-amber-500/20 group-hover:scale-105 transition-transform">
-                <Receipt className="w-6 h-6" />
-              </div>
-              <div className="min-w-0">
-                <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-none font-display">
-                  <AnimatedNumber value={stats.totalDebts} />
-                </div>
-                <p className="text-[10px] font-black text-slate-500 tracking-wider uppercase mt-1 truncate">
-                  COBRANÇAS NO APP
-                </p>
-              </div>
-            </div>
-
-            {/* Stat 3: Cobranças Quitadas (BadgeCheck Icon) */}
-            <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-slate-50/80 border border-slate-100 hover:border-emerald-200 hover:bg-emerald-50/30 transition-all group">
-              <div className="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-emerald-600/20 group-hover:scale-105 transition-transform">
-                <BadgeCheck className="w-6 h-6" />
-              </div>
-              <div className="min-w-0">
-                <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-none font-display">
-                  <AnimatedNumber value={stats.paidDebtsCount} />
-                </div>
-                <p className="text-[10px] font-black text-slate-500 tracking-wider uppercase mt-1 truncate">
-                  COBRANÇAS QUITADAS
-                </p>
-              </div>
-            </div>
-
-            {/* Stat 4: Estados Presentes (MapPin Icon) */}
-            <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-slate-50/80 border border-slate-100 hover:border-rose-200 hover:bg-rose-50/30 transition-all group">
-              <div className="w-12 h-12 rounded-xl bg-rose-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-rose-600/20 group-hover:scale-105 transition-transform">
-                <MapPin className="w-6 h-6" />
-              </div>
-              <div className="min-w-0">
-                <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-none font-display">
-                  <AnimatedNumber value={stats.totalActiveStates} />
-                </div>
-                <p className="text-[10px] font-black text-slate-500 tracking-wider uppercase mt-1 truncate">
-                  ESTADOS PRESENTES
-                </p>
-              </div>
-            </div>
-
-            {/* Stat 5: Pessoas com o Sistema (Laptop / Users System Icon) */}
-            <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-slate-50/80 border border-slate-100 hover:border-violet-200 hover:bg-violet-50/30 transition-all group">
-              <div className="w-12 h-12 rounded-xl bg-violet-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-violet-600/20 group-hover:scale-105 transition-transform">
-                <Laptop className="w-6 h-6" />
-              </div>
-              <div className="min-w-0">
-                <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-none font-display">
-                  <AnimatedNumber value={stats.systemUsersCount || 1} />
-                </div>
-                <p className="text-[10px] font-black text-slate-500 tracking-wider uppercase mt-1 truncate">
-                  USUÁRIOS DO SISTEMA
-                </p>
-              </div>
-            </div>
-
-          </div>
-
-          {/* Live total BRL recovered banner footer */}
-          <div className="mt-6 pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 bg-gradient-to-r from-emerald-50 via-teal-50/50 to-emerald-50 p-4 rounded-2xl border border-emerald-100">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shadow-xs shrink-0">
-                <Coins className="w-4 h-4" />
-              </div>
-              <span className="text-xs sm:text-sm font-bold text-slate-700">
-                Total movimentado e recuperado no sistema via Pix:
-              </span>
-            </div>
-            <div className="text-base sm:text-lg font-black text-emerald-700 tracking-tight">
-              <AnimatedCurrency value={stats.totalRecoveredBrl} />
-            </div>
-          </div>
-
-        </div>
+      <section id="numeros-ao-vivo" className="relative z-20 -mt-10 mb-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-28">
+        <LiveStatsModern stats={stats} />
       </section>
 
       {/* ------------------------------------------------------------- */}
       {/* SECTION: PAIN POINTS (AS DORES DO CADERNO)                     */}
       {/* ------------------------------------------------------------- */}
-      <section id="problema" className="py-20 scroll-mt-24 bg-white border-y border-slate-200/80 relative">
+      <section id="problema" className="py-16 scroll-mt-24 bg-white border-y border-slate-200/80 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-            <h2 className="font-display text-3xl sm:text-4xl font-black tracking-tight text-slate-900">
-              Por que continuar usando caderno está te fazendo <span className="text-rose-600">perder dinheiro</span>?
-            </h2>
-            <p className="text-slate-600 text-base leading-relaxed">
-              Quem anota cobranças e fiado em papel sofre diariamente com imprevistos que prejudicam o próprio bolso. Reconhece alguma dessas situações?
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {painPoints.map((item, idx) => {
-              const IconComp = item.icon;
-              return (
-                <div 
-                  key={idx}
-                  className="p-7 rounded-3xl bg-slate-50/80 border border-slate-200 hover:border-rose-300 hover:bg-white transition-all duration-300 group space-y-4 shadow-sm hover:shadow-md"
-                >
-                  <div className="w-12 h-12 rounded-2xl bg-rose-100 text-rose-600 border border-rose-200 flex items-center justify-center group-hover:-rotate-6 transition-transform duration-300">
-                    <IconComp className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-xl font-extrabold text-slate-900">{item.title}</h3>
-                  <p className="text-slate-600 text-sm leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="mt-12 p-6 rounded-2xl bg-gradient-to-r from-rose-50 via-emerald-50/40 to-teal-50 border border-slate-200 text-center space-y-3 shadow-sm">
-            <p className="text-base font-bold text-slate-800">
-              💡 Você sabia? Mais de <span className="text-emerald-700 font-extrabold">30% do dinheiro em fiado de caderno</span> é perdido simplesmente porque as pessoas esquecem de cobrar a tempo.
-            </p>
-            <p className="text-xs text-slate-600">
-              O PAGMEFY resolve isso enviando alertas visuais para você nunca deixar passar um vencimento.
-            </p>
-          </div>
-
+          <PainPointsBento />
         </div>
       </section>
 
       {/* ------------------------------------------------------------- */}
-      {/* SECTION: HOW IT WORKS (COMO FUNCIONA PASSO A PASSO)          */}
+      {/* SECTION: HOW IT WORKS BENTO GRID                             */}
       {/* ------------------------------------------------------------- */}
-      <section id="solucao" className="py-20 scroll-mt-24 bg-slate-50 relative">
+      <section id="solucao" className="py-16 scroll-mt-24 bg-slate-50/80 relative border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-            <h2 className="font-display text-3xl sm:text-4xl font-black tracking-tight text-slate-900">
-              Do cadastro ao recebimento em 4 passos descomplicados
-            </h2>
-            <p className="text-slate-600 text-base">
-              Sem termos difíceis. Veja como é rápido colocar ordem nas suas cobranças ainda hoje:
-            </p>
-          </div>
+          <HowItWorksBento />
 
-          <div className="relative">
-            {/* Linha conectora: horizontal no desktop, vertical no mobile */}
-            <div className="hidden md:block absolute top-6 left-[12.5%] right-[12.5%] h-0.5 bg-gradient-to-r from-emerald-200 via-emerald-400 to-emerald-200" />
-            <div className="md:hidden absolute top-2 bottom-2 left-6 w-0.5 bg-gradient-to-b from-emerald-200 via-emerald-400 to-emerald-200" />
-
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-6 relative">
-              {steps.map((step, idx) => (
-                <div key={idx} className="relative flex md:flex-col items-start md:items-center gap-4 md:gap-0 md:text-center">
-                  {/* Nó numerado sobre a linha */}
-                  <div className="relative z-10 shrink-0 w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-black font-mono text-base shadow-md shadow-emerald-600/30">
-                    {step.number}
-                  </div>
-
-                  <div className="md:mt-5 space-y-2 pb-1">
-                    <span className={`inline-block text-[10px] font-bold px-2.5 py-1 rounded-full border ${
-                      idx % 2 === 0
-                        ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                        : 'bg-amber-50 text-amber-700 border-amber-200'
-                    }`}>
-                      {step.badge}
-                    </span>
-                    <h3 className="text-lg font-bold text-slate-900">
-                      {step.title}
-                    </h3>
-                    <p className="text-slate-600 text-xs leading-relaxed">
-                      {step.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-12 text-center">
+          <div className="mt-8 text-center">
             <button
               onClick={handleStartAuth}
-              className="group inline-flex items-center gap-3 bg-emerald-600 hover:bg-emerald-700 text-white font-black px-8 py-4 rounded-2xl shadow-xl shadow-emerald-600/20 transition-colors cursor-pointer"
+              className="group inline-flex items-center gap-3 bg-emerald-600 hover:bg-emerald-500 text-white font-black px-8 py-4 rounded-2xl shadow-xl shadow-emerald-600/20 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
             >
               <CheckCheck className="w-5 h-5 text-white" />
               <span>Experimente Agora Sem Custos</span>
               <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </button>
           </div>
-
         </div>
       </section>
 
-      {/* ------------------------------------------------------------- */}
-      {/* SECTION: FEATURES & BENEFITS (RECURSOS DO PAGMEFY)           */}
-      {/* ------------------------------------------------------------- */}
-      <section id="recursos" className="py-20 scroll-mt-24 bg-white border-y border-slate-200/80 relative">
+      <section id="recursos" className="py-16 scroll-mt-24 bg-white border-y border-slate-200/80 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-            <h2 className="font-display text-3xl sm:text-4xl font-black tracking-tight text-slate-900">
-              Tudo o que seu negócio precisa para nunca mais perder o fiado
-            </h2>
-            <p className="text-slate-600 text-base">
-              Funcionalidades pensadas exclusivamente para a rotina corrida de quem trabalha por conta própria.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            {/* Feature 1 */}
-            <div className="p-8 rounded-3xl bg-slate-50/80 border border-slate-200 hover:border-emerald-400 hover:bg-white transition-all duration-300 group space-y-4 shadow-sm hover:shadow-md">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 border border-emerald-200 flex items-center justify-center group-hover:-translate-y-1 transition-transform duration-300">
-                <Users className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-black text-slate-900">Controle de Cobranças e Parcelas</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Cadastre clientes, valor da venda e parcelamento em 2x, 3x ou quinzenal. O sistema calcula os saldos devedores sem erros matemáticos.
-              </p>
-            </div>
-
-            {/* Feature 2 */}
-            <div className="p-8 rounded-3xl bg-slate-50/80 border border-slate-200 hover:border-emerald-400 hover:bg-white transition-all duration-300 group space-y-4 shadow-sm hover:shadow-md">
-              <div className="w-12 h-12 rounded-2xl bg-slate-100 text-slate-700 border border-slate-200 flex items-center justify-center group-hover:-translate-y-1 transition-transform duration-300">
-                <MessageSquare className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-black text-slate-900">Lembretes Automáticos no WhatsApp</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Gere cobranças educadas e cordiais prontas para envio no WhatsApp do cliente com 1 clique, com chave Pix e valor atualizado.
-              </p>
-            </div>
-
-            {/* Feature 3 */}
-            <div className="p-8 rounded-3xl bg-slate-50/80 border border-slate-200 hover:border-emerald-400 hover:bg-white transition-all duration-300 group space-y-4 shadow-sm hover:shadow-md">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 border border-emerald-200 flex items-center justify-center group-hover:-translate-y-1 transition-transform duration-300">
-                <FileText className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-black text-slate-900">Histórico Completo por Cliente</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Acesse o histórico de tudo o que dona Maria ou seu José já compraram e pagaram. Evita qualquer dúvida sobre pagamentos antigos.
-              </p>
-            </div>
-
-            {/* Feature 4 */}
-            <div className="p-8 rounded-3xl bg-slate-50/80 border border-slate-200 hover:border-emerald-400 hover:bg-white transition-all duration-300 group space-y-4 shadow-sm hover:shadow-md">
-              <div className="w-12 h-12 rounded-2xl bg-slate-100 text-slate-700 border border-slate-200 flex items-center justify-center group-hover:-translate-y-1 transition-transform duration-300">
-                <Wallet className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-black text-slate-900">Visão Geral do Total a Receber</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Um número grande na tela mostra exatamente quanto dinheiro é seu e está a receber no mês. Chega de somar folha por folha do caderno.
-              </p>
-            </div>
-
-            {/* Feature 5 */}
-            <div className="p-8 rounded-3xl bg-slate-50/80 border border-slate-200 hover:border-emerald-400 hover:bg-white transition-all duration-300 group space-y-4 shadow-sm hover:shadow-md">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 border border-emerald-200 flex items-center justify-center group-hover:-translate-y-1 transition-transform duration-300">
-                <Smartphone className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-black text-slate-900">Acesso de Qualquer Lugar no Celular</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Acesse no celular, tablet ou computador. Seja no ateliê, na loja, em casa ou em viagem, suas contas estão sempre na ponta dos dedos.
-              </p>
-            </div>
-
-            {/* Feature 6 */}
-            <div className="p-8 rounded-3xl bg-slate-50/80 border border-slate-200 hover:border-emerald-400 hover:bg-white transition-all duration-300 group space-y-4 shadow-sm hover:shadow-md">
-              <div className="w-12 h-12 rounded-2xl bg-slate-100 text-slate-700 border border-slate-200 flex items-center justify-center group-hover:-translate-y-1 transition-transform duration-300">
-                <Lock className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-black text-slate-900">Segurança Antiperda</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Seu dado não rasga, não molha e não se perde. Seus registros ficam guardados na nuvem ou com backup em arquivo no seu próprio celular.
-              </p>
-            </div>
-
-          </div>
+          <FeaturesBento />
         </div>
       </section>
 
