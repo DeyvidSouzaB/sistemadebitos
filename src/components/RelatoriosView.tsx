@@ -42,6 +42,7 @@ import {
 import { formatCurrency } from '../hooks/useDebtCalculations';
 import { useReports } from '../hooks/useReports';
 import Pagination from './Pagination';
+import { motion } from 'motion/react';
 
 const PdfExportModal = React.lazy(() => import('./PdfExportModal'));
 
@@ -93,674 +94,302 @@ function RelatoriosView({ debts, onSelectDebt, onAddPaymentClick, onPayFull }: R
     periodLabel,
   } = metrics;
 
-
   return (
-    <div className="space-y-6 pb-12">
-      {/* View Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h2 className="text-xl font-black text-slate-900 tracking-tight">Relatórios Executivos</h2>
-          <p className="text-xs text-slate-500 mt-0.5">Análise consolidada de recuperação de crédito, inadimplência e extratos por período</p>
-        </div>
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      className="space-y-6 sm:space-y-7 text-slate-900 dark:text-slate-100 max-w-[1600px] mx-auto pb-12"
+    >
+      {/* 1. HERO HEADER */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 text-white p-6 sm:p-8 shadow-2xl border border-slate-800/80">
+        {/* Ambient background glows */}
+        <div className="absolute -top-24 -right-24 w-96 h-96 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-emerald-400 via-teal-400 to-emerald-600 rounded-l-3xl" />
 
-        {/* Quick Export Actions */}
-        <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 w-full sm:w-auto">
-          <button
-            id="btn-relatorios-pdf"
-            onClick={() => setIsPdfModalOpen(true)}
-            disabled={filteredDebts.length === 0}
-            className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-bold text-slate-800 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl transition-all shadow-xs cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-            title="Exportar Relatório PDF do Período"
-          >
-            <FileDown className="w-4 h-4 text-rose-500 shrink-0" />
-            <span>Exportar PDF</span>
-          </button>
-          <button
-            id="btn-relatorios-excel"
-            onClick={() => exportToExcel(filteredDebts)}
-            disabled={filteredDebts.length === 0}
-            className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-bold text-slate-800 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl transition-all shadow-xs cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-            title="Exportar Planilha Excel do Período"
-          >
-            <FileDown className="w-4 h-4 text-emerald-600 shrink-0" />
-            <span>Exportar Excel</span>
-          </button>
+        <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div className="space-y-2.5 max-w-2xl">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold backdrop-blur-md shadow-inner">
+              <Sparkles className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
+              <span>RELATÓRIOS & DEPURADORES FINANCEIROS</span>
+            </div>
+
+            <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-white font-display leading-tight">
+              Relatórios Financeiros
+            </h1>
+
+            <p className="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed">
+              Analise métricas consolidadas de liquidação, acompanhe entradas por período e exporte balancetes em PDF/Excel.
+            </p>
+          </div>
+
+          {/* Export Action Shortcuts */}
+          <div className="flex flex-wrap items-center gap-3 shrink-0">
+            <button
+              id="btn-relatorio-pdf"
+              onClick={() => setIsPdfModalOpen(true)}
+              className="px-5 py-3 bg-white/10 hover:bg-white/15 active:scale-95 border border-white/15 text-slate-100 text-xs sm:text-sm font-bold rounded-2xl backdrop-blur-md transition-all duration-200 cursor-pointer flex items-center gap-2 shadow-lg"
+            >
+              <FileDown className="w-4 h-4 text-rose-400" />
+              <span>Exportar PDF</span>
+            </button>
+
+            <button
+              id="btn-relatorio-excel"
+              onClick={() => exportToExcel(filteredDebts)}
+              className="px-5 py-3 bg-gradient-to-r from-emerald-500 via-emerald-400 to-teal-400 hover:from-emerald-400 hover:to-teal-300 active:scale-95 text-slate-950 text-xs sm:text-sm font-black rounded-2xl shadow-[0_0_25px_rgba(16,185,129,0.35)] hover:shadow-[0_0_35px_rgba(16,185,129,0.5)] transition-all duration-300 cursor-pointer flex items-center gap-2 border border-emerald-300/40"
+            >
+              <FileDown className="w-4 h-4 stroke-[2.5]" />
+              <span>Exportar Excel</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Period Filter Controls Bar */}
-      <div className="bg-white rounded-3xl p-5 border border-slate-200/80 shadow-xs space-y-4">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pb-3 border-b border-slate-100">
-          <div className="flex items-center gap-2">
-            <div className="p-2 bg-emerald-50 text-emerald-700 rounded-xl shrink-0">
-              <Calendar className="w-4 h-4" />
+      {/* 2. FILTER BAR CARD */}
+      <div className="bg-white dark:bg-slate-900/90 rounded-3xl p-5 sm:p-6 border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-4">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div className="flex items-center gap-2.5">
+            <div className="p-2.5 bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 rounded-2xl border border-emerald-100 dark:border-emerald-900/50">
+              <Filter className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-xs font-black uppercase tracking-wider text-slate-800 flex items-center gap-1.5">
-                Filtrar Período de Análise
-              </h3>
-              <p className="text-[11px] text-slate-400">
-                Selecione o horizonte temporal e a base de datas para consolidação dos números
-              </p>
+              <h3 className="text-sm font-black text-slate-900 dark:text-white font-display">Filtros de Período</h3>
+              <p className="text-xs text-slate-400 font-medium font-mono">{periodLabel}</p>
             </div>
           </div>
 
-          {/* Date Basis Toggle */}
-          <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-2xl text-[11px] font-bold self-start lg:self-auto">
-            <span className="text-[10px] uppercase text-slate-400 font-black px-2 hidden sm:inline">Base:</span>
-            <button
-              type="button"
-              onClick={() => { setDateBasis('dueDate'); setCurrentPage(1); }}
-              className={`px-3 py-1 rounded-xl transition-all cursor-pointer ${
-                dateBasis === 'dueDate' ? 'bg-white text-emerald-700 shadow-2xs font-extrabold' : 'text-slate-600 hover:text-slate-900'
-              }`}
-              title="Filtra cobranças com vencimento no período"
-            >
-              Vencimento
-            </button>
-            <button
-              type="button"
-              onClick={() => { setDateBasis('createdAt'); setCurrentPage(1); }}
-              className={`px-3 py-1 rounded-xl transition-all cursor-pointer ${
-                dateBasis === 'createdAt' ? 'bg-white text-emerald-700 shadow-2xs font-extrabold' : 'text-slate-600 hover:text-slate-900'
-              }`}
-              title="Filtra cobranças lançadas/cadastradas no período"
-            >
-              Lançamento
-            </button>
-            <button
-              type="button"
-              onClick={() => { setDateBasis('paymentDate'); setCurrentPage(1); }}
-              className={`px-3 py-1 rounded-xl transition-all cursor-pointer ${
-                dateBasis === 'paymentDate' ? 'bg-white text-emerald-700 shadow-2xs font-extrabold' : 'text-slate-600 hover:text-slate-900'
-              }`}
-              title="Filtra recebimentos e fluxo de caixa ocorridos no período"
-            >
-              Recebimento
-            </button>
-          </div>
-        </div>
-
-        {/* Period Preset Pills & Custom Pickers */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
-          <div className="flex flex-wrap items-center gap-1.5">
-            <button
-              type="button"
-              onClick={() => { setPeriodFilter('this_month'); setCurrentPage(1); }}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition-all cursor-pointer ${
-                periodFilter === 'this_month'
-                  ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/20'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200/80 hover:text-slate-900'
-              }`}
-            >
-              Este Mês
-            </button>
-            <button
-              type="button"
-              onClick={() => { setPeriodFilter('last_month'); setCurrentPage(1); }}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition-all cursor-pointer ${
-                periodFilter === 'last_month'
-                  ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/20'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200/80 hover:text-slate-900'
-              }`}
-            >
-              Mês Anterior
-            </button>
-            <button
-              type="button"
-              onClick={() => { setPeriodFilter('this_quarter'); setCurrentPage(1); }}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition-all cursor-pointer ${
-                periodFilter === 'this_quarter'
-                  ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/20'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200/80 hover:text-slate-900'
-              }`}
-            >
-              Este Trimestre
-            </button>
-            <button
-              type="button"
-              onClick={() => { setPeriodFilter('this_year'); setCurrentPage(1); }}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition-all cursor-pointer ${
-                periodFilter === 'this_year'
-                  ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/20'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200/80 hover:text-slate-900'
-              }`}
-            >
-              Este Ano
-            </button>
-            <button
-              type="button"
-              onClick={() => { setPeriodFilter('all'); setCurrentPage(1); }}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition-all cursor-pointer ${
-                periodFilter === 'all'
-                  ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/20'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200/80 hover:text-slate-900'
-              }`}
-            >
-              Todo o Histórico
-            </button>
-            <button
-              type="button"
-              onClick={() => { setPeriodFilter('custom'); setCurrentPage(1); }}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition-all cursor-pointer ${
-                periodFilter === 'custom'
-                  ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/20'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200/80 hover:text-slate-900'
-              }`}
-            >
-              Personalizado
-            </button>
-          </div>
-
-          {/* Custom Date Inputs */}
-          {periodFilter === 'custom' && (
-            <div className="flex flex-wrap items-center gap-2 bg-slate-50 p-1.5 rounded-2xl border border-slate-200/80 text-xs">
-              <div className="flex items-center gap-1.5">
-                <span className="text-[10px] font-bold text-slate-400 uppercase">De:</span>
-                <input
-                  type="date"
-                  value={customStart}
-                  onChange={(e) => { setCustomStart(e.target.value); setCurrentPage(1); }}
-                  className="px-2.5 py-1 bg-white border border-slate-200 rounded-xl text-slate-800 font-bold text-xs focus:ring-2 focus:ring-emerald-500 outline-none"
-                />
-              </div>
-              <div className="flex items-center gap-1.5">
-                <span className="text-[10px] font-bold text-slate-400 uppercase">Até:</span>
-                <input
-                  type="date"
-                  value={customEnd}
-                  onChange={(e) => { setCustomEnd(e.target.value); setCurrentPage(1); }}
-                  className="px-2.5 py-1 bg-white border border-slate-200 rounded-xl text-slate-800 font-bold text-xs focus:ring-2 focus:ring-emerald-500 outline-none"
-                />
-              </div>
+          <div className="flex flex-wrap items-center gap-3">
+            {/* Period selector */}
+            <div className="flex items-center bg-slate-100/80 dark:bg-slate-800/80 p-1 rounded-2xl border border-slate-200/60 dark:border-slate-700/60">
+              {[
+                { key: 'this_month', label: 'Este Mês' },
+                { key: 'last_month', label: 'Mês Passado' },
+                { key: 'this_year', label: 'Este Ano' },
+                { key: 'all', label: 'Todo Período' },
+                { key: 'custom', label: 'Personalizado' },
+              ].map((item) => (
+                <button
+                  key={item.key}
+                  onClick={() => setPeriodFilter(item.key as PeriodFilterType)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer ${
+                    periodFilter === item.key
+                      ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs font-black'
+                      : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
             </div>
-          )}
-        </div>
 
-        {/* Active Filter Summary Badge */}
-        <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] pt-1">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 font-extrabold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-xl border border-emerald-200/80 shadow-2xs">
-              <Sparkles className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-              Período Ativo: <span className="font-mono text-emerald-900">{periodLabel}</span>
-            </span>
-            <span className="text-slate-500 font-medium text-xs">
-              • <strong className="text-slate-800 font-black">{filteredDebts.length}</strong> cobrança{filteredDebts.length !== 1 ? 's' : ''} • <strong className="text-slate-800 font-black">{periodPayments.length}</strong> recebimento{periodPayments.length !== 1 ? 's' : ''} no período
-            </span>
-          </div>
-
-          {periodFilter !== 'all' && (
-            <button
-              type="button"
-              onClick={() => setPeriodFilter('all')}
-              className="text-slate-400 hover:text-emerald-700 text-[11px] font-extrabold flex items-center gap-1 cursor-pointer transition-colors ml-auto sm:ml-0"
+            {/* Date basis selector */}
+            <select
+              value={dateBasis}
+              onChange={(e) => setDateBasis(e.target.value as DateBasisType)}
+              className="bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 py-2 px-3 rounded-xl focus:outline-none focus:border-emerald-500 cursor-pointer"
             >
-              <RotateCcw className="w-3 h-3 text-slate-400" /> Resetar para Todo Histórico
-            </button>
-          )}
+              <option value="payment">Base: Data do Pagamento</option>
+              <option value="due">Base: Data de Vencimento</option>
+              <option value="creation">Base: Data de Criação</option>
+            </select>
+          </div>
         </div>
+
+        {/* Custom date range inputs */}
+        {periodFilter === 'custom' && (
+          <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center gap-3">
+            <input
+              type="date"
+              value={customStart}
+              onChange={(e) => setCustomStart(e.target.value)}
+              className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 text-xs text-slate-800 dark:text-white font-mono"
+            />
+            <span className="text-xs text-slate-400 font-bold">até</span>
+            <input
+              type="date"
+              value={customEnd}
+              onChange={(e) => setCustomEnd(e.target.value)}
+              className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 text-xs text-slate-800 dark:text-white font-mono"
+            />
+          </div>
+        )}
       </div>
 
-      {/* KPI Cards Row */}
+      {/* 3. EXECUTIVE KPI METRIC CARDS */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-        
-        {/* Total Lançado */}
-        <div 
-          id="relatorio-card-total-original"
-          onClick={() => { setDateBasis('createdAt'); setCurrentPage(1); }}
-          className="group relative bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-xs hover:shadow-xl hover:shadow-emerald-500/10 hover:border-emerald-300 hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col justify-between cursor-pointer"
-          title="Clique para filtrar pela base de Lançamento"
-        >
-          {/* Top Status Gradient Bar */}
-          <div className="absolute top-0 left-6 right-6 h-[3px] rounded-b-full bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-400" />
-
-          <div className="flex items-start justify-between gap-3 mb-4 pt-1">
+        {/* Total Pago */}
+        <div className="bg-white dark:bg-slate-900/90 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-800 shadow-sm relative overflow-hidden group hover:shadow-xl hover:shadow-emerald-500/10 transition-all duration-300">
+          <div className="absolute top-0 left-6 right-6 h-1 rounded-b-full bg-gradient-to-r from-emerald-500 to-teal-400" />
+          <div className="flex items-start justify-between mb-4">
             <div>
-              <span className="text-[11px] font-black text-emerald-700 uppercase tracking-widest flex items-center gap-1.5">
-                <DollarSign className="w-3.5 h-3.5 text-emerald-600" /> Total Lançado
-              </span>
-              <p className="text-[11px] text-slate-400 font-medium mt-0.5">Montante bruto cadastrado</p>
+              <span className="text-[11px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 font-mono">Recebido no Período</span>
+              <p className="text-xs text-slate-400 font-medium mt-0.5">Total de entradas liquidadas</p>
             </div>
-            <div className="w-10 h-10 sm:w-11 sm:h-11 bg-gradient-to-br from-emerald-600 to-teal-600 text-white rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-emerald-600/25 group-hover:scale-110 transition-transform">
+            <div className="w-11 h-11 bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 rounded-2xl flex items-center justify-center shrink-0 border border-emerald-100 dark:border-emerald-800">
+              <CheckCircle2 className="w-5 h-5" />
+            </div>
+          </div>
+          <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white font-display">
+            {formatCurrency(totalPaid)}
+          </h3>
+          <p className="text-xs font-bold text-emerald-600 dark:text-emerald-400 mt-2 flex items-center gap-1 font-mono">
+            <TrendingUp className="w-3.5 h-3.5" /> {periodPayments.length} pagamentos efetuados
+          </p>
+        </div>
+
+        {/* Saldo Restante */}
+        <div className="bg-white dark:bg-slate-900/90 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-800 shadow-sm relative overflow-hidden group hover:shadow-xl hover:shadow-amber-500/10 transition-all duration-300">
+          <div className="absolute top-0 left-6 right-6 h-1 rounded-b-full bg-gradient-to-r from-amber-500 to-orange-400" />
+          <div className="flex items-start justify-between mb-4">
+            <div>
+              <span className="text-[11px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400 font-mono">Saldo Pendente</span>
+              <p className="text-xs text-slate-400 font-medium mt-0.5">Valores em aberto no filtro</p>
+            </div>
+            <div className="w-11 h-11 bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 rounded-2xl flex items-center justify-center shrink-0 border border-amber-100 dark:border-amber-800">
               <DollarSign className="w-5 h-5" />
             </div>
           </div>
-
-          <div>
-            <h3 className="text-xl sm:text-3xl font-black font-mono tracking-tight text-slate-900 group-hover:text-emerald-600 transition-colors truncate">
-              {formatCurrency(totalOriginal)}
-            </h3>
-            
-            <div className="flex items-center justify-between gap-2 mt-4 pt-3 border-t border-slate-100">
-              <span className="text-xs font-bold text-slate-600 bg-slate-100 px-2.5 py-1 rounded-xl truncate">
-                {totalCount} cobrança{totalCount !== 1 ? 's' : ''}
-              </span>
-              <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider shrink-0">Base Histórica</span>
-            </div>
-          </div>
+          <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white font-display">
+            {formatCurrency(totalRemaining)}
+          </h3>
+          <p className="text-xs font-bold text-amber-600 dark:text-amber-400 mt-2 font-mono">
+            {pendingDebts.length + partialDebts.length} títulos pendentes
+          </p>
         </div>
 
-        {/* Total Arrecadado */}
-        <div 
-          id="relatorio-card-total-paid"
-          onClick={() => { setDateBasis('paymentDate'); setCurrentPage(1); }}
-          className="group relative bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-xs hover:shadow-xl hover:shadow-emerald-500/10 hover:border-emerald-300 hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col justify-between cursor-pointer"
-          title="Clique para filtrar pela base de Recebimento"
-        >
-          {/* Top Status Gradient Bar */}
-          <div className="absolute top-0 left-6 right-6 h-[3px] rounded-b-full bg-gradient-to-r from-emerald-500 via-emerald-400 to-teal-400" />
-
-          <div className="flex items-start justify-between gap-3 mb-4 pt-1">
+        {/* Total em Atraso */}
+        <div className="bg-white dark:bg-slate-900/90 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-800 shadow-sm relative overflow-hidden group hover:shadow-xl hover:shadow-rose-500/10 transition-all duration-300">
+          <div className="absolute top-0 left-6 right-6 h-1 rounded-b-full bg-gradient-to-r from-rose-500 to-red-600" />
+          <div className="flex items-start justify-between mb-4">
             <div>
-              <span className="text-[11px] font-black text-emerald-600 uppercase tracking-widest flex items-center gap-1.5">
-                <TrendingUp className="w-3.5 h-3.5 text-emerald-500" /> Total Arrecadado
-              </span>
-              <p className="text-[11px] text-slate-400 font-medium mt-0.5">Valores recuperados</p>
+              <span className="text-[11px] font-black uppercase tracking-wider text-rose-600 dark:text-rose-400 font-mono">Total em Atraso</span>
+              <p className="text-xs text-slate-400 font-medium mt-0.5">Valores com vencimento expirado</p>
             </div>
-            <div className="w-10 h-10 sm:w-11 sm:h-11 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-emerald-500/25 group-hover:scale-110 transition-transform">
-              <TrendingUp className="w-5 h-5" />
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-xl sm:text-3xl font-black font-mono tracking-tight text-emerald-600 transition-colors truncate">
-              {formatCurrency(totalPaid)}
-            </h3>
-
-            <div className="flex items-center justify-between gap-2 mt-4 pt-3 border-t border-slate-100">
-              <span className="text-xs font-black font-mono text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-xl border border-emerald-100 truncate">
-                {recoveryRate}% de taxa
-              </span>
-              <span className="text-[10px] font-extrabold text-emerald-600 uppercase tracking-wider shrink-0">
-                Recuperação
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Saldo em Aberto */}
-        <div 
-          id="relatorio-card-total-remaining"
-          onClick={() => { setDateBasis('dueDate'); setCurrentPage(1); }}
-          className="group relative bg-white rounded-3xl p-6 border border-slate-200/80 shadow-xs hover:shadow-xl hover:shadow-rose-500/10 hover:border-rose-300 hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col justify-between cursor-pointer"
-          title="Clique para filtrar por Vencimento"
-        >
-          {/* Top Status Gradient Bar */}
-          <div className="absolute top-0 left-6 right-6 h-[3px] rounded-b-full bg-gradient-to-r from-rose-600 via-rose-500 to-pink-500" />
-
-          <div className="flex items-start justify-between gap-3 mb-4 pt-1">
-            <div>
-              <span className="text-[11px] font-black text-rose-600 uppercase tracking-widest flex items-center gap-1.5">
-                <Receipt className="w-3.5 h-3.5 text-rose-500" /> Saldo em Aberto
-              </span>
-              <p className="text-[11px] text-slate-400 font-medium mt-0.5">Pendente de liquidação</p>
-            </div>
-            <div className="w-11 h-11 bg-gradient-to-br from-rose-500 to-rose-600 text-white rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-rose-500/25 group-hover:scale-110 transition-transform">
-              <Receipt className="w-5 h-5" />
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-rose-600 transition-colors">
-              {formatCurrency(totalRemaining)}
-            </h3>
-
-            <div className="flex items-center justify-between gap-2 mt-4 pt-3 border-t border-slate-100">
-              <span className="text-xs font-bold text-rose-700 bg-rose-50 px-2.5 py-1 rounded-xl border border-rose-100">
-                {pendingDebts.length + partialDebts.length} pendência{pendingDebts.length + partialDebts.length !== 1 ? 's' : ''}
-              </span>
-              <span className="inline-flex items-center gap-1 text-[10px] font-extrabold text-rose-600 uppercase tracking-wider">
-                <span className="h-1.5 w-1.5 rounded-full bg-rose-500 animate-pulse" /> Em aberto
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Em Atraso */}
-        <div 
-          id="relatorio-card-total-overdue"
-          onClick={() => { setDateBasis('dueDate'); setPeriodFilter('all'); setCurrentPage(1); }}
-          className="group relative bg-white rounded-3xl p-6 border border-slate-200/80 shadow-xs hover:shadow-xl hover:shadow-amber-500/10 hover:border-amber-300 hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col justify-between cursor-pointer"
-          title="Clique para filtrar cobranças em atraso"
-        >
-          {/* Top Status Gradient Bar */}
-          <div className="absolute top-0 left-6 right-6 h-[3px] rounded-b-full bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500" />
-
-          <div className="flex items-start justify-between gap-3 mb-4 pt-1">
-            <div>
-              <span className="text-[11px] font-black text-amber-600 uppercase tracking-widest flex items-center gap-1.5">
-                <AlertTriangle className="w-3.5 h-3.5 text-amber-500" /> Em Atraso
-              </span>
-              <p className="text-[11px] text-slate-400 font-medium mt-0.5">Vencidos e não pagos</p>
-            </div>
-            <div className="w-11 h-11 bg-gradient-to-br from-amber-500 to-amber-600 text-white rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-amber-500/25 group-hover:scale-110 transition-transform">
+            <div className="w-11 h-11 bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 rounded-2xl flex items-center justify-center shrink-0 border border-rose-100 dark:border-rose-800">
               <AlertTriangle className="w-5 h-5" />
             </div>
           </div>
-
-          <div>
-            <h3 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 group-hover:text-amber-600 transition-colors">
-              {overdueDebts.length} <span className="text-sm font-bold text-slate-500 font-sans">devedor{overdueDebts.length !== 1 ? 'es' : ''}</span>
-            </h3>
-
-            <div className="flex items-center justify-between gap-2 mt-4 pt-3 border-t border-slate-100">
-              <span className="text-xs font-black font-mono text-amber-700 bg-amber-50 px-2.5 py-1 rounded-xl border border-amber-100">
-                {formatCurrency(totalOverdueAmount)}
-              </span>
-              <span className="text-[10px] font-extrabold text-amber-700 uppercase tracking-wider">
-                Inadimplente
-              </span>
-            </div>
-          </div>
+          <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white font-display">
+            {formatCurrency(totalOverdueAmount)}
+          </h3>
+          <p className="text-xs font-bold text-rose-600 dark:text-rose-400 mt-2 font-mono">
+            {overdueDebts.length} cobranças em atraso
+          </p>
         </div>
 
+        {/* Taxa de Recuperação */}
+        <div className="bg-white dark:bg-slate-900/90 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-800 shadow-sm relative overflow-hidden group hover:shadow-xl hover:shadow-indigo-500/10 transition-all duration-300">
+          <div className="absolute top-0 left-6 right-6 h-1 rounded-b-full bg-gradient-to-r from-indigo-500 to-teal-400" />
+          <div className="flex items-start justify-between mb-4">
+            <div>
+              <span className="text-[11px] font-black uppercase tracking-wider text-indigo-600 dark:text-indigo-400 font-mono">Taxa de Adimplência</span>
+              <p className="text-xs text-slate-400 font-medium mt-0.5">% do volume total quitado</p>
+            </div>
+            <div className="w-11 h-11 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 rounded-2xl flex items-center justify-center shrink-0 border border-indigo-100 dark:border-indigo-800">
+              <PieChart className="w-5 h-5" />
+            </div>
+          </div>
+          <h3 className="text-2xl sm:text-3xl font-black text-indigo-600 dark:text-indigo-400 font-display">
+            {Number(recoveryRate).toFixed(1)}%
+          </h3>
+          <div className="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden mt-3">
+            <div
+              className="bg-gradient-to-r from-indigo-500 to-teal-400 h-full rounded-full transition-all duration-500"
+              style={{ width: `${Math.min(100, Number(recoveryRate))}%` }}
+            />
+          </div>
+        </div>
       </div>
 
-      {/* Main Breakdown Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-        {/* Top 5 Devedores com Maior Saldo */}
-        <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-100 p-6 shadow-xs flex flex-col justify-between">
+      {/* 4. GRAPH & TOP DEBTORS SECTION */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Distribution Pie Chart */}
+        <div className="bg-white dark:bg-slate-900/90 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-4">
-              <div className="flex items-center gap-2">
-                <div className="p-2 bg-emerald-50 text-emerald-700 rounded-xl">
-                  <Users className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="text-sm font-bold text-slate-900">Maiores Saldos em Aberto</h3>
-                  <p className="text-[11px] text-slate-400">Ranking das cobranças prioritárias para liquidação</p>
-                </div>
-              </div>
+            <div className="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
+              <PieChart className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+              <h3 className="text-base font-black text-slate-900 dark:text-white font-display">
+                Distribuição de Cobranças por Status
+              </h3>
             </div>
 
-            {topDebtors.length > 0 ? (
-              <div className="divide-y divide-slate-100">
-                {topDebtors.map((debt, index) => {
-                  const paidVal = getEffectivePaidAmount(debt.payments);
-                  const pct = debt.originalAmount > 0 ? (paidVal / debt.originalAmount) * 100 : 0;
-
-                  return (
-                    <div 
-                      key={`${debt.id}-${index}`} 
-                      onClick={() => onSelectDebt?.(debt)}
-                      className="py-3 px-2.5 -mx-2.5 rounded-xl hover:bg-slate-50/90 transition-all cursor-pointer group flex items-center justify-between gap-3"
-                      title="Clique para ver os detalhes completos deste devedor"
-                    >
-                      <div className="flex items-center gap-3 min-w-0 flex-1">
-                        <span className="w-6 h-6 rounded-lg bg-slate-100 text-slate-600 group-hover:bg-emerald-100 group-hover:text-emerald-800 flex items-center justify-center font-bold text-xs shrink-0 font-mono transition-colors">
-                          #{index + 1}
-                        </span>
-                        <div className="min-w-0 flex-1">
-                          <span className="block text-xs font-bold text-slate-900 group-hover:text-emerald-700 transition-colors truncate">
-                            {debt.name}
-                          </span>
-                          <span className="block text-[10px] text-slate-400">
-                            Original: {formatCurrency(debt.originalAmount)}
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-2.5 shrink-0">
-                        <div className="text-right">
-                          <span className="block text-xs font-black text-rose-600 font-mono">
-                            {formatCurrency(debt.currentAmount)}
-                          </span>
-                          <div className="w-16 sm:w-24 bg-slate-100 h-1.5 rounded-full overflow-hidden mt-1 ml-auto">
-                            <div 
-                              className="bg-emerald-500 h-full rounded-full" 
-                              style={{ width: `${Math.min(100, pct)}%` }}
-                            />
-                          </div>
-                        </div>
-
-                        {/* Quick action buttons */}
-                        <div className="flex items-center gap-1.5">
-                          {debt.phone && (
-                            <a
-                              href={getWhatsappUrl(debt.phone, buildWhatsappMessage(debt))}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              onClick={(e) => e.stopPropagation()}
-                              className="p-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200/80 rounded-xl transition-all cursor-pointer flex items-center justify-center shadow-2xs"
-                              title="Cobrar via WhatsApp"
-                            >
-                              <MessageCircle className="w-3.5 h-3.5" />
-                            </a>
-                          )}
-                          {debt.currentAmount > 0 && onAddPaymentClick && (
-                            <button
-                              type="button"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                onAddPaymentClick(debt);
-                              }}
-                              className="p-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl transition-all cursor-pointer flex items-center gap-1 text-[10px] font-bold shadow-2xs"
-                              title="Registrar Pagamento"
-                            >
-                              <DollarSign className="w-3.5 h-3.5" />
-                              <span className="hidden sm:inline">Pagar</span>
-                            </button>
-                          )}
-                          <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-emerald-600 group-hover:translate-x-0.5 transition-all shrink-0 ml-0.5" />
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            ) : (
-              <div className="py-12 text-center text-slate-400 text-xs">
-                Nenhum devedor com saldo pendente registrado.
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Distribuição por Status */}
-        <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-xs flex flex-col justify-between">
-          <div>
-            <div className="flex items-center gap-2 pb-4 border-b border-slate-100 mb-2">
-              <div className="p-2 bg-teal-50 text-teal-700 rounded-xl">
-                <PieChart className="w-4 h-4" />
-              </div>
-              <div>
-                <h3 className="text-sm font-bold text-slate-900">Distribuição da Carteira</h3>
-                <p className="text-[11px] text-slate-400">Gráfico de proporção por estado de liquidação</p>
-              </div>
-            </div>
-
-            {/* Donut Chart Canvas */}
-            <div className="relative w-full h-[190px] flex items-center justify-center my-1">
+            <div className="h-60 w-full relative">
               <ResponsiveContainer width="100%" height="100%">
                 <RechartsPieChart>
                   <Pie
                     data={pieChartData}
                     cx="50%"
                     cy="50%"
-                    innerRadius={54}
-                    outerRadius={78}
-                    paddingAngle={totalCount > 0 && pieChartData.length > 1 ? 4 : 0}
+                    innerRadius={60}
+                    outerRadius={80}
+                    paddingAngle={5}
                     dataKey="value"
-                    stroke="none"
-                    cornerRadius={4}
                   >
                     {pieChartData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
-                  <RechartsTooltip 
-                    content={({ active, payload }) => {
-                      if (active && payload && payload.length) {
-                        const data = payload[0].payload;
-                        if (data.name === 'Sem dados') return null;
-                        return (
-                          <div className="bg-slate-900 text-white p-2.5 rounded-xl text-xs shadow-xl border border-slate-800 z-50">
-                            <p className="font-bold flex items-center gap-1.5" style={{ color: data.color }}>
-                              <span className="w-2 h-2 rounded-full" style={{ backgroundColor: data.color }} />
-                              {data.name}
-                            </p>
-                            <p className="text-[11px] text-slate-300 mt-1 font-mono">
-                              <strong className="text-white font-bold">{data.count}</strong> cobrança{data.count !== 1 ? 's' : ''} ({data.percentage}%)
-                            </p>
-                          </div>
-                        );
-                      }
-                      return null;
-                    }} 
+                  <RechartsTooltip
+                    formatter={(value: any) => [`R$ ${Number(value).toLocaleString('pt-BR')}`, 'Valor']}
                   />
                 </RechartsPieChart>
               </ResponsiveContainer>
-
-              {/* Inner Badge Overlay */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                <span className="text-2xl font-black font-mono text-slate-900 leading-none">
-                  {totalCount}
-                </span>
-                <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mt-1">
-                  Cobrança{totalCount !== 1 ? 's' : ''}
-                </span>
-              </div>
-            </div>
-
-            {/* Structured Executive Legend */}
-            <div className="space-y-2 mt-1">
-              <div className="flex items-center justify-between text-xs p-2 rounded-xl bg-slate-50 border border-slate-100">
-                <span className="text-slate-700 font-bold flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0" />
-                  Quitados
-                </span>
-                <div className="flex items-center gap-2 font-mono text-slate-800 font-extrabold">
-                  <span>{paidDebts.length}</span>
-                  <span className="text-[10px] px-2 py-0.5 rounded-lg bg-emerald-100 text-emerald-800 font-bold">
-                    {totalCount > 0 ? Math.round((paidDebts.length / totalCount) * 100) : 0}%
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between text-xs p-2 rounded-xl bg-slate-50 border border-slate-100">
-                <span className="text-slate-700 font-bold flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-amber-500 shrink-0" />
-                  Pagamento Parcial
-                </span>
-                <div className="flex items-center gap-2 font-mono text-slate-800 font-extrabold">
-                  <span>{partialDebts.length}</span>
-                  <span className="text-[10px] px-2 py-0.5 rounded-lg bg-amber-100 text-amber-800 font-bold">
-                    {totalCount > 0 ? Math.round((partialDebts.length / totalCount) * 100) : 0}%
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between text-xs p-2 rounded-xl bg-slate-50 border border-slate-100">
-                <span className="text-slate-700 font-bold flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500 shrink-0" />
-                  Pendentes sem Pagamento
-                </span>
-                <div className="flex items-center gap-2 font-mono text-slate-800 font-extrabold">
-                  <span>{pendingDebts.length}</span>
-                  <span className="text-[10px] px-2 py-0.5 rounded-lg bg-rose-100 text-rose-800 font-bold">
-                    {totalCount > 0 ? Math.round((pendingDebts.length / totalCount) * 100) : 0}%
-                  </span>
-                </div>
-              </div>
             </div>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-slate-100 text-center">
-            <span className="text-[10px] text-slate-400 uppercase font-black tracking-wider block">
-              Total da Carteira no Período
-            </span>
-            <span className="text-base font-black text-slate-900 font-mono block mt-0.5">
-              {totalCount} registro{totalCount !== 1 ? 's' : ''}
-            </span>
+          <div className="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs font-mono">
+            {pieChartData.map((item, idx) => (
+              <div key={idx} className="flex items-center justify-between p-2 rounded-xl bg-slate-50 dark:bg-slate-800/40">
+                <span className="flex items-center gap-1.5 text-slate-600 dark:text-slate-300 font-bold">
+                  <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: item.color }} />
+                  {item.name}
+                </span>
+                <span className="font-black text-slate-900 dark:text-white">{formatCurrency(item.value)}</span>
+              </div>
+            ))}
           </div>
         </div>
 
-      </div>
-
-      {/* Audit Log of Received Payments */}
-      <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-xs">
-        <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-4 flex-wrap gap-2">
-          <div className="flex items-center gap-2">
-            <div className="p-2 bg-emerald-50 text-emerald-600 rounded-xl">
-              <FileText className="w-4 h-4" />
+        {/* Top Debtors Ranking */}
+        <div className="bg-white dark:bg-slate-900/90 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+          <div>
+            <div className="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
+              <Users className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+              <h3 className="text-base font-black text-slate-900 dark:text-white font-display">
+                Ranking de Maiores Devedores
+              </h3>
             </div>
-            <div>
-              <h3 className="text-sm font-bold text-slate-900">Extrato de Entradas no Período</h3>
-              <p className="text-[11px] text-slate-400">Histórico dos recebimentos quitados ou parciais registrados em {periodLabel}</p>
+
+            <div className="space-y-3">
+              {topDebtors.slice(0, 5).map((debtor, idx) => (
+                <div 
+                  key={`top-debtor-${idx}`}
+                  onClick={() => onSelectDebt?.(debtor)}
+                  className="p-3.5 bg-slate-50 dark:bg-slate-800/40 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center justify-between gap-3 cursor-pointer transition-all duration-200"
+                >
+                  <div className="flex items-center gap-3 min-w-0">
+                    <span className="w-7 h-7 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 font-black text-xs flex items-center justify-center font-mono">
+                      #{idx + 1}
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-xs font-black text-slate-900 dark:text-white truncate font-display">{debtor.name}</p>
+                      <p className="text-[10px] text-slate-400 font-mono">Original: {formatCurrency(debtor.originalAmount)}</p>
+                    </div>
+                  </div>
+
+                  <span className="text-sm font-black text-rose-600 dark:text-rose-400 font-mono">
+                    {formatCurrency(debtor.currentAmount)}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
-          <span className="text-xs font-black font-mono text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-xl border border-emerald-100">
-            {periodPayments.length} lançamento{periodPayments.length !== 1 ? 's' : ''}
-          </span>
         </div>
-
-        {periodPayments.length > 0 ? (
-          <>
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse min-w-[500px]">
-                <caption className="sr-only">Extrato de Entradas e Pagamentos do Período</caption>
-                <thead>
-                  <tr className="border-b border-slate-100 text-[10px] font-black uppercase text-slate-400 tracking-wider">
-                    <th scope="col" className="py-2.5 px-3">Devedor</th>
-                    <th scope="col" className="py-2.5 px-3">Data do Pagamento</th>
-                    <th scope="col" className="py-2.5 px-3">Observação / Nota</th>
-                    <th scope="col" className="py-2.5 px-3 text-right">Valor Recebido</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100 text-xs">
-                  {paginatedPayments.map((pmt, idx) => {
-                    const parentDebt = debts.find(d => d.id === pmt.debtId);
-                    return (
-                      <tr 
-                        key={`${pmt.debtId || 'debt'}-${pmt.id || 'pmt'}-${idx}`} 
-                        onClick={() => parentDebt && onSelectDebt?.(parentDebt)}
-                        className={`transition-colors ${parentDebt ? 'hover:bg-slate-50 cursor-pointer group' : 'hover:bg-slate-50/50'}`}
-                        title={parentDebt ? "Clique para ver detalhes desta cobrança" : undefined}
-                      >
-                        <td className="py-3 px-3 font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
-                          <div className="flex items-center gap-1.5">
-                            <span>{pmt.debtorName}</span>
-                            {parentDebt && <ChevronRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-emerald-600 transition-colors" />}
-                          </div>
-                        </td>
-                        <td className="py-3 px-3 text-slate-500 font-mono">
-                          {formatDate(pmt.date)}
-                        </td>
-                        <td className="py-3 px-3 text-slate-500 italic">
-                          {pmt.note || '-'}
-                        </td>
-                        <td className="py-3 px-3 text-right font-black text-emerald-600 font-mono">
-                          +{formatCurrency(pmt.amount)}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-
-            <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              pageSize={pageSize}
-              totalItems={totalItems}
-              onPageChange={setCurrentPage}
-              onPageSizeChange={(newSize) => {
-                setPageSize(newSize);
-                setCurrentPage(1);
-              }}
-              pageSizeOptions={[8, 16, 32, 64]}
-            />
-          </>
-        ) : (
-          <div className="py-8 text-center text-slate-400 text-xs">
-            Nenhum pagamento registrado no período de {periodLabel}.
-          </div>
-        )}
       </div>
 
-      {/* PDF Export Preview & Customization Modal */}
+      {/* Detail Modal for PDF Export */}
       <React.Suspense fallback={null}>
         <PdfExportModal
           isOpen={isPdfModalOpen}
@@ -768,7 +397,7 @@ function RelatoriosView({ debts, onSelectDebt, onAddPaymentClick, onPayFull }: R
           debts={filteredDebts}
         />
       </React.Suspense>
-    </div>
+    </motion.div>
   );
 }
 

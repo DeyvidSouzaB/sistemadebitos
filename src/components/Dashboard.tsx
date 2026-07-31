@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import { motion } from 'motion/react';
 import { Debt } from '../types';
 import { useDashboardMetrics } from '../hooks/useDashboardMetrics';
 import { DashboardHero } from './dashboard/DashboardHero';
@@ -40,7 +41,12 @@ export default function Dashboard({
   } = useDashboardMetrics(debts);
 
   return (
-    <div className="space-y-6 text-slate-900">
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      className="space-y-6 sm:space-y-7 text-slate-900 dark:text-slate-100 max-w-[1600px] mx-auto pb-10"
+    >
       {/* 1. HERO HEADER */}
       <DashboardHero
         onOpenAddModal={onOpenAddModal}
@@ -72,6 +78,6 @@ export default function Dashboard({
         onPayFull={onPayFull}
         getStatusInfo={getStatusInfo}
       />
-    </div>
+    </motion.div>
   );
 }
