@@ -36,7 +36,7 @@ export function useAuthForm({ onLoginSuccess }: UseAuthFormProps) {
   });
 
   // OTP State
-  const [otpDigits, setOtpDigits] = useState<string[]>(['', '', '', '', '', '']);
+  const [otpDigits, setOtpDigits] = useState<string[]>(['', '', '', '', '', '', '', '']);
   const [generatedOtp, setGeneratedOtp] = useState<string>('');
   const [otpEmail, setOtpEmail] = useState<string>('');
   const [otpVerified, setOtpVerified] = useState<boolean>(false);
@@ -85,8 +85,8 @@ export function useAuthForm({ onLoginSuccess }: UseAuthFormProps) {
     }
   }, []);
 
-  const generate6DigitCode = () => {
-    return Math.floor(100000 + Math.random() * 900000).toString();
+  const generate8DigitCode = () => {
+    return Math.floor(10000000 + Math.random() * 90000000).toString();
   };
 
   const handleStartForgotPassword = (e?: React.MouseEvent) => {
@@ -101,7 +101,7 @@ export function useAuthForm({ onLoginSuccess }: UseAuthFormProps) {
     const cleanEmail = email.trim().toLowerCase();
 
     if (!cleanEmail) {
-      setErrorMessage('Digite seu e-mail para receber o código de 6 dígitos.');
+      setErrorMessage('Digite seu e-mail para receber o código de 8 dígitos.');
       return;
     }
 
@@ -115,10 +115,10 @@ export function useAuthForm({ onLoginSuccess }: UseAuthFormProps) {
     setSuccessMessage(null);
     setLoading(true);
 
-    const code = generate6DigitCode();
+    const code = generate8DigitCode();
     setGeneratedOtp(code);
     setOtpEmail(cleanEmail);
-    setOtpDigits(['', '', '', '', '', '']);
+    setOtpDigits(['', '', '', '', '', '', '', '']);
     setResendCountdown(60);
 
     try {
@@ -138,17 +138,17 @@ export function useAuthForm({ onLoginSuccess }: UseAuthFormProps) {
 
       setMode('verify_otp');
       if (supabaseSentSuccessfully) {
-        setSuccessMessage(`Código de verificação enviado para ${cleanEmail}. Digite os 6 dígitos abaixo!`);
+        setSuccessMessage(`Código de verificação enviado para ${cleanEmail}. Digite os 8 dígitos abaixo!`);
       } else {
         // Fallback or rate limit mode notification so user can complete test seamlessly
         setDemoOtpNotice(`Código de confirmação para ${cleanEmail}: ${code}`);
-        setSuccessMessage(`Código de 6 dígitos enviado para ${cleanEmail}. Digite o código de confirmação abaixo!`);
+        setSuccessMessage(`Código de 8 dígitos enviado para ${cleanEmail}. Digite o código de confirmação abaixo!`);
       }
     } catch (err: unknown) {
       console.error('Erro ao enviar código OTP:', err);
       setMode('verify_otp');
       setDemoOtpNotice(`Seu código de confirmação é: ${code}`);
-      setSuccessMessage(`Código de 6 dígitos gerado. Digite os dígitos abaixo para prosseguir.`);
+      setSuccessMessage(`Código de 8 dígitos gerado. Digite os dígitos abaixo para prosseguir.`);
     } finally {
       setLoading(false);
     }
@@ -159,8 +159,8 @@ export function useAuthForm({ onLoginSuccess }: UseAuthFormProps) {
     setErrorMessage(null);
 
     const enteredCode = otpDigits.join('').trim();
-    if (enteredCode.length !== 6) {
-      setErrorMessage('Por favor, digite todos os 6 dígitos do código de confirmação.');
+    if (enteredCode.length !== 8) {
+      setErrorMessage('Por favor, digite todos os 8 dígitos do código de confirmação.');
       return;
     }
 
@@ -169,8 +169,8 @@ export function useAuthForm({ onLoginSuccess }: UseAuthFormProps) {
     try {
       let isVerified = false;
 
-      // Check if code matches generated OTP or universal demo code '123456'
-      if (enteredCode === generatedOtp || enteredCode === '123456') {
+      // Check if code matches generated OTP or universal demo code '12345678'
+      if (enteredCode === generatedOtp || enteredCode === '12345678') {
         isVerified = true;
       }
 
@@ -207,7 +207,7 @@ export function useAuthForm({ onLoginSuccess }: UseAuthFormProps) {
         setDemoOtpNotice(null);
         setSuccessMessage('Código verificado com sucesso! Digite e confirme sua nova senha abaixo.');
       } else {
-        setErrorMessage('Código de confirmação incorreto. Verifique os 6 dígitos e tente novamente.');
+        setErrorMessage('Código de confirmação incorreto. Verifique os 8 dígitos e tente novamente.');
       }
     } catch (err: unknown) {
       const errorObj = err as Partial<Error>;
@@ -225,13 +225,13 @@ export function useAuthForm({ onLoginSuccess }: UseAuthFormProps) {
   const handleOtpDigitChange = (index: number, value: string) => {
     const cleaned = value.replace(/\D/g, '');
     if (cleaned.length > 1) {
-      const digits = cleaned.slice(0, 6).split('');
+      const digits = cleaned.slice(0, 8).split('');
       const newOtp = [...otpDigits];
       digits.forEach((d, i) => {
-        if (i < 6) newOtp[i] = d;
+        if (i < 8) newOtp[i] = d;
       });
       setOtpDigits(newOtp);
-      const nextIdx = Math.min(digits.length, 5);
+      const nextIdx = Math.min(digits.length, 7);
       const el = document.getElementById(`input-otp-${nextIdx}`);
       if (el) (el as HTMLInputElement).focus();
       return;
@@ -241,7 +241,7 @@ export function useAuthForm({ onLoginSuccess }: UseAuthFormProps) {
     newOtp[index] = cleaned;
     setOtpDigits(newOtp);
 
-    if (cleaned && index < 5) {
+    if (cleaned && index < 7) {
       const el = document.getElementById(`input-otp-${index + 1}`);
       if (el) (el as HTMLInputElement).focus();
     }

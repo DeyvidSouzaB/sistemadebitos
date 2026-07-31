@@ -56,9 +56,9 @@ export const AuthHeader: React.FC<AuthHeaderProps> = ({ mode, onBackToLanding })
           : mode === 'register'
           ? 'Comece a organizar suas cobranças e fiados em menos de 2 minutos.'
           : mode === 'forgot_password'
-          ? 'Informe seu e-mail cadastrado para receber um código de 6 dígitos.'
+          ? 'Informe seu e-mail cadastrado para receber um código de 8 dígitos.'
           : mode === 'verify_otp'
-          ? 'Insira o código de 6 dígitos enviado para o seu e-mail para continuar.'
+          ? 'Insira o código de 8 dígitos enviado para o seu e-mail para continuar.'
           : 'Digite e confirme sua nova senha para redefinir o acesso com segurança.'}
       </p>
     </div>

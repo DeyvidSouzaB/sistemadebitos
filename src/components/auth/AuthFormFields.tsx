@@ -122,7 +122,7 @@ export const AuthFormFields: React.FC<AuthFormFieldsProps> = ({
           </div>
         )}
 
-        {/* MODE: VERIFY OTP (6 DIGITS) */}
+        {/* MODE: VERIFY OTP (8 DIGITS) */}
         {mode === 'verify_otp' && (
           <div className="space-y-4 py-2">
             <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between text-xs font-semibold text-slate-700">
@@ -142,22 +142,22 @@ export const AuthFormFields: React.FC<AuthFormFieldsProps> = ({
 
             <div>
               <label className="block text-xs font-black text-slate-800 mb-2 text-center uppercase tracking-wider">
-                Digite o código de 6 dígitos
+                Digite o código de 8 dígitos
               </label>
 
-              {/* 6 Individual Digit Inputs */}
-              <div className="flex items-center justify-center gap-2 sm:gap-3 my-2">
+              {/* 8 Individual Digit Inputs */}
+              <div className="flex items-center justify-center gap-1.5 sm:gap-2.5 my-2">
                 {otpDigits.map((digit, idx) => (
                   <input
-                    key={idx}
+                    key={`otp-input-${idx}`}
                     id={`input-otp-${idx}`}
                     type="text"
                     inputMode="numeric"
-                    maxLength={6}
+                    maxLength={8}
                     value={digit}
                     onChange={(e) => handleOtpDigitChange(idx, e.target.value)}
                     onKeyDown={(e) => handleOtpKeyDown(idx, e)}
-                    className="w-10 h-12 sm:w-12 sm:h-14 text-center text-xl sm:text-2xl font-black text-slate-900 bg-slate-50 border-2 border-slate-300 focus:border-emerald-600 focus:bg-white rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/20 shadow-xs transition-all"
+                    className="w-8 h-11 sm:w-10 sm:h-13 text-center text-lg sm:text-2xl font-black text-slate-900 bg-slate-50 border-2 border-slate-300 focus:border-emerald-600 focus:bg-white rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/20 shadow-xs transition-all"
                     autoFocus={idx === 0}
                   />
                 ))}
@@ -306,7 +306,7 @@ export const AuthFormFields: React.FC<AuthFormFieldsProps> = ({
                   : mode === 'register' 
                   ? 'Concluir e Acessar Painel' 
                   : mode === 'forgot_password'
-                  ? 'Enviar Código de 6 Dígitos'
+                  ? 'Enviar Código de 8 Dígitos'
                   : mode === 'verify_otp'
                   ? 'Confirmar Código e Continuar'
                   : 'Salvar e Atualizar Senha'}
