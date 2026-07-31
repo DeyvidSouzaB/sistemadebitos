@@ -3,14 +3,14 @@ import { formatPhone, getWhatsappUrl, buildWhatsappMessage, WhatsappConfig } fro
 
 describe('phoneUtils - Formatação e Envio via WhatsApp', () => {
   it('formatPhone deve formatar números de telefone brasileiros com DDD', () => {
-    expect(formatPhone('11987654321')).toBe('(11) 98765-4321');
+    expect(formatPhone('11900000000')).toBe('(11) 90000-0000');
     expect(formatPhone('1187654321')).toBe('(11) 8765-4321');
     expect(formatPhone('')).toBe('');
   });
 
   it('getWhatsappUrl deve adicionar o código DDI 55 para números de celular do Brasil', () => {
-    const url = getWhatsappUrl('11987654321', '');
-    expect(url).toBe('https://api.whatsapp.com/send?phone=5511987654321');
+    const url = getWhatsappUrl('11900000000', '');
+    expect(url).toBe('https://api.whatsapp.com/send?phone=5511900000000');
   });
 
   it('buildWhatsappMessage deve gerar mensagem personalizada dinamicamente', () => {

@@ -225,8 +225,11 @@ export default function LandingPage({ onEnterApp, onOpenAuth, liveDebts }: Landi
       {/* ------------------------------------------------------------- */}
       {/* TOP NAVIGATION BAR                                            */}
       {/* ------------------------------------------------------------- */}
-      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      {/* ------------------------------------------------------------- */}
+      {/* FLOATING PILL NAVIGATION BAR                                  */}
+      {/* ------------------------------------------------------------- */}
+      <header className="sticky top-3 sm:top-4 z-50 max-w-7xl mx-auto px-3 sm:px-6">
+        <div className="bg-white/85 backdrop-blur-xl border border-slate-200/80 rounded-full px-4 sm:px-6 h-16 sm:h-18 shadow-lg shadow-slate-900/5 flex items-center justify-between gap-4 transition-all">
           
           {/* Logo & Brand */}
           <div 
@@ -239,73 +242,73 @@ export default function LandingPage({ onEnterApp, onOpenAuth, liveDebts }: Landi
                 handleStartAuth();
               }
             }}
-            className="flex items-center gap-3 shrink-0 cursor-pointer group focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded-xl"
+            className="flex items-center gap-2.5 shrink-0 cursor-pointer group focus:outline-none rounded-full"
           >
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white shadow-md shadow-emerald-500/20 group-hover:shadow-emerald-500/30 transition-all duration-300 font-black">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-500 flex items-center justify-center text-white shadow-md shadow-emerald-500/20 group-hover:shadow-emerald-500/30 transition-all duration-300 font-black">
               <Coins className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
             </div>
             <div>
-              <span className="text-xl font-black tracking-tight text-slate-900 flex items-center gap-2">
+              <span className="text-lg sm:text-xl font-black tracking-tight text-slate-900 font-display">
                 PAGMEFY
               </span>
             </div>
           </div>
 
-          {/* Centered Desktop Nav Links */}
-          <nav className="hidden md:flex items-center justify-center gap-1.5 lg:gap-3 text-xs lg:text-sm font-bold flex-1 max-w-2xl mx-auto">
+          {/* Centered Desktop Nav Links (Pill Style) */}
+          <nav className="hidden md:flex items-center justify-center gap-1 text-xs lg:text-sm font-bold flex-1 max-w-xl mx-auto">
             <a 
               href="#problema" 
               onClick={(e) => scrollToSection(e, 'problema')}
-              className="px-3.5 py-1.5 rounded-full text-slate-600 hover:text-emerald-700 hover:bg-emerald-50/80 border border-transparent transition-all duration-200 shrink-0"
+              className="px-4 py-2 rounded-full text-slate-600 hover:text-emerald-700 hover:bg-emerald-50/80 transition-all duration-200 shrink-0"
             >
               O Problema
             </a>
             <a 
               href="#solucao" 
               onClick={(e) => scrollToSection(e, 'solucao')}
-              className="px-3.5 py-1.5 rounded-full text-slate-600 hover:text-emerald-700 hover:bg-emerald-50/80 border border-transparent transition-all duration-200 shrink-0"
+              className="px-4 py-2 rounded-full text-slate-600 hover:text-emerald-700 hover:bg-emerald-50/80 transition-all duration-200 shrink-0"
             >
               Como Funciona
             </a>
             <a 
               href="#recursos" 
               onClick={(e) => scrollToSection(e, 'recursos')}
-              className="px-3.5 py-1.5 rounded-full text-slate-600 hover:text-emerald-700 hover:bg-emerald-50/80 border border-transparent transition-all duration-200 shrink-0"
+              className="px-4 py-2 rounded-full text-slate-600 hover:text-emerald-700 hover:bg-emerald-50/80 transition-all duration-200 shrink-0"
             >
               Vantagens
             </a>
             <a 
               href="#depoimentos" 
               onClick={(e) => scrollToSection(e, 'depoimentos')}
-              className="px-3.5 py-1.5 rounded-full text-slate-600 hover:text-emerald-700 hover:bg-emerald-50/80 border border-transparent transition-all duration-200 shrink-0"
+              className="px-4 py-2 rounded-full text-slate-600 hover:text-emerald-700 hover:bg-emerald-50/80 transition-all duration-200 shrink-0"
             >
               Depoimentos
             </a>
             <a 
               href="#faq" 
               onClick={(e) => scrollToSection(e, 'faq')}
-              className="px-3.5 py-1.5 rounded-full text-slate-600 hover:text-emerald-700 hover:bg-emerald-50/80 border border-transparent transition-all duration-200 shrink-0"
+              className="px-4 py-2 rounded-full text-slate-600 hover:text-emerald-700 hover:bg-emerald-50/80 transition-all duration-200 shrink-0"
             >
               Dúvidas
             </a>
           </nav>
 
-          {/* CTA Action Buttons + Mobile Toggle Button */}
-          <div className="flex items-center gap-2.5 shrink-0">
+          {/* CTA Glow Action Button + Mobile Toggle Button */}
+          <div className="flex items-center gap-2 shrink-0">
             <button
               onClick={handleStartAuth}
-              className="group relative inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-4 py-2 rounded-xl shadow-md shadow-emerald-600/20 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer whitespace-nowrap text-xs sm:text-sm"
+              className="group relative inline-flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold px-5 py-2.5 rounded-full shadow-lg shadow-emerald-600/25 hover:shadow-emerald-600/35 transition-all duration-200 hover:scale-[1.03] active:scale-[0.98] cursor-pointer whitespace-nowrap text-xs sm:text-sm"
             >
               <LayoutGrid className="w-4 h-4 text-white" />
               <span className="hidden sm:inline">Usar Sistema Grátis</span>
-              <span className="sm:hidden">Usar Sistema</span>
+              <span className="sm:hidden">Usar Grátis</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </button>
 
             {/* Mobile Menu Toggle Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 hover:text-slate-900 hover:bg-slate-200 transition-all cursor-pointer"
+              className="md:hidden p-2.5 rounded-full bg-slate-100 border border-slate-200 text-slate-700 hover:text-slate-900 hover:bg-slate-200 transition-all cursor-pointer"
               aria-label="Abrir Menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5 text-emerald-600" /> : <Menu className="w-5 h-5 text-slate-700" />}
@@ -314,49 +317,49 @@ export default function LandingPage({ onEnterApp, onOpenAuth, liveDebts }: Landi
 
         </div>
 
-        {/* Mobile Dropdown Menu Drawer */}
+        {/* Mobile Dropdown Menu Drawer (Pill Glassmorphism) */}
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
+              initial={{ opacity: 0, scale: 0.95, y: -10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: -10 }}
               transition={{ duration: 0.2, ease: 'easeInOut' }}
-              className="md:hidden bg-white/98 border-b border-slate-200 overflow-hidden px-4 py-4 shadow-lg"
+              className="md:hidden mt-2 bg-white/95 backdrop-blur-xl border border-slate-200/90 rounded-3xl overflow-hidden px-4 py-4 shadow-xl text-center"
             >
-              <nav className="flex flex-col items-center gap-2 text-center">
+              <nav className="flex flex-col items-center gap-1.5 text-center">
                 <a
                   href="#problema"
                   onClick={(e) => scrollToSection(e, 'problema')}
-                  className="w-full py-2.5 px-4 rounded-xl text-slate-700 font-bold hover:bg-emerald-50 hover:text-emerald-700 transition-all"
+                  className="w-full py-2.5 px-4 rounded-2xl text-slate-700 font-bold hover:bg-emerald-50 hover:text-emerald-700 transition-all"
                 >
                   O Problema
                 </a>
                 <a
                   href="#solucao"
                   onClick={(e) => scrollToSection(e, 'solucao')}
-                  className="w-full py-2.5 px-4 rounded-xl text-slate-700 font-bold hover:bg-emerald-50 hover:text-emerald-700 transition-all"
+                  className="w-full py-2.5 px-4 rounded-2xl text-slate-700 font-bold hover:bg-emerald-50 hover:text-emerald-700 transition-all"
                 >
                   Como Funciona
                 </a>
                 <a
                   href="#recursos"
                   onClick={(e) => scrollToSection(e, 'recursos')}
-                  className="w-full py-2.5 px-4 rounded-xl text-slate-700 font-bold hover:bg-emerald-50 hover:text-emerald-700 transition-all"
+                  className="w-full py-2.5 px-4 rounded-2xl text-slate-700 font-bold hover:bg-emerald-50 hover:text-emerald-700 transition-all"
                 >
                   Vantagens
                 </a>
                 <a
                   href="#depoimentos"
                   onClick={(e) => scrollToSection(e, 'depoimentos')}
-                  className="w-full py-2.5 px-4 rounded-xl text-slate-700 font-bold hover:bg-emerald-50 hover:text-emerald-700 transition-all"
+                  className="w-full py-2.5 px-4 rounded-2xl text-slate-700 font-bold hover:bg-emerald-50 hover:text-emerald-700 transition-all"
                 >
                   Depoimentos
                 </a>
                 <a
                   href="#faq"
                   onClick={(e) => scrollToSection(e, 'faq')}
-                  className="w-full py-2.5 px-4 rounded-xl text-slate-700 font-bold hover:bg-emerald-50 hover:text-emerald-700 transition-all"
+                  className="w-full py-2.5 px-4 rounded-2xl text-slate-700 font-bold hover:bg-emerald-50 hover:text-emerald-700 transition-all"
                 >
                   Dúvidas
                 </a>

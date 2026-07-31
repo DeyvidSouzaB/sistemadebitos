@@ -35,7 +35,7 @@ export class DebtValidator {
     if (data.phone) {
       const digits = data.phone.replace(/\D/g, '');
       if (digits.length > 0 && (digits.length < 10 || digits.length > 11)) {
-        errors.phone = 'Insira um telefone/WhatsApp válido com DDD (ex: 11999998888).';
+        errors.phone = 'Insira um telefone/WhatsApp válido com DDD (ex: 11900000000).';
       }
     }
 

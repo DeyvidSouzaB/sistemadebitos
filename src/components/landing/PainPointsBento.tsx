@@ -150,7 +150,7 @@ export function PainPointsBento() {
               <span>Mensagem Pronta no WhatsApp:</span>
             </div>
             <p className="italic text-slate-600 text-[11px]">
-              "Olá Marcos! Tudo bem? Passando para lembrar da parcela de R$ 120,00 com vencimento hoje. Chave Pix: 1199999..."
+              "Olá Marcos! Tudo bem? Passando para lembrar da parcela de R$ 120,00 com vencimento hoje. Chave Pix: 11900000000"
             </p>
           </div>
         </motion.div>

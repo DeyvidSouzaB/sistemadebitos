@@ -79,7 +79,7 @@ export const AuthFormFields: React.FC<AuthFormFieldsProps> = ({
             </label>
             <div className="relative">
               <span className="absolute left-3.5 top-3.5 text-slate-400">
-                <User className="w-4 h-4" />
+                <User className="w-4 h-4 text-slate-400" />
               </span>
               <input
                 id="input-auth-name"
@@ -87,7 +87,7 @@ export const AuthFormFields: React.FC<AuthFormFieldsProps> = ({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Ex: Maria das Graças / Salão da Maria"
-                className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-300 rounded-xl focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-all"
+                className="w-full pl-10 pr-4 py-3 bg-slate-50/80 border border-slate-200 rounded-2xl focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-all"
                 required={mode === 'register'}
               />
             </div>
@@ -102,7 +102,7 @@ export const AuthFormFields: React.FC<AuthFormFieldsProps> = ({
             </label>
             <div className="relative">
               <span className="absolute left-3.5 top-3.5 text-slate-400">
-                <Mail className="w-4 h-4" />
+                <Mail className="w-4 h-4 text-slate-400" />
               </span>
               <input
                 id="input-auth-email"
@@ -111,10 +111,10 @@ export const AuthFormFields: React.FC<AuthFormFieldsProps> = ({
                 onBlur={() => setTouchedEmail(true)}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="seu.email@exemplo.com"
-                className={`w-full pl-10 pr-4 py-3 bg-slate-50 border rounded-xl focus:ring-1 text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-all ${
+                className={`w-full pl-10 pr-4 py-3 bg-slate-50/80 border rounded-2xl focus:ring-4 text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-all ${
                   touchedEmail && !email 
-                    ? 'border-rose-400 focus:border-rose-500 focus:ring-rose-500' 
-                    : 'border-slate-300 focus:border-emerald-600 focus:ring-emerald-600'
+                    ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500/10' 
+                    : 'border-slate-200 focus:border-emerald-500 focus:ring-emerald-500/10'
                 }`}
                 required
               />
@@ -125,7 +125,7 @@ export const AuthFormFields: React.FC<AuthFormFieldsProps> = ({
         {/* MODE: VERIFY OTP (8 DIGITS) */}
         {mode === 'verify_otp' && (
           <div className="space-y-4 py-2">
-            <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between text-xs font-semibold text-slate-700">
+            <div className="p-3 bg-slate-50 border border-slate-200 rounded-2xl flex items-center justify-between text-xs font-semibold text-slate-700">
               <div className="flex items-center gap-2 overflow-hidden">
                 <Mail className="w-4 h-4 text-emerald-600 shrink-0" />
                 <span className="truncate">Código enviado para: <strong className="text-slate-900">{otpEmail || email}</strong></span>
@@ -157,7 +157,7 @@ export const AuthFormFields: React.FC<AuthFormFieldsProps> = ({
                     value={digit}
                     onChange={(e) => handleOtpDigitChange(idx, e.target.value)}
                     onKeyDown={(e) => handleOtpKeyDown(idx, e)}
-                    className="w-8 h-11 sm:w-10 sm:h-13 text-center text-lg sm:text-2xl font-black text-slate-900 bg-slate-50 border-2 border-slate-300 focus:border-emerald-600 focus:bg-white rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/20 shadow-xs transition-all"
+                    className="w-8 h-11 sm:w-10 sm:h-13 text-center text-lg sm:text-2xl font-black text-slate-900 bg-slate-50 border-2 border-slate-200 focus:border-emerald-600 focus:bg-white rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-500/15 shadow-xs transition-all"
                     autoFocus={idx === 0}
                   />
                 ))}
@@ -204,7 +204,7 @@ export const AuthFormFields: React.FC<AuthFormFieldsProps> = ({
 
             <div className="relative">
               <span className="absolute left-3.5 top-3.5 text-slate-400">
-                <Lock className="w-4 h-4" />
+                <Lock className="w-4 h-4 text-slate-400" />
               </span>
               <input
                 id="input-auth-password"
@@ -213,10 +213,10 @@ export const AuthFormFields: React.FC<AuthFormFieldsProps> = ({
                 onBlur={() => setTouchedPassword(true)}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className={`w-full pl-10 pr-10 py-3 bg-slate-50 border rounded-xl focus:ring-1 text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-all ${
+                className={`w-full pl-10 pr-10 py-3 bg-slate-50/80 border rounded-2xl focus:ring-4 text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-all ${
                   touchedPassword && !password 
-                    ? 'border-rose-400 focus:border-rose-500 focus:ring-rose-500' 
-                    : 'border-slate-300 focus:border-emerald-600 focus:ring-emerald-600'
+                    ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500/10' 
+                    : 'border-slate-200 focus:border-emerald-500 focus:ring-emerald-500/10'
                 }`}
                 required
               />
@@ -240,7 +240,7 @@ export const AuthFormFields: React.FC<AuthFormFieldsProps> = ({
             </label>
             <div className="relative">
               <span className="absolute left-3.5 top-3.5 text-slate-400">
-                <Lock className="w-4 h-4" />
+                <Lock className="w-4 h-4 text-slate-400" />
               </span>
               <input
                 id="input-auth-confirm-password"
@@ -248,7 +248,7 @@ export const AuthFormFields: React.FC<AuthFormFieldsProps> = ({
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-300 rounded-xl focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-all"
+                className="w-full pl-10 pr-4 py-3 bg-slate-50/80 border border-slate-200 rounded-2xl focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-all"
                 required
               />
             </div>
@@ -274,7 +274,7 @@ export const AuthFormFields: React.FC<AuthFormFieldsProps> = ({
               onClick={() => setRememberMe(!rememberMe)}
               className="flex items-center gap-2 text-xs font-semibold text-slate-600 hover:text-slate-900 cursor-pointer group py-1"
             >
-              <div className={`w-4 h-4 rounded border flex items-center justify-center transition-all ${
+              <div className={`w-4 h-4 rounded-md border flex items-center justify-center transition-all ${
                 rememberMe 
                   ? 'bg-emerald-600 border-emerald-600 text-white shadow-xs' 
                   : 'bg-white border-slate-300 group-hover:border-slate-400'
@@ -291,7 +291,7 @@ export const AuthFormFields: React.FC<AuthFormFieldsProps> = ({
           id="btn-auth-submit"
           type="submit"
           disabled={loading}
-          className="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 active:scale-[0.99] font-black text-white text-sm rounded-xl transition-all shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 mt-2"
+          className="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 active:scale-[0.99] font-black text-white text-sm rounded-2xl transition-all shadow-lg shadow-emerald-600/25 hover:shadow-emerald-600/35 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 mt-2"
         >
           {loading ? (
             <div className="flex items-center gap-2">

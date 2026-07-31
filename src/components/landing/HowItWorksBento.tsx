@@ -32,7 +32,7 @@ export function HowItWorksBento() {
           </div>
           <div className="flex items-center gap-1.5 text-[10px] text-slate-400">
             <Smartphone className="w-3 h-3 text-emerald-600" />
-            <span>(11) 98765-4321 • Venc: 15/08</span>
+            <span>(11) 90000-0000 • Venc: 15/08</span>
           </div>
         </div>
       )

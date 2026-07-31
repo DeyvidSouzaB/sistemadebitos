@@ -55,9 +55,13 @@ export default function AuthView({ onLoginSuccess, onBackToLanding }: AuthViewPr
   } = useAuthForm({ onLoginSuccess });
 
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-800 flex flex-col justify-center p-4 sm:p-6 lg:p-8 relative overflow-hidden font-sans selection:bg-emerald-500 selection:text-white">
+    <div className="min-h-screen bg-gradient-to-b from-slate-100 via-slate-50 to-slate-100 text-slate-800 flex flex-col justify-center p-4 sm:p-6 lg:p-8 relative overflow-hidden font-sans selection:bg-emerald-500 selection:text-white">
+      {/* Subtle Background Radial Glows */}
+      <div className="absolute top-1/4 left-10 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+
       {/* Main Container Card */}
-      <div className="max-w-5xl w-full mx-auto bg-white border border-slate-200/90 rounded-3xl shadow-xl overflow-hidden relative z-10 my-auto">
+      <div className="max-w-5xl w-full mx-auto bg-white border border-slate-200/90 rounded-3xl shadow-2xl shadow-slate-900/10 overflow-hidden relative z-10 my-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[640px]">
           {/* LEFT COLUMN: AUTH FORM */}
           <div className="lg:col-span-6 p-6 sm:p-10 flex flex-col justify-between space-y-6 bg-white">

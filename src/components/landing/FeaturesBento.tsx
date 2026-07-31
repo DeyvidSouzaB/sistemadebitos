@@ -64,7 +64,7 @@ export function FeaturesBento() {
               </p>
               <div className="pt-2 border-t border-emerald-500/60 flex items-center justify-between text-[11px]">
                 <span className="flex items-center gap-1 font-mono text-emerald-100">
-                  <QrCode className="w-3.5 h-3.5" /> Chave Pix: 11999999999
+                  <QrCode className="w-3.5 h-3.5" /> Chave Pix: 11900000000
                 </span>
                 <span className="text-[10px] text-emerald-200">14:32</span>
               </div>

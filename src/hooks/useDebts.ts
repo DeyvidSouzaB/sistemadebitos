@@ -17,7 +17,7 @@ export const INITIAL_DEBTS: Debt[] = [
   {
     id: 'debt-1',
     name: 'Carlos Silva Santos',
-    phone: '(11) 98765-4321',
+    phone: '(11) 90000-0000',
     originalAmount: 1200.00,
     currentAmount: 800.00,
     createdAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
@@ -36,7 +36,7 @@ export const INITIAL_DEBTS: Debt[] = [
   {
     id: 'debt-2',
     name: 'Mariana Costa Albuquerque',
-    phone: '(21) 99123-4567',
+    phone: '(21) 90000-0000',
     originalAmount: 450.00,
     currentAmount: 450.00,
     createdAt: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000).toISOString(),
@@ -48,7 +48,7 @@ export const INITIAL_DEBTS: Debt[] = [
   {
     id: 'debt-3',
     name: 'Roberto de Souza Melo',
-    phone: '(31) 98888-7777',
+    phone: '(31) 90000-0000',
     originalAmount: 950.00,
     currentAmount: 0,
     createdAt: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString(),
@@ -67,7 +67,7 @@ export const INITIAL_DEBTS: Debt[] = [
   {
     id: 'debt-4',
     name: 'Amanda Vieira Dias',
-    phone: '(41) 97777-6666',
+    phone: '(41) 90000-0000',
     originalAmount: 1800.00,
     currentAmount: 1200.00,
     createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),

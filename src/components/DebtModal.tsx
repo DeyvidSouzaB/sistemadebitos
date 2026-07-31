@@ -183,7 +183,7 @@ export default function DebtModal({
                   type="tel"
                   value={phone}
                   onChange={handlePhoneChange}
-                  placeholder="(11) 99999-9999"
+                  placeholder="(11) 90000-0000"
                   maxLength={15}
                   className="w-full px-4 py-3 bg-slate-50/80 focus:bg-white text-slate-900 font-semibold border border-slate-200 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/15 rounded-2xl focus:outline-none transition-all text-sm"
                 />
