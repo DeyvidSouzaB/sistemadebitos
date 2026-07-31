@@ -134,7 +134,7 @@ export default function Pagination({
             const isCurrent = page === currentPage;
             return (
               <button
-                key={`page-${page}`}
+                key={`page-${page}-${idx}`}
                 id={`btn-page-${page}`}
                 type="button"
                 onClick={() => onPageChange(page)}

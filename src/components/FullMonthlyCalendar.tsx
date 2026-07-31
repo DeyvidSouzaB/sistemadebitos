@@ -167,7 +167,7 @@ export function FullMonthlyCalendar({ debts, onSelectDebt, onPayFull }: FullMont
                   className="bg-transparent text-xs font-extrabold text-slate-900 px-2 py-1 focus:outline-none cursor-pointer"
                 >
                   {MONTH_NAMES.map((name, idx) => (
-                    <option key={idx} value={idx}>{name}</option>
+                    <option key={`month-opt-${idx}`} value={idx}>{name}</option>
                   ))}
                 </select>
 
@@ -180,8 +180,8 @@ export function FullMonthlyCalendar({ debts, onSelectDebt, onPayFull }: FullMont
                   }}
                   className="bg-transparent text-xs font-extrabold text-slate-900 px-1 py-1 focus:outline-none cursor-pointer"
                 >
-                  {yearOptions.map(y => (
-                    <option key={y} value={y}>{y}</option>
+                  {yearOptions.map((y, idx) => (
+                    <option key={`year-opt-${y}-${idx}`} value={y}>{y}</option>
                   ))}
                 </select>
 
@@ -283,7 +283,7 @@ export function FullMonthlyCalendar({ debts, onSelectDebt, onPayFull }: FullMont
 
                 return (
                   <div
-                    key={idx}
+                    key={`grid-cell-${cell.dateStr}-${idx}`}
                     onClick={() => {
                       if (hasDebts) {
                         setSelectedDayStr(isSelected ? null : cell.dateStr);
@@ -461,12 +461,12 @@ export function FullMonthlyCalendar({ debts, onSelectDebt, onPayFull }: FullMont
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {yearlyStats.map((item) => {
+            {yearlyStats.map((item, idx) => {
               const isCurrentCalendarMonth = item.monthIdx === todayDateObj.getMonth() && selectedYear === todayDateObj.getFullYear();
 
               return (
                 <div
-                  key={item.monthIdx}
+                  key={`year-stat-${item.monthIdx}-${idx}`}
                   onClick={() => {
                     setSelectedMonth(item.monthIdx);
                     setViewMode('monthly');
