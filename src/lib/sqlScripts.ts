@@ -22,10 +22,10 @@ CREATE TABLE IF NOT EXISTS public.profiles (
 -- Habilitar RLS em profiles
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 
-DROP POLICY IF EXISTS "Usuários podem ver seu próprio perfil" ON public.profiles;
-CREATE POLICY "Usuários podem ver seu próprio perfil" 
+DROP POLICY IF EXISTS "Permitir leitura para verificação de e-mail existente" ON public.profiles;
+CREATE POLICY "Permitir leitura para verificação de e-mail existente" 
   ON public.profiles FOR SELECT 
-  USING (auth.uid() = id);
+  USING (true);
 
 DROP POLICY IF EXISTS "Usuários podem atualizar seu próprio perfil" ON public.profiles;
 CREATE POLICY "Usuários podem atualizar seu próprio perfil" 
@@ -36,6 +36,16 @@ DROP POLICY IF EXISTS "Permitir inserção do próprio perfil" ON public.profile
 CREATE POLICY "Permitir inserção do próprio perfil" 
   ON public.profiles FOR INSERT 
   WITH CHECK (auth.uid() = id);
+
+-- Função RPC para verificar se um e-mail já está cadastrado
+CREATE OR REPLACE FUNCTION public.check_email_exists(email_to_check text)
+RETURNS boolean AS $$
+BEGIN
+  RETURN EXISTS (
+    SELECT 1 FROM public.profiles WHERE LOWER(email) = LOWER(TRIM(email_to_check))
+  );
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
 -- Trigger para criar perfil automaticamente no SignUp
 CREATE OR REPLACE FUNCTION public.handle_new_user()

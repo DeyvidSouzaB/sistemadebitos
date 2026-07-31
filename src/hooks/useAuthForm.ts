@@ -89,6 +89,72 @@ export function useAuthForm({ onLoginSuccess }: UseAuthFormProps) {
     return Math.floor(10000000 + Math.random() * 90000000).toString();
   };
 
+  const saveRegisteredEmail = (emailToSave: string) => {
+    try {
+      const clean = emailToSave.trim().toLowerCase();
+      if (!clean) return;
+      const raw = getStorageItem(STORAGE_KEYS.REGISTERED_EMAILS) || '[]';
+      let existing: string[] = [];
+      try {
+        existing = JSON.parse(raw);
+        if (!Array.isArray(existing)) existing = [];
+      } catch {
+        existing = [];
+      }
+      if (!existing.includes(clean)) {
+        existing.push(clean);
+        setStorageItem(STORAGE_KEYS.REGISTERED_EMAILS, JSON.stringify(existing));
+      }
+    } catch (e) {}
+  };
+
+  const checkIfEmailIsRegistered = async (cleanEmail: string): Promise<boolean> => {
+    // 1. Check local storage list first
+    const raw = getStorageItem(STORAGE_KEYS.REGISTERED_EMAILS) || '[]';
+    let localEmails: string[] = [];
+    try {
+      localEmails = JSON.parse(raw);
+      if (!Array.isArray(localEmails)) localEmails = [];
+    } catch {
+      localEmails = [];
+    }
+
+    if (localEmails.some((e: string) => e.toLowerCase() === cleanEmail)) {
+      return true;
+    }
+
+    // 2. Check Supabase profiles table or RPC if configured
+    if (isSupabaseConfigured && supabase) {
+      try {
+        // Try RPC function first
+        const { data: rpcData, error: rpcErr } = await supabase.rpc('check_email_exists', {
+          email_to_check: cleanEmail,
+        });
+
+        if (!rpcErr && typeof rpcData === 'boolean' && rpcData) {
+          saveRegisteredEmail(cleanEmail);
+          return true;
+        }
+
+        // Try direct query on profiles table
+        const { data: profile, error: profileErr } = await supabase
+          .from('profiles')
+          .select('email')
+          .ilike('email', cleanEmail)
+          .maybeSingle();
+
+        if (!profileErr && profile && profile.email) {
+          saveRegisteredEmail(cleanEmail);
+          return true;
+        }
+      } catch (err) {
+        console.warn('Aviso ao verificar e-mail no Supabase:', err);
+      }
+    }
+
+    return false;
+  };
+
   const handleStartForgotPassword = (e?: React.MouseEvent) => {
     if (e) e.preventDefault();
     setErrorMessage(null);
@@ -114,6 +180,14 @@ export function useAuthForm({ onLoginSuccess }: UseAuthFormProps) {
     setErrorMessage(null);
     setSuccessMessage(null);
     setLoading(true);
+
+    // Validate if the email actually exists in the system
+    const isRegistered = await checkIfEmailIsRegistered(cleanEmail);
+    if (!isRegistered) {
+      setErrorMessage('Este e-mail não está cadastrado no sistema. Verifique o endereço digitado ou crie uma nova conta.');
+      setLoading(false);
+      return;
+    }
 
     const code = generate8DigitCode();
     setGeneratedOtp(code);
@@ -381,10 +455,12 @@ export function useAuthForm({ onLoginSuccess }: UseAuthFormProps) {
           if (error) throw error;
 
           if (data.user) {
+            const userEmailVal = data.user.email || userEmail;
+            saveRegisteredEmail(userEmailVal);
             const userName = data.user.user_metadata?.name || cleanName || data.user.email?.split('@')[0] || 'Usuário';
             onLoginSuccess({
               id: data.user.id,
-              email: data.user.email || userEmail,
+              email: userEmailVal,
               name: userName,
             });
           }
@@ -401,11 +477,13 @@ export function useAuthForm({ onLoginSuccess }: UseAuthFormProps) {
           if (error) throw error;
 
           if (data.user) {
+            const userEmailVal = data.user.email || userEmail;
+            saveRegisteredEmail(userEmailVal);
             setSuccessMessage('Conta criada com sucesso! Acessando o painel...');
             setTimeout(() => {
               onLoginSuccess({
                 id: data.user!.id,
-                email: data.user!.email || userEmail,
+                email: userEmailVal,
                 name: cleanName,
               });
             }, 1000);
@@ -413,6 +491,7 @@ export function useAuthForm({ onLoginSuccess }: UseAuthFormProps) {
         }
       } else {
         // Fallback / Instant Demo Auth Mode
+        saveRegisteredEmail(cleanEmail);
         setTimeout(() => {
           const fakeId = 'usr-' + Math.random().toString(36).substring(2, 9);
           const userName = cleanName || cleanEmail.split('@')[0] || 'Usuário';
@@ -447,10 +526,12 @@ export function useAuthForm({ onLoginSuccess }: UseAuthFormProps) {
 
   const handleDemoLogin = () => {
     const fakeId = 'usr-demo-' + Math.random().toString(36).substring(2, 7);
+    const demoEmail = email.trim().toLowerCase() || 'demo@pagmefy.com';
+    saveRegisteredEmail(demoEmail);
     const userName = name.trim() || email.split('@')[0] || 'Usuário Demo';
     onLoginSuccess({
       id: fakeId,
-      email: email || 'demo@pagmefy.com',
+      email: demoEmail,
       name: userName,
     });
   };

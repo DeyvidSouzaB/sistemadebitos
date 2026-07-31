@@ -4,6 +4,7 @@ export const STORAGE_KEYS = {
   CURRENT_USER: 'pagmefy_current_user',
   REMEMBERED_EMAIL: 'pagmefy_remembered_email',
   REMEMBER_ME: 'pagmefy_remember_me',
+  REGISTERED_EMAILS: 'pagmefy_registered_emails',
   WHATSAPP_CONFIG: 'pagmefy_wa_config',
 } as const;
 
