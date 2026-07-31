@@ -76,13 +76,6 @@ export default function AuthView({ onLoginSuccess, onBackToLanding }: AuthViewPr
                     <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
                     <span>{errorMessage}</span>
                   </div>
-                  <button
-                    type="button"
-                    onClick={handleDemoLogin}
-                    className="mt-1 text-left text-xs font-bold text-emerald-700 hover:text-emerald-800 underline cursor-pointer"
-                  >
-                    👉 Clique aqui para entrar sem login (Modo Demonstração)
-                  </button>
                 </motion.div>
               )}
 

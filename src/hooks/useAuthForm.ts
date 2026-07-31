@@ -516,7 +516,7 @@ export function useAuthForm({ onLoginSuccess }: UseAuthFormProps) {
         msg.toLowerCase().includes('too many requests') ||
         msg.toLowerCase().includes('rate exceeded')
       ) {
-        msg = 'Limite de requisições excedido no provedor. Você pode entrar no Modo de Demonstração (armazenamento local) imediatamente abaixo!';
+        msg = 'Muitas tentativas em pouco tempo. Por favor, aguarde alguns instantes e tente novamente.';
       }
       setErrorMessage(msg);
     } finally {
