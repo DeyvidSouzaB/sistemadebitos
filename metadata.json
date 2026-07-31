@@ -1,0 +1,6 @@
+{
+  "name": "PAGMEFY",
+  "description": "Sistema moderno e completo para gestão de cobranças, controle de devedores, histórico de pagamentos e relatórios executivos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+  </defs>
+
+  <!-- Rounded Squircle Badge -->
+  <rect width="512" height="512" rx="128" fill="url(#emeraldGrad)"/>
+
+  <!-- Lucide Coins White Icon -->
+  <g transform="translate(80, 80) scale(14.666)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="8" cy="8" r="6"/>
+    <path d="M18.09 10.37A6 6 0 1 1 10.34 18"/>
+    <path d="M7 6h1v4"/>
+    <path d="M16.7 12h1v4"/>
+  </g>
+</svg>
