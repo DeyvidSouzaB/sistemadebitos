@@ -8,18 +8,24 @@ export function useNavigation(
   handleLogout: (cb?: () => void) => void
 ) {
   const [activeSidebarOption, setActiveSidebarOption] = useState<string>(() => {
+    // Unauthenticated visitors always start on 'landing'
+    if (!currentUser) return 'landing';
     const savedTab = getStorageItem(STORAGE_KEYS.ACTIVE_TAB, LEGACY_STORAGE_KEYS.ACTIVE_TAB);
-    return savedTab && savedTab !== 'landing' ? savedTab : 'landing';
+    return savedTab && savedTab !== 'landing' ? savedTab : 'dashboard';
   });
 
   useEffect(() => {
-    if (!authLoading && currentUser) {
-      if (activeSidebarOption === 'landing') {
-        const savedTab = getStorageItem(STORAGE_KEYS.ACTIVE_TAB, LEGACY_STORAGE_KEYS.ACTIVE_TAB);
-        const targetTab = savedTab && savedTab !== 'landing' ? savedTab : 'dashboard';
-        setActiveSidebarOption(targetTab);
+    if (!authLoading) {
+      if (currentUser) {
+        if (activeSidebarOption === 'landing') {
+          const savedTab = getStorageItem(STORAGE_KEYS.ACTIVE_TAB, LEGACY_STORAGE_KEYS.ACTIVE_TAB);
+          setActiveSidebarOption(savedTab && savedTab !== 'landing' ? savedTab : 'dashboard');
+        } else {
+          setStorageItem(STORAGE_KEYS.ACTIVE_TAB, activeSidebarOption);
+        }
       } else {
-        setStorageItem(STORAGE_KEYS.ACTIVE_TAB, activeSidebarOption);
+        // Force landing page for unauthenticated visitors
+        setActiveSidebarOption('landing');
       }
     }
   }, [authLoading, currentUser, activeSidebarOption]);

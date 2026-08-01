@@ -91,16 +91,13 @@ export default function App() {
   // ── Route guards (early returns) ──────────────────────────────────────────
   if (authLoading) return <LoadingSpinner />;
 
-  if (activeSidebarOption === 'landing' && !currentUser) {
+  if (!currentUser && !showAuthModal) {
     return (
       <React.Suspense fallback={<LoadingSpinner />}>
         <LandingPage
           liveDebts={debts}
-          onEnterApp={() => {
-            if (currentUser) { setActiveSidebarOption('dashboard'); }
-            else { setShowAuthModal(true); setActiveSidebarOption('dashboard'); }
-          }}
-          onOpenAuth={() => { setShowAuthModal(true); setActiveSidebarOption('dashboard'); }}
+          onEnterApp={() => setShowAuthModal(true)}
+          onOpenAuth={() => setShowAuthModal(true)}
         />
       </React.Suspense>
     );
