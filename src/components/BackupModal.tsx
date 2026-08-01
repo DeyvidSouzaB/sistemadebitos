@@ -30,11 +30,23 @@ export default function BackupModal({
 
   // AnimatePresence handles visibility via isOpen check in JSX
 
+  // Limits
+  const MAX_FILE_BYTES = 5 * 1024 * 1024;        // 5 MB
+  const MAX_TEXT_CHARS = 5 * 1024 * 1024;        // 5 MB de caracteres
+  const MAX_RECORDS    = 10_000;                  // 10 mil cobranças
+
   // Handle local text import
   const handleTextImport = (mode: 'merge' | 'replace') => {
     try {
       if (!importText.trim()) {
         setErrorMsg('Por favor, cole o código JSON do seu backup.');
+        return;
+      }
+      // Guard: text size
+      if (importText.length > MAX_TEXT_CHARS) {
+        setErrorMsg(
+          `O texto colado é muito grande (${(importText.length / 1024 / 1024).toFixed(1)} MB). Limite máximo: 5 MB. Use a importação por arquivo.`
+        );
         return;
       }
       const parsed = JSON.parse(importText);
@@ -56,6 +68,14 @@ export default function BackupModal({
       return;
     }
 
+    // Guard: record count
+    if (parsed.length > MAX_RECORDS) {
+      setErrorMsg(
+        `O backup contém ${parsed.length.toLocaleString('pt-BR')} registros, acima do limite de ${MAX_RECORDS.toLocaleString('pt-BR')}. Divida em arquivos menores.`
+      );
+      return;
+    }
+
     // Deep sanitization and normalization
     const sanitizedDebts: Debt[] = [];
 
@@ -65,7 +85,7 @@ export default function BackupModal({
 
       const id = typeof item.id === 'string' && item.id.trim() 
         ? item.id.trim().slice(0, 64) 
-        : 'debt_' + Math.random().toString(36).substring(2, 11);
+        : crypto.randomUUID();
 
       const name = typeof item.name === 'string' ? item.name.trim().slice(0, 100) : '';
       if (!name) continue; // Skip entries without a valid name
@@ -88,7 +108,7 @@ export default function BackupModal({
       const payments = rawPayments
         .filter((p: unknown): p is Record<string, unknown> => Boolean(p && typeof p === 'object'))
         .map((p) => {
-          const pmtId = typeof p.id === 'string' && p.id.trim() ? p.id.trim().slice(0, 64) : 'pmt_' + Math.random().toString(36).substring(2, 11);
+          const pmtId = typeof p.id === 'string' && p.id.trim() ? p.id.trim().slice(0, 64) : crypto.randomUUID();
           const pmtAmount = typeof p.amount === 'number' && Number.isFinite(p.amount) ? Math.max(0, p.amount) : 0;
           const pmtDate = typeof p.date === 'string' && p.date.trim() ? p.date.trim() : createdAt;
           const pmtNote = typeof p.note === 'string' ? p.note.trim().slice(0, 500) : undefined;
@@ -163,6 +183,21 @@ export default function BackupModal({
 
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       const file = e.dataTransfer.files[0];
+
+      // Guard: file size
+      if (file.size > MAX_FILE_BYTES) {
+        setErrorMsg(
+          `Arquivo muito grande (${(file.size / 1024 / 1024).toFixed(1)} MB). Tamanho máximo permitido: 5 MB.`
+        );
+        return;
+      }
+
+      // Guard: must be JSON
+      if (!file.name.endsWith('.json') && file.type !== 'application/json') {
+        setErrorMsg('Somente arquivos .JSON de backup são aceitos.');
+        return;
+      }
+
       const reader = new FileReader();
       reader.onload = (event) => {
         try {
@@ -180,6 +215,23 @@ export default function BackupModal({
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
+
+      // Guard: file size
+      if (file.size > MAX_FILE_BYTES) {
+        setErrorMsg(
+          `Arquivo muito grande (${(file.size / 1024 / 1024).toFixed(1)} MB). Tamanho máximo permitido: 5 MB.`
+        );
+        e.target.value = ''; // reset input
+        return;
+      }
+
+      // Guard: must be JSON
+      if (!file.name.endsWith('.json') && file.type !== 'application/json') {
+        setErrorMsg('Somente arquivos .JSON de backup são aceitos.');
+        e.target.value = '';
+        return;
+      }
+
       const reader = new FileReader();
       reader.onload = (event) => {
         try {

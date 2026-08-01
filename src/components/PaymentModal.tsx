@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Debt } from '../types';
-import { X, DollarSign, Calendar, FileText, Receipt, CheckCircle, Wallet, AlertCircle, Clock } from 'lucide-react';
+import { X, DollarSign, Calendar, FileText, Receipt, CheckCircle, Wallet, AlertCircle, Clock, Loader2 } from 'lucide-react';
 import { Modal } from './ui/Modal';
 import { getTodayString, toSafeISOString, isFutureDate, formatDate } from '../utils/dateUtils';
 
@@ -26,6 +26,7 @@ export default function PaymentModal({
   const [date, setDate] = useState('');
   const [note, setNote] = useState('');
   const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (isOpen && debt) {
@@ -34,6 +35,7 @@ export default function PaymentModal({
       setDate(getTodayString());
       setNote('');
       setError('');
+      setIsSubmitting(false);
     }
   }, [isOpen, debt]);
 
@@ -61,6 +63,7 @@ export default function PaymentModal({
       return;
     }
 
+    setIsSubmitting(true);
     onSubmit(payAmt, toSafeISOString(date), note.trim().slice(0, 500) || undefined);
     onClose();
   };
@@ -210,16 +213,20 @@ export default function PaymentModal({
                 id="btn-cancel-pay"
                 type="button"
                 onClick={onClose}
-                className="px-5 py-2.5 text-xs font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-all cursor-pointer"
+                disabled={isSubmitting}
+                className="px-5 py-2.5 text-xs font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-all cursor-pointer disabled:opacity-50"
               >
                 Cancelar
               </button>
               <button
                 id="btn-submit-pay"
                 type="submit"
-                className="px-6 py-3 text-xs font-black text-white bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center gap-2 cursor-pointer"
+                disabled={isSubmitting}
+                className="px-6 py-3 text-xs font-black text-white bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center gap-2 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                <CheckCircle className="w-4 h-4 text-emerald-200" />
+                {isSubmitting
+                  ? <Loader2 className="w-4 h-4 animate-spin" />
+                  : <CheckCircle className="w-4 h-4 text-emerald-200" />}
                 Confirmar Pagamento
               </button>
             </div>

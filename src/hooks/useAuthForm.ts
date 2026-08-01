@@ -384,7 +384,7 @@ export function useAuthForm({ onLoginSuccess }: UseAuthFormProps) {
         } else {
           setSuccessMessage('Senha atualizada com sucesso! Acessando sua conta...');
           setTimeout(() => {
-            const fakeId = 'usr-' + Math.random().toString(36).substring(2, 9);
+            const fakeId = crypto.randomUUID();
             onLoginSuccess({
               id: fakeId,
               email: cleanEmail || otpEmail || 'demo@pagmefy.com',
@@ -493,7 +493,7 @@ export function useAuthForm({ onLoginSuccess }: UseAuthFormProps) {
         // Fallback / Instant Demo Auth Mode
         saveRegisteredEmail(cleanEmail);
         setTimeout(() => {
-          const fakeId = 'usr-' + Math.random().toString(36).substring(2, 9);
+          const fakeId = crypto.randomUUID();
           const userName = cleanName || cleanEmail.split('@')[0] || 'Usuário';
           onLoginSuccess({
             id: fakeId,
@@ -525,7 +525,7 @@ export function useAuthForm({ onLoginSuccess }: UseAuthFormProps) {
   };
 
   const handleDemoLogin = () => {
-    const fakeId = 'usr-demo-' + Math.random().toString(36).substring(2, 7);
+    const fakeId = crypto.randomUUID();
     const demoEmail = email.trim().toLowerCase() || 'demo@pagmefy.com';
     saveRegisteredEmail(demoEmail);
     const userName = name.trim() || email.split('@')[0] || 'Usuário Demo';

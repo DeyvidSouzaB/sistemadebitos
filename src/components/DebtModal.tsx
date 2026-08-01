@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Debt } from '../types';
-import { X, DollarSign, Calendar, User, FileText, PlusCircle, Edit3, Sparkles, Phone } from 'lucide-react';
+import { X, DollarSign, Calendar, User, FileText, PlusCircle, Edit3, Sparkles, Phone, Loader2 } from 'lucide-react';
 import { Modal } from './ui/Modal';
 import { formatPhone } from '../utils/phoneUtils';
 import { getTodayString, toSafeISOString } from '../utils/dateUtils';
@@ -37,6 +37,7 @@ export default function DebtModal({
   const [dueDate, setDueDate] = useState('');
   const [description, setDescription] = useState('');
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Reset or fill form when modal opens / changes mode (add/edit)
   useEffect(() => {
@@ -57,6 +58,7 @@ export default function DebtModal({
         setDescription('');
       }
       setErrors({});
+      setIsSubmitting(false);
     }
   }, [isOpen, debtToEdit]);
 
@@ -65,6 +67,22 @@ export default function DebtModal({
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     setPhone(formatPhone(val));
+  };
+
+  // Normalize locale-aware numeric string to JS float.
+  // Handles BR format ("1.200,50" → 1200.50) and US format ("1200.50" → 1200.50).
+  const parseLocaleFloat = (raw: string): number => {
+    const trimmed = raw.trim();
+    // If it has both dot and comma (e.g. "1.200,50"), it's BR thousands-dot + decimal-comma
+    if (trimmed.includes('.') && trimmed.includes(',')) {
+      return parseFloat(trimmed.replace(/\./g, '').replace(',', '.'));
+    }
+    // If only comma (e.g. "1200,50"), it's BR decimal-comma
+    if (trimmed.includes(',') && !trimmed.includes('.')) {
+      return parseFloat(trimmed.replace(',', '.'));
+    }
+    // Otherwise standard dot notation ("1200.50")
+    return parseFloat(trimmed);
   };
 
   const validate = () => {
@@ -76,7 +94,7 @@ export default function DebtModal({
       newErrors.name = 'O nome não pode exceder 100 caracteres.';
     }
     
-    const amt = parseFloat(originalAmount);
+    const amt = parseLocaleFloat(originalAmount);
     if (!Number.isFinite(amt) || amt <= 0) {
       newErrors.originalAmount = 'Insira um valor numérico válido maior que zero.';
     } else if (amt > 1000000000) {
@@ -98,11 +116,12 @@ export default function DebtModal({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
+    setIsSubmitting(true);
 
     onSubmit({
       name: name.trim().slice(0, 100),
       phone: phone.trim().slice(0, 30) || undefined,
-      originalAmount: Math.min(1000000000, Math.max(0.01, parseFloat(originalAmount))),
+      originalAmount: Math.min(1000000000, Math.max(0.01, parseLocaleFloat(originalAmount))),
       createdAt: toSafeISOString(createdAt),
       dueDate: dueDate ? toSafeISOString(dueDate) : undefined,
       description: description.trim().slice(0, 1000) || undefined,
@@ -284,16 +303,20 @@ export default function DebtModal({
                 id="btn-cancel-debt"
                 type="button"
                 onClick={onClose}
-                className="px-5 py-2.5 text-xs font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-all cursor-pointer"
+                disabled={isSubmitting}
+                className="px-5 py-2.5 text-xs font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-all cursor-pointer disabled:opacity-50"
               >
                 Cancelar
               </button>
               <button
                 id="btn-submit-debt"
                 type="submit"
-                className="px-6 py-3 text-xs font-black text-white bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center gap-2 cursor-pointer"
+                disabled={isSubmitting}
+                className="px-6 py-3 text-xs font-black text-white bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center gap-2 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                <Sparkles className="w-4 h-4 text-emerald-200" />
+                {isSubmitting
+                  ? <Loader2 className="w-4 h-4 animate-spin" />
+                  : <Sparkles className="w-4 h-4 text-emerald-200" />}
                 {debtToEdit ? 'Salvar Alterações' : 'Criar Cobrança'}
               </button>
             </div>

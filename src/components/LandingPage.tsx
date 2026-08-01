@@ -47,13 +47,32 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { AnimatedNumber, AnimatedCurrency } from './AnimatedCounter';
 import { fetchLiveSystemStats, calculateStatsFromDebtsArray, SystemLiveStats } from '../lib/supabaseService';
-import { LandingFaq } from './landing/LandingFaq';
 import { HeroCards3D } from './landing/HeroCards3D';
-import { PainPointsBento } from './landing/PainPointsBento';
-import { HowItWorksBento } from './landing/HowItWorksBento';
-import { FeaturesBento } from './landing/FeaturesBento';
-import { LiveStatsModern } from './landing/LiveStatsModern';
 import { Debt } from '../types';
+
+// Lazy-loaded below-the-fold sections for optimal initial bundle & LCP performance
+const PainPointsBento = React.lazy(() =>
+  import('./landing/PainPointsBento').then((m) => ({ default: m.PainPointsBento }))
+);
+const HowItWorksBento = React.lazy(() =>
+  import('./landing/HowItWorksBento').then((m) => ({ default: m.HowItWorksBento }))
+);
+const FeaturesBento = React.lazy(() =>
+  import('./landing/FeaturesBento').then((m) => ({ default: m.FeaturesBento }))
+);
+const LiveStatsModern = React.lazy(() =>
+  import('./landing/LiveStatsModern').then((m) => ({ default: m.LiveStatsModern }))
+);
+const LandingFaq = React.lazy(() =>
+  import('./landing/LandingFaq').then((m) => ({ default: m.LandingFaq }))
+);
+
+const SectionSkeleton = () => (
+  <div className="py-12 flex flex-col items-center justify-center space-y-3 opacity-60">
+    <div className="w-8 h-8 border-2 border-emerald-500/20 border-t-emerald-500 rounded-full animate-spin" />
+    <span className="text-xs font-semibold text-slate-400">Carregando conteúdo...</span>
+  </div>
+);
 
 interface LandingPageProps {
   onEnterApp: () => void;
@@ -433,7 +452,7 @@ export default function LandingPage({ onEnterApp, onOpenAuth, liveDebts }: Landi
 
             {/* Coluna da Direita: Composicao 3D de Telas / Cards do Sistema ao lado do Título */}
             <div className="lg:col-span-6 w-full">
-              <HeroCards3D />
+              <HeroCards3D liveDebts={liveDebts} />
             </div>
 
           </div>
@@ -444,7 +463,9 @@ export default function LandingPage({ onEnterApp, onOpenAuth, liveDebts }: Landi
       {/* SECTION: LIVE SYSTEM METRICS (DADOS DO SISTEMA AO VIVO)        */}
       {/* ------------------------------------------------------------- */}
       <section id="numeros-ao-vivo" className="relative z-20 -mt-10 mb-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-28">
-        <LiveStatsModern stats={stats} />
+        <React.Suspense fallback={<SectionSkeleton />}>
+          <LiveStatsModern stats={stats} />
+        </React.Suspense>
       </section>
 
       {/* ------------------------------------------------------------- */}
@@ -452,7 +473,9 @@ export default function LandingPage({ onEnterApp, onOpenAuth, liveDebts }: Landi
       {/* ------------------------------------------------------------- */}
       <section id="problema" className="py-16 scroll-mt-24 bg-white border-y border-slate-200/80 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <PainPointsBento />
+          <React.Suspense fallback={<SectionSkeleton />}>
+            <PainPointsBento />
+          </React.Suspense>
         </div>
       </section>
 
@@ -461,7 +484,9 @@ export default function LandingPage({ onEnterApp, onOpenAuth, liveDebts }: Landi
       {/* ------------------------------------------------------------- */}
       <section id="solucao" className="py-16 scroll-mt-24 bg-slate-50/80 relative border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <HowItWorksBento />
+          <React.Suspense fallback={<SectionSkeleton />}>
+            <HowItWorksBento />
+          </React.Suspense>
 
           <div className="mt-8 text-center">
             <button
@@ -478,7 +503,9 @@ export default function LandingPage({ onEnterApp, onOpenAuth, liveDebts }: Landi
 
       <section id="recursos" className="py-16 scroll-mt-24 bg-white border-y border-slate-200/80 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FeaturesBento />
+          <React.Suspense fallback={<SectionSkeleton />}>
+            <FeaturesBento />
+          </React.Suspense>
         </div>
       </section>
 
@@ -527,7 +554,9 @@ export default function LandingPage({ onEnterApp, onOpenAuth, liveDebts }: Landi
       {/* ------------------------------------------------------------- */}
       {/* FAQ SECTION                                                   */}
       {/* ------------------------------------------------------------- */}
-      <LandingFaq />
+      <React.Suspense fallback={<SectionSkeleton />}>
+        <LandingFaq />
+      </React.Suspense>
 
       {/* ------------------------------------------------------------- */}
       {/* FOOTER & CTA FINAL                                            */}

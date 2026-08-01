@@ -292,10 +292,11 @@ export function useDebts(currentUser: User | null, triggerToast: (msg: string) =
           );
         } catch (err) {
           console.warn('Falha no Supabase ao editar, mantido localmente:', err);
+          triggerToast('⚠️ Salvo localmente. Erro ao sincronizar com o servidor.');
         }
       }
     } else {
-      const tempId = 'debt_' + Math.random().toString(36).substring(2, 11);
+      const tempId = crypto.randomUUID();
       const newDebt: Debt = {
         id: tempId,
         name: formData.name,
@@ -319,6 +320,7 @@ export function useDebts(currentUser: User | null, triggerToast: (msg: string) =
           );
         } catch (err) {
           console.warn('Falha no Supabase ao criar, mantido localmente:', err);
+          triggerToast('⚠️ Salvo localmente. Erro ao sincronizar com o servidor.');
         }
       }
     }
@@ -336,6 +338,7 @@ export function useDebts(currentUser: User | null, triggerToast: (msg: string) =
         await deleteDebtFromDb(currentUser.id, debtIdToDelete);
       } catch (err) {
         console.warn('Falha no Supabase ao excluir, removida localmente:', err);
+        triggerToast('⚠️ Removida localmente. Falha ao sincronizar com o servidor.');
       }
     }
   }, [currentUser, triggerToast, updateDebtsState]);
@@ -351,7 +354,7 @@ export function useDebts(currentUser: User | null, triggerToast: (msg: string) =
 
     const todayStr = getTodayString();
     const isFuturePmt = date.slice(0, 10) > todayStr;
-    const tempPmtId = 'pmt_' + Math.random().toString(36).substring(2, 11);
+    const tempPmtId = crypto.randomUUID();
 
     updateDebtsState((prevDebts) =>
       prevDebts.map((d) => {
@@ -395,6 +398,7 @@ export function useDebts(currentUser: User | null, triggerToast: (msg: string) =
         );
       } catch (err) {
         console.warn('Falha no Supabase ao registrar pagamento, mantido localmente:', err);
+        triggerToast('⚠️ Pagamento salvo localmente. Falha ao sincronizar com o servidor.');
       }
     }
   }, [currentUser, triggerToast, updateDebtsState]);
@@ -410,7 +414,7 @@ export function useDebts(currentUser: User | null, triggerToast: (msg: string) =
       prevDebts.map((d) => {
         if (d.id === debt.id) {
           const fullPayment: PaymentHistory = {
-            id: 'pmt_' + Math.random().toString(36).substring(2, 11),
+            id: crypto.randomUUID(),
             date: todayIso,
             amount: payAmount,
             note: 'Quitação integral rápida',
@@ -442,6 +446,7 @@ export function useDebts(currentUser: User | null, triggerToast: (msg: string) =
         );
       } catch (err) {
         console.warn('Falha no Supabase ao quitar, mantido localmente:', err);
+        triggerToast('⚠️ Quitação salva localmente. Falha ao sincronizar com o servidor.');
       }
     }
   }, [currentUser, triggerToast, updateDebtsState]);
@@ -480,6 +485,7 @@ export function useDebts(currentUser: User | null, triggerToast: (msg: string) =
         );
       } catch (err) {
         console.warn('Falha no Supabase ao excluir pagamento, removido localmente:', err);
+        triggerToast('⚠️ Removido localmente. Falha ao sincronizar com o servidor.');
       }
     }
   }, [currentUser, debts, triggerToast, updateDebtsState]);
