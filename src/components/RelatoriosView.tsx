@@ -90,6 +90,7 @@ function RelatoriosView({ debts, onSelectDebt, onAddPaymentClick, onPayFull }: R
     overdueDebts,
     recoveryRate,
     topDebtors,
+    isUsingOverallTopDebtors,
     pieChartData,
     periodLabel,
   } = metrics;
@@ -190,9 +191,9 @@ function RelatoriosView({ debts, onSelectDebt, onAddPaymentClick, onPayFull }: R
               onChange={(e) => setDateBasis(e.target.value as DateBasisType)}
               className="bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 py-2 px-3 rounded-xl focus:outline-none focus:border-emerald-500 cursor-pointer"
             >
-              <option value="payment">Base: Data do Pagamento</option>
-              <option value="due">Base: Data de Vencimento</option>
-              <option value="creation">Base: Data de Criação</option>
+              <option value="paymentDate">Base: Data do Pagamento</option>
+              <option value="dueDate">Base: Data de Vencimento</option>
+              <option value="createdAt">Base: Data de Criação</option>
             </select>
           </div>
         </div>
@@ -332,7 +333,10 @@ function RelatoriosView({ debts, onSelectDebt, onAddPaymentClick, onPayFull }: R
                     ))}
                   </Pie>
                   <RechartsTooltip
-                    formatter={(value: any) => [`R$ ${Number(value).toLocaleString('pt-BR')}`, 'Valor']}
+                    formatter={(value: any, name: any) => [
+                      name === 'Sem dados' || totalCount === 0 ? 'R$ 0,00' : `R$ ${Number(value).toLocaleString('pt-BR')}`,
+                      'Valor'
+                    ]}
                   />
                 </RechartsPieChart>
               </ResponsiveContainer>
@@ -346,7 +350,9 @@ function RelatoriosView({ debts, onSelectDebt, onAddPaymentClick, onPayFull }: R
                   <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: item.color }} />
                   {item.name}
                 </span>
-                <span className="font-black text-slate-900 dark:text-white">{formatCurrency(item.value)}</span>
+                <span className="font-black text-slate-900 dark:text-white">
+                  {item.count === 0 || item.name === 'Sem dados' ? formatCurrency(0) : formatCurrency(item.value)}
+                </span>
               </div>
             ))}
           </div>
@@ -355,36 +361,59 @@ function RelatoriosView({ debts, onSelectDebt, onAddPaymentClick, onPayFull }: R
         {/* Top Debtors Ranking */}
         <div className="bg-white dark:bg-slate-900/90 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between">
           <div>
-            <div className="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
-              <Users className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-              <h3 className="text-base font-black text-slate-900 dark:text-white font-display">
-                Ranking de Maiores Devedores
-              </h3>
+            <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
+              <div className="flex items-center gap-2">
+                <Users className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                <h3 className="text-base font-black text-slate-900 dark:text-white font-display">
+                  Ranking de Maiores Devedores
+                </h3>
+              </div>
+              {isUsingOverallTopDebtors && (
+                <span className="text-[10px] font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60 px-2.5 py-1 rounded-full border border-amber-200/80 dark:border-amber-800/80">
+                  Ranking Geral
+                </span>
+              )}
             </div>
 
-            <div className="space-y-3">
-              {topDebtors.slice(0, 5).map((debtor, idx) => (
-                <div 
-                  key={`top-debtor-${idx}`}
-                  onClick={() => onSelectDebt?.(debtor)}
-                  className="p-3.5 bg-slate-50 dark:bg-slate-800/40 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center justify-between gap-3 cursor-pointer transition-all duration-200"
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <span className="w-7 h-7 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 font-black text-xs flex items-center justify-center font-mono">
-                      #{idx + 1}
-                    </span>
-                    <div className="min-w-0">
-                      <p className="text-xs font-black text-slate-900 dark:text-white truncate font-display">{debtor.name}</p>
-                      <p className="text-[10px] text-slate-400 font-mono">Original: {formatCurrency(debtor.originalAmount)}</p>
-                    </div>
-                  </div>
-
-                  <span className="text-sm font-black text-rose-600 dark:text-rose-400 font-mono">
-                    {formatCurrency(debtor.currentAmount)}
-                  </span>
+            {topDebtors.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-10 text-center space-y-3">
+                <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800/80 flex items-center justify-center text-slate-400">
+                  <Users className="w-6 h-6 stroke-[1.5]" />
                 </div>
-              ))}
-            </div>
+                <div>
+                  <p className="text-xs font-bold text-slate-700 dark:text-slate-300">
+                    Nenhum devedor com saldo pendente
+                  </p>
+                  <p className="text-[11px] text-slate-400 font-medium mt-0.5">
+                    Todos os débitos cadastrados estão quitados ou sem pendências.
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {topDebtors.slice(0, 5).map((debtor, idx) => (
+                  <div 
+                    key={`top-debtor-${debtor.id || idx}`}
+                    onClick={() => onSelectDebt?.(debtor)}
+                    className="p-3.5 bg-slate-50 dark:bg-slate-800/40 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center justify-between gap-3 cursor-pointer transition-all duration-200"
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <span className="w-7 h-7 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 font-black text-xs flex items-center justify-center font-mono shrink-0">
+                        #{idx + 1}
+                      </span>
+                      <div className="min-w-0">
+                        <p className="text-xs font-black text-slate-900 dark:text-white truncate font-display">{debtor.name}</p>
+                        <p className="text-[10px] text-slate-400 font-mono">Original: {formatCurrency(debtor.originalAmount)}</p>
+                      </div>
+                    </div>
+
+                    <span className="text-sm font-black text-rose-600 dark:text-rose-400 font-mono shrink-0">
+                      {formatCurrency(debtor.currentAmount)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

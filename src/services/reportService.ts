@@ -39,6 +39,7 @@ export interface ReportMetrics {
   overdueDebts: Debt[];
   recoveryRate: string;
   topDebtors: Debt[];
+  isUsingOverallTopDebtors: boolean;
   pieChartData: PieChartItem[];
   periodLabel: string;
 }
@@ -143,11 +144,19 @@ export class ReportService {
         ? ((totalPaid / totals.totalOriginal) * 100).toFixed(1)
         : '0';
 
-    // Top 5 debtors with largest open balance
-    const topDebtors = [...filteredDebts]
+    // Top 5 debtors with largest open balance in period (or overall fallback)
+    const periodTopDebtors = [...filteredDebts]
       .filter((d) => d.currentAmount > 0)
       .sort((a, b) => b.currentAmount - a.currentAmount)
       .slice(0, 5);
+
+    const overallTopDebtors = [...debts]
+      .filter((d) => d.currentAmount > 0)
+      .sort((a, b) => b.currentAmount - a.currentAmount)
+      .slice(0, 5);
+
+    const isUsingOverallTopDebtors = periodTopDebtors.length === 0 && overallTopDebtors.length > 0;
+    const topDebtors = periodTopDebtors.length > 0 ? periodTopDebtors : overallTopDebtors;
 
     // Pie chart distribution
     const paidCount = totals.paidDebts.length;
@@ -199,6 +208,7 @@ export class ReportService {
       overdueDebts: totals.overdueDebts,
       recoveryRate,
       topDebtors,
+      isUsingOverallTopDebtors,
       pieChartData,
       periodLabel,
     };
