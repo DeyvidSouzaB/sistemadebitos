@@ -4,9 +4,11 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { User, CheckCircle2, MessageCircle, Sparkles } from 'lucide-react';
+import { User, CheckCircle2, MessageCircle, Sparkles, Smartphone, Download, Monitor } from 'lucide-react';
 import { getWhatsappConfig, saveWhatsappConfig, buildWhatsappMessage, WhatsappConfig } from '../utils/phoneUtils';
 import { motion } from 'motion/react';
+import { usePwaInstall } from '../hooks/usePwaInstall';
+import { PwaInstallModal } from './PwaInstallModal';
 
 interface ConfiguracoesViewProps {
   userName: string;
@@ -28,6 +30,15 @@ export default function ConfiguracoesView({
   const [savedSuccess, setSavedSuccess] = useState(false);
   const [autoReminders, setAutoReminders] = useState(true);
   const [currencySymbol, setCurrencySymbol] = useState('R$');
+
+  const {
+    isInstallable,
+    isInstalled,
+    isIos,
+    triggerInstall,
+    showInstallModal,
+    setShowInstallModal,
+  } = usePwaInstall();
 
   // WhatsApp Configuration State
   const [waMode, setWaMode] = useState<WhatsappConfig['mode']>('empty');
@@ -146,6 +157,33 @@ export default function ConfiguracoesView({
                 />
               </div>
             </div>
+          </div>
+
+          {/* PWA App Installation / Shortcut Card */}
+          <div className="bg-gradient-to-br from-slate-900 via-slate-950 to-emerald-950 text-white p-6 rounded-3xl border border-slate-800/80 shadow-md space-y-4 relative overflow-hidden">
+            <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
+              <h3 className="text-xs font-black text-emerald-400 uppercase tracking-wider flex items-center gap-2 font-mono">
+                <Smartphone className="w-4 h-4 text-emerald-400" /> Ícone do App no Celular / PC
+              </h3>
+              {isInstalled && (
+                <span className="text-[10px] font-black uppercase tracking-wider text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded-full border border-emerald-500/30">
+                  INSTALADO
+                </span>
+              )}
+            </div>
+
+            <p className="text-xs text-slate-300 font-medium leading-relaxed">
+              Adicione o PAGMEFY como um atalho na tela inicial do seu Celular (iPhone ou Android) ou Computador para acessar com 1 clique sem abrir navegador.
+            </p>
+
+            <button
+              type="button"
+              onClick={triggerInstall}
+              className="w-full py-3 px-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black rounded-2xl transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer text-xs"
+            >
+              <Download className="w-4 h-4 stroke-[2.5]" />
+              <span>{isInstalled ? 'Ver Como Adicionar Outro Atalho' : 'Adicionar Ícone na Tela Inicial'}</span>
+            </button>
           </div>
         </div>
 
@@ -299,6 +337,14 @@ export default function ConfiguracoesView({
           </form>
         </div>
       </div>
+
+      <PwaInstallModal
+        isOpen={showInstallModal}
+        onClose={() => setShowInstallModal(false)}
+        isIos={isIos}
+        onTriggerInstall={triggerInstall}
+        canDirectInstall={isInstallable && !isIos}
+      />
     </motion.div>
   );
 }

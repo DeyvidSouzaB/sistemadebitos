@@ -16,12 +16,16 @@ import {
   CheckCircle2,
   AlertTriangle,
   AlertOctagon,
-  Info
+  Info,
+  Smartphone,
+  Download
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import SidebarDrawer from './SidebarDrawer';
 import { User } from '../hooks/useAuth';
 import { ToastItem, ToastType } from '../hooks/useToast';
+import { usePwaInstall } from '../hooks/usePwaInstall';
+import { PwaInstallModal } from './PwaInstallModal';
 
 // ── View metadata map (avoids if/else chain in header) ───────────────────────
 const VIEW_META: Record<string, { title: string; subtitle: string }> = {
@@ -85,6 +89,15 @@ export default function AppShell({
   children,
 }: AppShellProps) {
   const meta = VIEW_META[activeSidebarOption] ?? { title: '', subtitle: '' };
+  
+  const {
+    isInstallable,
+    isInstalled,
+    isIos,
+    triggerInstall,
+    showInstallModal,
+    setShowInstallModal
+  } = usePwaInstall();
 
   // Resolve message and type from either toast object or fallback toastMessage
   const activeMessage = toast?.message || toastMessage || '';
@@ -166,7 +179,7 @@ export default function AppShell({
                 type="button"
                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                 aria-label={isSidebarOpen ? 'Fechar menu principal' : 'Abrir menu principal'}
-                className="p-2.5 bg-slate-50 hover:bg-emerald-50 active:bg-emerald-100 text-slate-800 hover:text-emerald-700 rounded-xl transition-all duration-200 cursor-pointer border border-slate-200 hover:border-emerald-200 shadow-xs flex items-center justify-center shrink-0 w-11 h-11 group"
+                className="hidden sm:flex p-2.5 bg-slate-50 hover:bg-emerald-50 active:bg-emerald-100 text-slate-800 hover:text-emerald-700 rounded-xl transition-all duration-200 cursor-pointer border border-slate-200 hover:border-emerald-200 shadow-xs items-center justify-center shrink-0 w-11 h-11 group"
                 title={isSidebarOpen ? 'Fechar Menu' : 'Abrir Menu'}
               >
                 <Menu className="w-5 h-5 text-slate-700 group-hover:text-emerald-700 transition-colors" />
@@ -181,6 +194,21 @@ export default function AppShell({
 
             {/* Right: notifications + user + logout */}
             <div className="flex items-center gap-2 sm:gap-3">
+
+              {/* PWA App Shortcut Install Button */}
+              {!isInstalled && (
+                <button
+                  id="btn-header-install-pwa"
+                  type="button"
+                  onClick={triggerInstall}
+                  aria-label="Instalar atalho do aplicativo no celular ou PC"
+                  className="flex items-center gap-1.5 px-3 py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-extrabold text-xs rounded-xl border border-emerald-200 transition-all shadow-2xs cursor-pointer"
+                  title="Instalar PAGMEFY como Ícone na Tela"
+                >
+                  <Download className="w-4 h-4 text-emerald-600 animate-pulse" />
+                  <span className="hidden md:inline">Instalar App</span>
+                </button>
+              )}
 
               {/* Notification bell */}
               <button
@@ -280,6 +308,15 @@ export default function AppShell({
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* ── PWA Installation Guidance Modal ── */}
+        <PwaInstallModal
+          isOpen={showInstallModal}
+          onClose={() => setShowInstallModal(false)}
+          isIos={isIos}
+          onTriggerInstall={triggerInstall}
+          canDirectInstall={isInstallable && !isIos}
+        />
       </div>
     </div>
   );

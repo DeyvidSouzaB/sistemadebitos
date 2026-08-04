@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { 
-  Menu, 
+  Coins,
   Bell, 
   LogOut, 
   PlusCircle, 
@@ -63,8 +63,8 @@ export const MobilePhoneMockup: React.FC<MobilePhoneMockupProps> = ({
             {/* Mobile Header Bar */}
             <div className="px-3.5 pt-2 pb-1.5 flex items-center justify-between gap-2">
               <div className="flex items-center gap-2.5 min-w-0">
-                <div className="w-8 h-8 rounded-xl bg-slate-100 flex items-center justify-center text-slate-600 shrink-0 border border-slate-200/60">
-                  <Menu className="w-4 h-4" />
+                <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+                  <Coins className="w-4 h-4" />
                 </div>
                 <div className="min-w-0">
                   <h3 className="text-xs font-black text-slate-900 tracking-tight font-display leading-tight truncate">
