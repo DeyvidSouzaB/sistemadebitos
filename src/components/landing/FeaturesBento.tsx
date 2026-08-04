@@ -46,7 +46,7 @@ export function FeaturesBento() {
               <div>
                 <h4 className="text-sm font-bold text-slate-900 flex items-center gap-2">
                   Marcos Oliveira (Cliente)
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="w-2 h-2 rounded-full bg-emerald-500" />
                 </h4>
                 <p className="text-[11px] text-slate-500">Status: Parcela Vencendo Hoje</p>
               </div>
@@ -133,7 +133,7 @@ export function FeaturesBento() {
                   <p className="text-[10px] text-amber-700">Vencimento: Hoje!</p>
                 </div>
               </div>
-              <span className="px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-amber-500 text-white shadow-xs animate-pulse">
+              <span className="px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-amber-500 text-white shadow-xs">
                 Vence Hoje 🕒
               </span>
             </div>

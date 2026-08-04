@@ -92,7 +92,7 @@ export function LandingFaq() {
         {/* Section Header */}
         <div className="text-center space-y-4 mb-14">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 text-xs font-black uppercase tracking-wider backdrop-blur-md shadow-xs">
-            <Sparkles className="w-4 h-4 text-emerald-500 animate-pulse" />
+            <HelpCircle className="w-4 h-4 text-emerald-600" />
             <span>Tira-Dúvidas Rápido</span>
           </div>
 

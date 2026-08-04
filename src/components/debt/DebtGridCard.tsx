@@ -110,7 +110,7 @@ export function DebtGridCard({
                 
                 {isOverdue && (
                   <span className="inline-flex items-center gap-1 text-[9px] font-black uppercase px-2 py-0.5 rounded-full bg-rose-100 text-rose-700 border border-rose-200 shrink-0">
-                    <AlertTriangle className="w-2.5 h-2.5 animate-pulse" />
+                    <AlertTriangle className="w-2.5 h-2.5" />
                     Atrasado
                   </span>
                 )}

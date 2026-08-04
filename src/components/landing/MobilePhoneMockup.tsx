@@ -38,7 +38,7 @@ export const MobilePhoneMockup: React.FC<MobilePhoneMockupProps> = ({
   return (
     <div className="relative flex justify-center items-center py-4">
       {/* Ambient Glow behind phone */}
-      <div className="absolute w-72 h-72 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse" />
+      <div className="absolute w-72 h-72 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none -z-10" />
       <div className="absolute w-64 h-64 bg-teal-400/15 rounded-full blur-2xl pointer-events-none -z-10 translate-y-12" />
 
       {/* Outer Smartphone Frame (iPhone 15 Pro Style) */}
@@ -105,8 +105,8 @@ export const MobilePhoneMockup: React.FC<MobilePhoneMockupProps> = ({
                     Sistema Inteligente de Cobranças
                   </span>
                   <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-slate-800/80 border border-slate-700 text-slate-300 text-[8px] font-mono font-bold">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    AO VIVO
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                    ONLINE
                   </span>
                 </div>
 

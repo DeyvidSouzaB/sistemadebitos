@@ -94,7 +94,7 @@ export function calculateDashboardMetrics(debts: Debt[], customTodayStr?: string
       return {
         label: 'Atrasado',
         colorClass: 'bg-rose-100 text-rose-700 border-rose-200',
-        dotClass: 'bg-rose-500 animate-pulse',
+        dotClass: 'bg-rose-500',
       };
     }
     if (isToday) {

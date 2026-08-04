@@ -80,8 +80,8 @@ export default function ConfiguracoesView({
 
         <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="space-y-2.5 max-w-2xl">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold backdrop-blur-md shadow-inner">
-              <Sparkles className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold backdrop-blur-md">
+              <User className="w-3.5 h-3.5 text-emerald-400" />
               <span>CONFIGURAÇÕES & SEGURANÇA</span>
             </div>
 
@@ -95,7 +95,7 @@ export default function ConfiguracoesView({
           </div>
 
           {savedSuccess && (
-            <div className="flex items-center gap-2 px-4 py-3 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 backdrop-blur-md rounded-2xl text-xs font-black animate-pulse shadow-lg">
+            <div className="flex items-center gap-2 px-4 py-3 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 backdrop-blur-md rounded-2xl text-xs font-black shadow-lg">
               <CheckCircle2 className="w-4 h-4 text-emerald-400" />
               <span>Configurações Salvas com Sucesso!</span>
             </div>

@@ -90,7 +90,7 @@ export default function NotificationsModal({
             {overdueDebts.length > 0 && (
               <div>
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
+                  <div className="w-2 h-2 rounded-full bg-rose-500" />
                   <h4 className="text-xs font-black uppercase tracking-wider text-rose-600 flex items-center gap-1.5">
                     <AlertTriangle className="w-3.5 h-3.5 text-rose-500" />
                     Cobranças em Atraso ({overdueDebts.length})

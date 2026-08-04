@@ -102,7 +102,7 @@ export function LiveStatsModern({ stats }: LiveStatsModernProps) {
             </div>
 
             <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-bold shrink-0 self-start md:self-center">
-              <Zap className="w-4 h-4 text-amber-300 animate-pulse" />
+              <Zap className="w-4 h-4 text-amber-300" />
               <span>+ Taxa de Sucesso: {stats.successRate || 98}%</span>
             </div>
           </div>

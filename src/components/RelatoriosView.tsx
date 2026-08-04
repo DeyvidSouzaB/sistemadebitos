@@ -111,8 +111,8 @@ function RelatoriosView({ debts, onSelectDebt, onAddPaymentClick, onPayFull }: R
 
         <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="space-y-2.5 max-w-2xl">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold backdrop-blur-md shadow-inner">
-              <Sparkles className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold backdrop-blur-md">
+              <FileText className="w-3.5 h-3.5 text-emerald-400" />
               <span>RELATÓRIOS & DEPURADORES FINANCEIROS</span>
             </div>
 

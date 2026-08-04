@@ -76,8 +76,8 @@ function PrazosVencimentosView({ debts, onSelectDebt, onPayFull }: PrazosVencime
         <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-emerald-400 via-teal-400 to-emerald-600 rounded-l-3xl" />
 
         <div className="relative z-10 space-y-2.5 max-w-2xl">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold backdrop-blur-md shadow-inner">
-            <Sparkles className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold backdrop-blur-md">
+            <Calendar className="w-3.5 h-3.5 text-emerald-400" />
             <span>GESTÃO PREVENTIVA DE VENCIMENTOS</span>
           </div>
 
@@ -160,7 +160,7 @@ function PrazosVencimentosView({ debts, onSelectDebt, onPayFull }: PrazosVencime
               </span>
               {overdueDebts.length > 0 ? (
                 <span className="inline-flex items-center gap-1.5 text-[10px] font-black text-rose-600 uppercase tracking-wider">
-                  <span className="h-2 w-2 rounded-full bg-rose-500 animate-pulse" /> Atenção Exigida
+                  <span className="h-2 w-2 rounded-full bg-rose-500" /> Atenção Exigida
                 </span>
               ) : (
                 <span className="inline-flex items-center gap-1 text-[10px] font-extrabold text-emerald-600 bg-emerald-50/60 px-2 py-0.5 rounded-lg border border-emerald-100">

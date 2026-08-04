@@ -35,15 +35,22 @@ export const DashboardHero: React.FC<DashboardHeroProps> = ({
       <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
         <div className="space-y-3 max-w-2xl">
           <div className="flex items-center gap-2 flex-wrap">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold backdrop-blur-md shadow-inner">
-              <Sparkles className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
-              <span>Sistema Inteligente de Cobranças</span>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold backdrop-blur-md">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Painel Financeiro</span>
             </div>
             
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300 text-[11px] font-medium backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-              <span className="text-emerald-400 font-bold">● AO VIVO</span>
-            </div>
+            {overdueCount > 0 ? (
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-bold backdrop-blur-md">
+                <span className="w-2 h-2 rounded-full bg-amber-400" />
+                <span>{overdueCount} {overdueCount === 1 ? 'vencimento pendente' : 'vencimentos pendentes'}</span>
+              </div>
+            ) : (
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold backdrop-blur-md">
+                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                <span>Contas em dia</span>
+              </div>
+            )}
           </div>
 
           <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-white font-display leading-tight">

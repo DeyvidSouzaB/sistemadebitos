@@ -110,26 +110,26 @@ export default function AppShell({
       case 'error':
         return {
           containerClass: 'bg-slate-950/95 border-rose-500/50 shadow-rose-950/40 text-white',
-          dotClass: 'bg-rose-500 animate-pulse',
+          dotClass: 'bg-rose-500',
           icon: <AlertOctagon className="w-4 h-4 text-rose-400 shrink-0" />,
         };
       case 'warning':
         return {
           containerClass: 'bg-slate-900/95 border-amber-500/50 shadow-amber-950/40 text-white',
-          dotClass: 'bg-amber-400 animate-pulse',
+          dotClass: 'bg-amber-400',
           icon: <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />,
         };
       case 'info':
         return {
           containerClass: 'bg-slate-900/95 border-sky-500/50 shadow-sky-950/40 text-white',
-          dotClass: 'bg-sky-400 animate-pulse',
+          dotClass: 'bg-sky-400',
           icon: <Info className="w-4 h-4 text-sky-400 shrink-0" />,
         };
       case 'success':
       default:
         return {
           containerClass: 'bg-slate-900/95 border-emerald-500/40 shadow-emerald-950/30 text-white',
-          dotClass: 'bg-emerald-400 animate-pulse',
+          dotClass: 'bg-emerald-400',
           icon: <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />,
         };
     }

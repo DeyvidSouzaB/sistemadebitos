@@ -341,7 +341,7 @@ export function FullMonthlyCalendar({ debts, onSelectDebt, onPayFull }: FullMont
             <div className="bg-white rounded-3xl p-6 border-2 border-emerald-500/80 shadow-lg space-y-4 animate-in fade-in slide-in-from-top-2 duration-200">
               <div className="flex items-center justify-between pb-3 border-b border-slate-100">
                 <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="w-3 h-3 rounded-full bg-emerald-500" />
                   <h3 className="text-base font-black text-slate-900">
                     Cobranças em {formatDate(selectedDayStr)}
                   </h3>

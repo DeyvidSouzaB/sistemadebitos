@@ -217,7 +217,7 @@ export const DashboardMetricCards: React.FC<DashboardMetricCardsProps> = ({
                 ? 'bg-white/20 text-white backdrop-blur-md border border-white/20' 
                 : 'bg-rose-50/60 text-rose-700 border border-rose-100/50'
             }`}>
-              <span className={`w-2 h-2 rounded-full ${overdueDebts.length > 0 ? 'bg-amber-300 animate-pulse' : 'bg-rose-500'}`} />
+              <span className={`w-2 h-2 rounded-full ${overdueDebts.length > 0 ? 'bg-amber-300' : 'bg-rose-500'}`} />
               {overdueDebts.length} título{overdueDebts.length !== 1 ? 's' : ''}
             </span>
 

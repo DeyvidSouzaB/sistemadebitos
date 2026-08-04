@@ -115,7 +115,7 @@ export const DevedoresTable: React.FC<DevedoresTableProps> = ({
                   <td className="py-4 px-4 align-middle text-center">
                     {isOverdue && (
                       <span className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-xl bg-rose-100 text-rose-700 border border-rose-200">
-                        <AlertTriangle className="w-3.5 h-3.5 animate-pulse" />
+                        <AlertTriangle className="w-3.5 h-3.5" />
                         Atrasado
                       </span>
                     )}

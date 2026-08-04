@@ -230,7 +230,7 @@ export const DashboardUpcomingDebts: React.FC<DashboardUpcomingDebtsProps> = ({
               <span className="w-2 h-2 rounded-full bg-amber-500" /> Vencendo
             </span>
             <span className="flex items-center gap-1 text-rose-700 font-bold">
-              <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" /> Atrasado
+              <span className="w-2 h-2 rounded-full bg-rose-500" /> Atrasado
             </span>
           </div>
         </div>

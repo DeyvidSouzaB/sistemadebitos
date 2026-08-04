@@ -118,8 +118,8 @@ export const DesktopAppMockup: React.FC<DesktopAppMockupProps> = ({
                   Sistema Inteligente de Cobranças
                 </span>
                 <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-slate-800/80 border border-slate-700 text-slate-300 text-[8px] font-mono font-bold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  AO VIVO
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                  ONLINE
                 </span>
               </div>
 

@@ -38,8 +38,8 @@ export const DevedoresHeaderMetrics: React.FC<DevedoresHeaderMetricsProps> = ({
 
       <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
         <div className="space-y-2.5 max-w-2xl">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold backdrop-blur-md shadow-inner">
-            <Sparkles className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold backdrop-blur-md">
+            <Users className="w-3.5 h-3.5 text-emerald-400" />
             <span>GESTÃO DE CLIENTES & DEVEDORES</span>
           </div>
 
@@ -71,7 +71,7 @@ export const DevedoresHeaderMetrics: React.FC<DevedoresHeaderMetricsProps> = ({
           
           <div className="flex items-center justify-between relative z-10">
             <span className="text-[11px] font-black uppercase tracking-wider text-rose-300 flex items-center gap-1.5 font-mono">
-              <AlertCircle className="w-3.5 h-3.5 text-rose-400 animate-pulse" />
+              <AlertCircle className="w-3.5 h-3.5 text-rose-400" />
               Total em Atraso
             </span>
             <div className="w-8 h-8 rounded-xl bg-rose-500/20 text-rose-300 border border-rose-500/30 flex items-center justify-center">
@@ -84,7 +84,7 @@ export const DevedoresHeaderMetrics: React.FC<DevedoresHeaderMetricsProps> = ({
           </p>
 
           <div className="flex items-center gap-1.5 text-[11px] font-extrabold text-rose-200 mt-1.5">
-            <span className="w-2 h-2 rounded-full bg-rose-400 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-rose-400" />
             <span>{overdueCount} {overdueCount === 1 ? 'cobrança vencida' : 'cobranças vencidas'}</span>
           </div>
         </div>
