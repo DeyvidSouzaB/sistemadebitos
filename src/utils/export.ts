@@ -82,11 +82,11 @@ export function createDefaultLogoDataUrl(): string {
   const size = 256;
   const r = 56; // Corner radius for modern squircle badge
 
-  // 1. Vibrant Purple Background (Exact match to PAGMEFY UI badge)
+  // 1. Vibrant Emerald Background (Official PAGMEFY Emerald Logo)
   const grad = ctx.createLinearGradient(0, 0, size, size);
-  grad.addColorStop(0, '#6366f1'); // Indigo 500
-  grad.addColorStop(0.5, '#4f46e5'); // Indigo 600
-  grad.addColorStop(1, '#4338ca'); // Indigo 700
+  grad.addColorStop(0, '#10b981'); // Emerald 500
+  grad.addColorStop(0.5, '#059669'); // Emerald 600
+  grad.addColorStop(1, '#047857'); // Emerald 700
 
   ctx.beginPath();
   ctx.moveTo(r, 0);
@@ -194,8 +194,8 @@ export async function exportToPDF(debts: Debt[], options?: PdfExportOptions) {
   doc.setFillColor(15, 23, 42); // Slate 900
   doc.rect(14, 10, 182, 30, 'F');
 
-  // Indigo top accent strip
-  doc.setFillColor(99, 102, 241); // Indigo 500
+  // Emerald top accent strip
+  doc.setFillColor(16, 185, 129); // Emerald 500
   doc.rect(14, 10, 182, 2.5, 'F');
 
   // Render High Definition Image Logo in PDF Header
@@ -212,8 +212,8 @@ export async function exportToPDF(debts: Debt[], options?: PdfExportOptions) {
   }
 
   if (!hasImageLogo) {
-    // Fallback Vector Badge
-    doc.setFillColor(79, 70, 229); // Indigo 600
+    // Fallback Vector Badge (Emerald 600)
+    doc.setFillColor(5, 150, 105);
     doc.roundedRect(18, 15, 18, 18, 3, 3, 'F');
     doc.setTextColor(255, 255, 255);
     doc.setFont('helvetica', 'bold');
@@ -235,7 +235,7 @@ export async function exportToPDF(debts: Debt[], options?: PdfExportOptions) {
   // Document Title & Metadata (Right Aligned)
   doc.setFontSize(9.5);
   doc.setFont('helvetica', 'bold');
-  doc.setTextColor(199, 210, 254); // Indigo 200
+  doc.setTextColor(167, 243, 208); // Emerald 200
   doc.text(titleText, 192, 21, { align: 'right' });
 
   doc.setFontSize(7);
@@ -248,7 +248,7 @@ export async function exportToPDF(debts: Debt[], options?: PdfExportOptions) {
   const summaryStartY = 47;
 
   // Section Label with vertical accent bar
-  doc.setFillColor(99, 102, 241); // Indigo 500
+  doc.setFillColor(16, 185, 129); // Emerald 500
   doc.rect(14, summaryStartY - 3.2, 2.5, 4.5, 'F');
 
   doc.setFont('helvetica', 'bold');
@@ -356,7 +356,7 @@ export async function exportToPDF(debts: Debt[], options?: PdfExportOptions) {
   const tableTitleY = cardY + cardH + 8;
 
   // Section Label with vertical accent bar
-  doc.setFillColor(99, 102, 241);
+  doc.setFillColor(16, 185, 129); // Emerald 500
   doc.rect(14, tableTitleY - 3.2, 2.5, 4.5, 'F');
 
   doc.setFont('helvetica', 'bold');
