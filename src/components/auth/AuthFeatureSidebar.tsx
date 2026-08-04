@@ -4,62 +4,99 @@
  */
 
 import React from 'react';
-import { ShieldCheck, MessageSquare, Smartphone, CheckCircle2, Sparkles } from 'lucide-react';
+import { ShieldCheck, MessageSquare, Smartphone, BarChart3, Coins, Sparkles } from 'lucide-react';
+
+const features = [
+  {
+    icon: ShieldCheck,
+    text: 'Controle total dos seus devedores',
+    color: 'emerald',
+  },
+  {
+    icon: MessageSquare,
+    text: 'Lembretes automáticos no WhatsApp',
+    color: 'emerald',
+  },
+  {
+    icon: Smartphone,
+    text: 'Acesse de qualquer dispositivo',
+    color: 'emerald',
+  },
+  {
+    icon: BarChart3,
+    text: 'Relatórios financeiros completos',
+    color: 'emerald',
+  },
+];
 
 export const AuthFeatureSidebar: React.FC = () => {
   return (
-    <div className="hidden lg:flex lg:col-span-6 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-10 lg:p-12 flex-col justify-between relative overflow-hidden text-white border-l border-slate-800/80">
-      {/* Background Radial Glow */}
-      <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+    <div
+      className="hidden lg:flex lg:col-span-5 flex-col justify-between relative overflow-hidden text-white"
+      style={{ background: 'linear-gradient(145deg, #059669 0%, #10b981 50%, #0d9488 100%)' }}
+    >
+      {/* Subtle dot pattern overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.07] pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)',
+          backgroundSize: '24px 24px',
+        }}
+      />
+      {/* Glow blobs */}
+      <div className="absolute top-0 right-0 w-72 h-72 rounded-full blur-3xl pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.18), transparent 70%)' }} />
+      <div className="absolute bottom-0 left-0 w-56 h-56 rounded-full blur-3xl pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.10), transparent 70%)' }} />
 
-      {/* Header Badge & Main Value Proposition */}
-      <div className="relative z-10 space-y-5">
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
-          <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
-          <span>Gestão Inteligente de Cobranças</span>
-        </span>
+      <div className="relative z-10 flex flex-col h-full p-10 lg:p-12 space-y-8">
 
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white leading-tight font-display tracking-tight">
-          Suas cobranças organizadas,{' '}
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-400">
-            sem caderno, sem bagunça.
-          </span>
-        </h2>
-
-        <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
-          O PAGMEFY é a ferramenta ideal para autônomos, prestadores de serviço e pequenos comerciantes. Deixe o papel no passado e receba mais rápido no Pix.
-        </p>
-      </div>
-
-      {/* Glassmorphism Key Benefits List */}
-      <div className="relative z-10 space-y-3 pt-6">
-        <div className="p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-emerald-500/40 transition-all flex items-center gap-3.5 group">
-          <div className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center shrink-0">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
+        {/* Logo PAGMEFY */}
+        <div className="space-y-5">
+          {/* Ícone logo — igual ao favicon.svg */}
+          <div
+            className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-xl border border-white/20"
+            style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)' }}
+          >
+            <Coins className="w-8 h-8 text-white" />
           </div>
-          <span className="text-xs sm:text-sm font-bold text-slate-200">
-            Zero risco de perder dados ou folha rasgada
+
+          {/* Brand */}
+          <div>
+            <h2 className="text-3xl font-black text-white tracking-tight drop-shadow-sm">
+              PAGMEFY
+            </h2>
+            <p className="text-white/75 text-sm font-medium mt-2 leading-relaxed max-w-xs">
+              A plataforma completa para gestão de cobranças e controle de fiados do seu negócio
+            </p>
+          </div>
+
+          {/* Badge */}
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-white/15 text-white border border-white/25 backdrop-blur-sm w-fit">
+            <Sparkles className="w-3.5 h-3.5" />
+            Gestão Inteligente de Cobranças
           </span>
         </div>
 
-        <div className="p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-emerald-500/40 transition-all flex items-center gap-3.5 group">
-          <div className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center shrink-0">
-            <MessageSquare className="w-4 h-4 text-emerald-400" />
-          </div>
-          <span className="text-xs sm:text-sm font-bold text-slate-200">
-            Lembrete de cobrança pronto no WhatsApp em 1 clique
-          </span>
-        </div>
+        {/* Features list */}
+        <ul className="space-y-3 flex-1">
+          {features.map(({ icon: Icon, text }) => (
+            <li
+              key={text}
+              className="flex items-center gap-3.5 p-3.5 rounded-2xl border border-white/20 hover:border-white/40 transition-all"
+              style={{ background: 'rgba(255,255,255,0.10)', backdropFilter: 'blur(4px)' }}
+            >
+              <div
+                className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 border border-white/25"
+                style={{ background: 'rgba(255,255,255,0.15)' }}
+              >
+                <Icon className="w-4 h-4 text-white" />
+              </div>
+              <span className="text-sm font-semibold text-white/90">{text}</span>
+            </li>
+          ))}
+        </ul>
 
-        <div className="p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-amber-500/40 transition-all flex items-center gap-3.5 group">
-          <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center shrink-0">
-            <Smartphone className="w-4 h-4 text-amber-400" />
-          </div>
-          <span className="text-xs sm:text-sm font-bold text-slate-200">
-            Acesse do seu celular a qualquer hora e lugar
-          </span>
-        </div>
       </div>
     </div>
   );
