@@ -94,6 +94,7 @@ export default function AppShell({
     isInstallable,
     isInstalled,
     isIos,
+    isMobile,
     triggerInstall,
     showInstallModal,
     setShowInstallModal
@@ -314,6 +315,7 @@ export default function AppShell({
           isOpen={showInstallModal}
           onClose={() => setShowInstallModal(false)}
           isIos={isIos}
+          isMobile={isMobile}
           onTriggerInstall={triggerInstall}
           canDirectInstall={isInstallable && !isIos}
         />

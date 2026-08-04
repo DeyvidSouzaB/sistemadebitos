@@ -11,6 +11,7 @@ export function usePwaInstall() {
   const [isInstallable, setIsInstallable] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
   const [isIos, setIsIos] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [showInstallModal, setShowInstallModal] = useState(false);
 
   useEffect(() => {
@@ -21,10 +22,13 @@ export function usePwaInstall() {
 
     setIsInstalled(isStandalone);
 
-    // Detect iOS
+    // Detect device type
     const userAgent = window.navigator.userAgent.toLowerCase();
     const isIosDevice = /iphone|ipad|ipod/.test(userAgent);
+    const isMobileDevice = isIosDevice || /android|mobile|blackberry|iemobile|opera mini/.test(userAgent);
+
     setIsIos(isIosDevice);
+    setIsMobile(isMobileDevice);
 
     if (isIosDevice && !isStandalone) {
       setIsInstallable(true);
@@ -59,8 +63,32 @@ export function usePwaInstall() {
     };
   }, []);
 
+  // Function to create and trigger automatic download of Desktop Internet Shortcut (.url)
+  const downloadDesktopShortcut = () => {
+    const appUrl = window.location.origin;
+    const shortcutContent = `[InternetShortcut]
+URL=${appUrl}
+IDList=
+HotKey=0
+IconIndex=0
+IconFile=${appUrl}/pwa-192x192.png
+[{000214A0-0000-0000-C000-000000000466}]
+Prop3=19,11
+`;
+    const blob = new Blob([shortcutContent], { type: 'application/x-mswinurl' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'PAGMEFY - Atalho do Sistema.url';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   const triggerInstall = async () => {
     if (deferredPrompt) {
+      // 1. Browser natively supports 1-click PWA installation
       try {
         await deferredPrompt.prompt();
         const choiceResult = await deferredPrompt.userChoice;
@@ -71,9 +99,17 @@ export function usePwaInstall() {
         setDeferredPrompt(null);
       } catch (err) {
         console.error('Erro ao acionar instalação do PWA:', err);
+        if (!isMobile) {
+          downloadDesktopShortcut();
+        }
+        setShowInstallModal(true);
       }
+    } else if (!isMobile) {
+      // 2. Desktop user without prompt: Automatically download .url shortcut & open guide
+      downloadDesktopShortcut();
+      setShowInstallModal(true);
     } else {
-      // Show modal guidance for iOS or manual browser installation
+      // 3. Mobile user (iOS/Android): Open guided step-by-step modal
       setShowInstallModal(true);
     }
   };
@@ -82,6 +118,7 @@ export function usePwaInstall() {
     isInstallable,
     isInstalled,
     isIos,
+    isMobile,
     triggerInstall,
     showInstallModal,
     setShowInstallModal,
