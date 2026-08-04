@@ -9,8 +9,18 @@ export interface User {
 }
 
 export function useAuth(triggerToast: (msg: string) => void) {
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [authLoading, setAuthLoading] = useState(true);
+  const [currentUser, setCurrentUser] = useState<User | null>(() => {
+    const savedUser = getStorageItem(STORAGE_KEYS.CURRENT_USER, LEGACY_STORAGE_KEYS.CURRENT_USER);
+    if (savedUser) {
+      try {
+        return JSON.parse(savedUser);
+      } catch (e) {
+        return null;
+      }
+    }
+    return null;
+  });
+  const [authLoading, setAuthLoading] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   useEffect(() => {

@@ -21,8 +21,9 @@ import { useDebts } from './hooks/useDebts';
 import { useDebtFilters } from './hooks/useDebtFilters';
 import { motion, AnimatePresence } from 'motion/react';
 
+import LandingPage from './components/LandingPage';
+
 const RelatoriosView = React.lazy(() => import('./components/RelatoriosView'));
-const LandingPage = React.lazy(() => import('./components/LandingPage'));
 
 // Shared loading spinner (reused across auth/landing/report lazy boundaries)
 const LoadingSpinner = ({ label = 'Carregando PAGMEFY...' }: { label?: string }) => (
@@ -89,17 +90,13 @@ export default function App() {
   };
 
   // ── Route guards (early returns) ──────────────────────────────────────────
-  if (authLoading) return <LoadingSpinner />;
-
   if (!currentUser && !showAuthModal) {
     return (
-      <React.Suspense fallback={<LoadingSpinner />}>
-        <LandingPage
-          liveDebts={debts}
-          onEnterApp={() => setShowAuthModal(true)}
-          onOpenAuth={() => setShowAuthModal(true)}
-        />
-      </React.Suspense>
+      <LandingPage
+        liveDebts={debts}
+        onEnterApp={() => setShowAuthModal(true)}
+        onOpenAuth={() => setShowAuthModal(true)}
+      />
     );
   }
 

@@ -427,7 +427,7 @@ export default function LandingPage({ onEnterApp, onOpenAuth, liveDebts }: Landi
                   onClick={handleStartAuth}
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-base px-8 py-4 rounded-2xl shadow-xl shadow-emerald-600/25 transition-all duration-200 active:scale-[0.98] cursor-pointer"
                 >
-                  <span>Start Grátis Agora</span>
+                  <span>Criar Conta Grátis</span>
                   <ArrowRight className="w-5 h-5" />
                 </button>
               </div>
