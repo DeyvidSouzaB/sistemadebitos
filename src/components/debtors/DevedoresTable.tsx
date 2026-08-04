@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { Phone, AlertTriangle, Clock, TrendingUp, CheckCircle2, MessageCircle, PlusCircle, Edit3, ChevronRight, Trash2 } from 'lucide-react';
+import { AlertTriangle, Clock, TrendingUp, CheckCircle2, MessageCircle, PlusCircle, Edit3, ChevronRight, Trash2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Debt } from '../../types';
 import { formatDate, getEffectivePaidAmount } from '../../utils/dateUtils';
@@ -29,20 +29,33 @@ export const DevedoresTable: React.FC<DevedoresTableProps> = ({
   onDelete,
 }) => {
   return (
-    <div className="overflow-x-auto bg-white/90 rounded-3xl border border-slate-200/80 shadow-sm">
-      <table className="w-full text-left border-collapse min-w-[880px]">
+    <div className="overflow-x-auto bg-white/90 rounded-3xl border border-slate-200/80 shadow-sm scrollbar-thin scrollbar-thumb-slate-300">
+      <table className="w-full text-left border-collapse min-w-[1020px] table-fixed">
         <caption className="sr-only">Tabela de Clientes e Cobranças Registradas</caption>
+        
+        {/* Strict Column Widths */}
+        <colgroup>
+          <col className="w-[28%]" /> {/* Devedor / Cliente */}
+          <col className="w-[13%]" /> {/* Status */}
+          <col className="w-[12%]" /> {/* Vencimento */}
+          <col className="w-[11%]" /> {/* Valor Original */}
+          <col className="w-[11%]" /> {/* Valor Pago */}
+          <col className="w-[12%]" /> {/* Valor Devido */}
+          <col className="w-[13%]" /> {/* Ações Rápidas */}
+        </colgroup>
+
         <thead>
-          <tr className="border-b border-slate-200 text-[11px] font-black uppercase tracking-wider text-slate-500 bg-slate-50/80/60 font-mono">
-            <th scope="col" className="py-4 px-5 text-center">Devedor / Cliente</th>
-            <th scope="col" className="py-4 px-4 text-center">Status de Cobrança</th>
-            <th scope="col" className="py-4 px-4 text-center">Próximo Vencimento</th>
-            <th scope="col" className="py-4 px-4 text-center">Valor Original</th>
-            <th scope="col" className="py-4 px-4 text-center">Valor Pago</th>
-            <th scope="col" className="py-4 px-5 text-center">Valor Total Devido</th>
-            <th scope="col" className="py-4 px-5 text-center">Ações Rápidas</th>
+          <tr className="border-b border-slate-200/80 text-[11px] font-black uppercase tracking-wider text-slate-500 bg-slate-50/90 font-mono">
+            <th scope="col" className="py-4 pl-6 pr-3 text-left">Devedor / Cliente</th>
+            <th scope="col" className="py-4 px-3 text-center">Status</th>
+            <th scope="col" className="py-4 px-3 text-center">Vencimento</th>
+            <th scope="col" className="py-4 px-3 text-right">Original</th>
+            <th scope="col" className="py-4 px-3 text-right">Valor Pago</th>
+            <th scope="col" className="py-4 px-3 text-right">Saldo Devido</th>
+            <th scope="col" className="py-4 pl-3 pr-6 text-right">Ações</th>
           </tr>
         </thead>
+
         <tbody className="divide-y divide-slate-100">
           <AnimatePresence>
             {paginatedDebts.map((debt, index) => {
@@ -58,16 +71,10 @@ export const DevedoresTable: React.FC<DevedoresTableProps> = ({
               return (
                 <motion.tr
                   key={`table-${debt.id}-${index}`}
-                  initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ 
-                    opacity: 0, 
-                    scale: 0.92, 
-                    x: -24, 
-                    filter: 'blur(4px)',
-                    transition: { duration: 0.2, ease: 'easeOut' } 
-                  }}
-                  transition={{ duration: 0.25, ease: 'easeOut', delay: index * 0.03 }}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.2, ease: 'easeOut', delay: index * 0.02 }}
                   role="button"
                   tabIndex={0}
                   onClick={() => onSelectDebtor(debt)}
@@ -77,16 +84,16 @@ export const DevedoresTable: React.FC<DevedoresTableProps> = ({
                       onSelectDebtor(debt);
                     }
                   }}
-                  className={`group cursor-pointer transition-all duration-200 focus:outline-none focus:bg-emerald-50/50/30 ${
+                  className={`group cursor-pointer transition-all duration-150 focus:outline-none focus:bg-emerald-50/40 ${
                     isOverdue 
-                      ? 'bg-rose-50/40/20 hover:bg-rose-50/80/40 border-l-4 border-l-rose-500' 
-                      : 'hover:bg-slate-50/80/60'
+                      ? 'bg-rose-50/30 hover:bg-rose-50/70 border-l-4 border-l-rose-500' 
+                      : 'hover:bg-slate-50/80'
                   }`}
                 >
                   {/* Devedor Column */}
-                  <td className="py-4 px-5 align-middle text-center">
-                    <div className="flex items-center justify-center gap-3">
-                      <div className={`w-10 h-10 rounded-2xl flex items-center justify-center font-extrabold text-xs shrink-0 shadow-sm font-mono border ${
+                  <td className="py-3.5 pl-6 pr-3 align-middle">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-9 h-9 rounded-xl flex items-center justify-center font-extrabold text-xs shrink-0 shadow-xs font-mono border ${
                         isOverdue 
                           ? 'bg-gradient-to-br from-rose-600 to-red-700 text-white border-rose-400' 
                           : debt.status === 'paid' 
@@ -99,11 +106,11 @@ export const DevedoresTable: React.FC<DevedoresTableProps> = ({
                       </div>
                       
                       <div className="min-w-0 text-left">
-                        <span className="block text-sm font-black text-slate-900 group-hover:text-emerald-600 transition-colors truncate font-display">
+                        <span className="block text-xs sm:text-sm font-black text-slate-900 group-hover:text-emerald-600 transition-colors truncate font-display">
                           {debt.name}
                         </span>
                         {debt.phone && (
-                          <span className="block text-[11px] font-mono text-slate-400 mt-0.5">
+                          <span className="block text-[11px] font-mono text-slate-400 mt-0.5 truncate">
                             {formatPhone(debt.phone)}
                           </span>
                         )}
@@ -112,35 +119,35 @@ export const DevedoresTable: React.FC<DevedoresTableProps> = ({
                   </td>
 
                   {/* Status Column */}
-                  <td className="py-4 px-4 align-middle text-center">
+                  <td className="py-3.5 px-3 align-middle text-center">
                     {isOverdue && (
-                      <span className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-xl bg-rose-100 text-rose-700 border border-rose-200">
-                        <AlertTriangle className="w-3.5 h-3.5" />
+                      <span className="inline-flex items-center gap-1 text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-xl bg-rose-100/90 text-rose-700 border border-rose-200 shadow-2xs whitespace-nowrap">
+                        <AlertTriangle className="w-3 h-3 shrink-0" />
                         Atrasado
                       </span>
                     )}
                     {!isOverdue && debt.status === 'pending' && (
-                      <span className="inline-flex items-center gap-1.5 text-[10px] font-extrabold px-2.5 py-1 rounded-xl bg-amber-100 text-amber-800 border border-amber-200">
-                        <Clock className="w-3.5 h-3.5" />
+                      <span className="inline-flex items-center gap-1 text-[10px] font-extrabold px-2.5 py-1 rounded-xl bg-amber-100/90 text-amber-800 border border-amber-200 shadow-2xs whitespace-nowrap">
+                        <Clock className="w-3 h-3 shrink-0" />
                         Em Aberto
                       </span>
                     )}
                     {!isOverdue && debt.status === 'partial' && (
-                      <span className="inline-flex items-center gap-1.5 text-[10px] font-extrabold px-2.5 py-1 rounded-xl bg-teal-100 text-teal-800 border border-teal-200">
-                        <TrendingUp className="w-3.5 h-3.5" />
+                      <span className="inline-flex items-center gap-1 text-[10px] font-extrabold px-2.5 py-1 rounded-xl bg-teal-100/90 text-teal-800 border border-teal-200 shadow-2xs whitespace-nowrap">
+                        <TrendingUp className="w-3 h-3 shrink-0" />
                         Parcial
                       </span>
                     )}
                     {!isOverdue && debt.status === 'paid' && (
-                      <span className="inline-flex items-center gap-1.5 text-[10px] font-extrabold px-2.5 py-1 rounded-xl bg-emerald-100 text-emerald-800 border border-emerald-200">
-                        <CheckCircle2 className="w-3.5 h-3.5" />
-                        Em Dia / Quitado
+                      <span className="inline-flex items-center gap-1 text-[10px] font-extrabold px-2.5 py-1 rounded-xl bg-emerald-100/90 text-emerald-800 border border-emerald-200 shadow-2xs whitespace-nowrap">
+                        <CheckCircle2 className="w-3 h-3 shrink-0" />
+                        Quitado
                       </span>
                     )}
                   </td>
 
                   {/* Vencimento */}
-                  <td className="py-4 px-4 align-middle text-center text-xs font-mono">
+                  <td className="py-3.5 px-3 align-middle text-center text-xs font-mono whitespace-nowrap">
                     {debt.dueDate ? (
                       <span className={isOverdue ? 'text-rose-600 font-bold' : 'text-slate-600 font-medium'}>
                         {formatDate(debt.dueDate)}
@@ -151,67 +158,73 @@ export const DevedoresTable: React.FC<DevedoresTableProps> = ({
                   </td>
 
                   {/* Original */}
-                  <td className="py-4 px-4 align-middle text-center text-xs text-slate-500 font-mono font-medium">
+                  <td className="py-3.5 px-3 align-middle text-right text-xs text-slate-500 font-mono font-medium whitespace-nowrap">
                     {formatCurrency(debt.originalAmount)}
                   </td>
 
                   {/* Pago */}
-                  <td className="py-4 px-4 align-middle text-center text-xs font-bold text-emerald-600 font-mono">
+                  <td className="py-3.5 px-3 align-middle text-right text-xs font-bold text-emerald-600 font-mono whitespace-nowrap">
                     {totalPaid > 0 ? formatCurrency(totalPaid) : '-'}
                   </td>
 
                   {/* Saldo Restante */}
-                  <td className="py-4 px-5 align-middle text-center text-sm font-black font-mono">
+                  <td className="py-3.5 px-3 align-middle text-right text-xs sm:text-sm font-black font-mono whitespace-nowrap">
                     <span className={debt.currentAmount > 0 ? 'text-rose-600' : 'text-slate-400'}>
                       {formatCurrency(debt.currentAmount)}
                     </span>
                   </td>
 
                   {/* Actions */}
-                  <td className="py-4 px-5 align-middle text-center" onClick={(e) => e.stopPropagation()}>
-                    <div className="flex items-center justify-center gap-1.5" onClick={(e) => e.stopPropagation()}>
-                      {debt.currentAmount > 0 && (
+                  <td className="py-3.5 pl-3 pr-6 align-middle text-right" onClick={(e) => e.stopPropagation()}>
+                    <div className="flex items-center justify-end gap-1.5" onClick={(e) => e.stopPropagation()}>
+                      {debt.currentAmount > 0 ? (
                         <>
                           <a
                             href={whatsappUrl}
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={(e) => e.stopPropagation()}
-                            className="p-2 bg-emerald-50/60 hover:bg-emerald-500 text-emerald-700 hover:text-white rounded-xl transition-all duration-200 cursor-pointer border border-emerald-200 shadow-2xs active:scale-95"
+                            className="p-1.5 bg-emerald-50 hover:bg-emerald-500 text-emerald-700 hover:text-white rounded-xl transition-all duration-150 cursor-pointer border border-emerald-200 shadow-2xs active:scale-95 shrink-0"
                             title="Cobrar via WhatsApp"
                           >
                             <MessageCircle className="w-4 h-4" />
                           </a>
 
                           <button
+                            type="button"
                             onClick={(e) => { e.stopPropagation(); onAddPaymentClick(debt); }}
-                            className="p-2 bg-teal-50/60 hover:bg-teal-500 text-teal-700 hover:text-white rounded-xl transition-all duration-200 cursor-pointer border border-teal-200 shadow-2xs active:scale-95"
+                            className="p-1.5 bg-teal-50 hover:bg-teal-500 text-teal-700 hover:text-white rounded-xl transition-all duration-150 cursor-pointer border border-teal-200 shadow-2xs active:scale-95 shrink-0"
                             title="Registrar pagamento"
                           >
                             <PlusCircle className="w-4 h-4" />
                           </button>
                         </>
+                      ) : (
+                        <div className="w-[62px] shrink-0" />
                       )}
 
                       <button
+                        type="button"
                         onClick={(e) => { e.stopPropagation(); onEdit(debt); }}
-                        className="p-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl transition-all duration-200 cursor-pointer border border-slate-200 shadow-2xs active:scale-95"
+                        className="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl transition-all duration-150 cursor-pointer border border-slate-200 shadow-2xs active:scale-95 shrink-0"
                         title="Editar cobrança"
                       >
                         <Edit3 className="w-4 h-4" />
                       </button>
 
                       <button
+                        type="button"
                         onClick={(e) => { e.stopPropagation(); onSelectDebtor(debt); }}
-                        className="p-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl transition-all duration-200 cursor-pointer border border-slate-200 shadow-2xs active:scale-95"
+                        className="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl transition-all duration-150 cursor-pointer border border-slate-200 shadow-2xs active:scale-95 shrink-0"
                         title="Ver Detalhes do Devedor"
                       >
                         <ChevronRight className="w-4 h-4" />
                       </button>
 
                       <button
+                        type="button"
                         onClick={(e) => { e.stopPropagation(); onDelete(debt.id); }}
-                        className="p-2 bg-rose-50/60 hover:bg-rose-600 text-rose-600 hover:text-white rounded-xl transition-all duration-200 cursor-pointer border border-rose-200 shadow-2xs active:scale-95"
+                        className="p-1.5 bg-rose-50 hover:bg-rose-600 text-rose-600 hover:text-white rounded-xl transition-all duration-150 cursor-pointer border border-rose-200 shadow-2xs active:scale-95 shrink-0"
                         title="Excluir cobrança"
                       >
                         <Trash2 className="w-4 h-4" />

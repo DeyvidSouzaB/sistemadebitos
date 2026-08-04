@@ -28,7 +28,7 @@ const RelatoriosView        = React.lazy(() => import('./components/RelatoriosVi
 export default function App() {
   // ── Global hooks ──────────────────────────────────────────────────────────
   const { toast, toastMessage, triggerToast } = useToast();
-  const { currentUser, authLoading, showAuthModal, setShowAuthModal, handleLogout, handleLoginSuccess } =
+  const { currentUser, authLoading, showAuthModal, setShowAuthModal, updateUserName, handleLogout, handleLoginSuccess } =
     useAuth(triggerToast);
   const { activeSidebarOption, setActiveSidebarOption, handleSidebarOptionSelect } =
     useNavigation(currentUser, authLoading, handleLogout);
@@ -209,6 +209,7 @@ export default function App() {
                     onOpenSqlModal={() => setActiveModal('sql')}
                     onLoadDemoData={() => setActiveModal('confirm_load_demo')}
                     onClearDb={() => setActiveModal('confirm_clear_db')}
+                    onUpdateUserName={updateUserName}
                   />
                 </Suspense>
               )}

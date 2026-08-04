@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { User, CheckCircle2, MessageCircle, Sparkles, Smartphone, Download, Monitor } from 'lucide-react';
+import { User, CheckCircle2, MessageCircle, Sparkles, Smartphone, Download } from 'lucide-react';
 import { getWhatsappConfig, saveWhatsappConfig, buildWhatsappMessage, WhatsappConfig } from '../utils/phoneUtils';
 import { motion } from 'motion/react';
 import { usePwaInstall } from '../hooks/usePwaInstall';
@@ -17,6 +17,7 @@ interface ConfiguracoesViewProps {
   onOpenSqlModal?: () => void;
   onLoadDemoData: () => void;
   onClearDb: () => void;
+  onUpdateUserName?: (newName: string) => Promise<boolean>;
 }
 
 export default function ConfiguracoesView({
@@ -26,10 +27,32 @@ export default function ConfiguracoesView({
   onOpenSqlModal,
   onLoadDemoData,
   onClearDb,
+  onUpdateUserName,
 }: ConfiguracoesViewProps) {
   const [savedSuccess, setSavedSuccess] = useState(false);
   const [autoReminders, setAutoReminders] = useState(true);
   const [currencySymbol, setCurrencySymbol] = useState('R$');
+
+  // User Profile Name State
+  const [nameInput, setNameInput] = useState(userName);
+  const [isUpdatingName, setIsUpdatingName] = useState(false);
+  const [nameSavedSuccess, setNameSavedSuccess] = useState(false);
+
+  useEffect(() => {
+    setNameInput(userName);
+  }, [userName]);
+
+  const handleSaveProfileName = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!onUpdateUserName || !nameInput.trim()) return;
+    setIsUpdatingName(true);
+    const success = await onUpdateUserName(nameInput);
+    setIsUpdatingName(false);
+    if (success) {
+      setNameSavedSuccess(true);
+      setTimeout(() => setNameSavedSuccess(false), 3000);
+    }
+  };
 
   const {
     isInstallable,
@@ -50,7 +73,7 @@ export default function ConfiguracoesView({
     setWaMode(initialConfig.mode || 'empty');
     setWaCustomText(
       initialConfig.customTemplate ||
-        'Olá {nome}, tudo bem? Segue lembrete da sua cobrança no valor de {valor} (vencimento: {vencimento}).'
+      'Olá {nome}, tudo bem? Segue lembrete da sua cobrança no valor de {valor} (vencimento: {vencimento}).'
     );
   }, []);
 
@@ -77,7 +100,7 @@ export default function ConfiguracoesView({
   });
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
@@ -122,29 +145,32 @@ export default function ConfiguracoesView({
         {/* LEFT COLUMN: User Profile & Database Tools */}
         <div className="space-y-6">
           {/* User Profile Card */}
-          <div className="bg-white/90 p-6 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+          <form onSubmit={handleSaveProfileName} className="bg-white/90 p-6 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
             <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider flex items-center gap-2 border-b border-slate-100 pb-3 font-mono">
               <User className="w-4 h-4 text-emerald-600" /> Perfil do Usuário
             </h3>
 
             <div className="flex items-center gap-3.5 py-2">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white font-black text-sm flex items-center justify-center font-mono shadow-sm">
-                {userName.slice(0, 2).toUpperCase()}
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white font-black text-sm flex items-center justify-center font-mono shadow-sm shrink-0">
+                {nameInput.trim() ? nameInput.trim().slice(0, 2).toUpperCase() : 'US'}
               </div>
               <div className="min-w-0">
-                <p className="text-sm font-black text-slate-900 truncate font-display">{userName}</p>
+                <p className="text-sm font-black text-slate-900 truncate font-display">{nameInput || userName}</p>
                 <p className="text-xs text-slate-400 truncate">{userEmail}</p>
               </div>
             </div>
 
-            <div className="space-y-3 pt-2">
+            <div className="space-y-3 pt-1">
               <div>
-                <label className="block text-xs font-bold text-slate-600 mb-1">Razão Social / Operador</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  Razão Social / Nome do Operador
+                </label>
                 <input
                   type="text"
-                  readOnly
-                  value={userName}
-                  className="w-full bg-slate-50 border border-slate-200 text-slate-800 text-xs font-mono px-3.5 py-2.5 rounded-xl"
+                  value={nameInput}
+                  onChange={(e) => setNameInput(e.target.value)}
+                  placeholder="Digite seu nome ou razão social..."
+                  className="w-full bg-slate-50 border border-slate-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 text-slate-900 text-xs font-medium px-3.5 py-2.5 rounded-xl transition-all outline-none"
                 />
               </div>
 
@@ -154,11 +180,38 @@ export default function ConfiguracoesView({
                   type="text"
                   readOnly
                   value={userEmail}
-                  className="w-full bg-slate-50 border border-slate-200 text-slate-800 text-xs font-mono px-3.5 py-2.5 rounded-xl"
+                  className="w-full bg-slate-100 border border-slate-200 text-slate-500 text-xs font-mono px-3.5 py-2.5 rounded-xl cursor-not-allowed"
                 />
               </div>
+
+              {onUpdateUserName && (
+                <button
+                  type="submit"
+                  disabled={isUpdatingName || nameInput.trim() === userName || !nameInput.trim()}
+                  className={`w-full py-2.5 px-4 font-black text-xs rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer ${nameSavedSuccess
+                      ? 'bg-emerald-600 text-white'
+                      : isUpdatingName || nameInput.trim() === userName || !nameInput.trim()
+                        ? 'bg-slate-200 text-slate-400 cursor-not-allowed shadow-none'
+                        : 'bg-emerald-500 hover:bg-emerald-400 text-slate-950 active:scale-95'
+                    }`}
+                >
+                  {isUpdatingName ? (
+                    <span>Salvando Informações...</span>
+                  ) : nameSavedSuccess ? (
+                    <>
+                      <CheckCircle2 className="w-4 h-4 text-white" />
+                      <span>Informações Atualizadas!</span>
+                    </>
+                  ) : (
+                    <>
+                      <CheckCircle2 className="w-4 h-4 text-slate-950" />
+                      <span>Salvar Informações</span>
+                    </>
+                  )}
+                </button>
+              )}
             </div>
-          </div>
+          </form>
 
           {/* PWA App Installation / Shortcut Card */}
           <div className="bg-gradient-to-br from-slate-900 via-slate-950 to-emerald-950 text-white p-6 rounded-3xl border border-slate-800/80 shadow-md space-y-4 relative overflow-hidden">
@@ -213,9 +266,8 @@ export default function ConfiguracoesView({
               </label>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <label className={`p-4 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between ${
-                  waMode === 'empty' ? 'border-emerald-500 bg-emerald-50/50/40 ring-1 ring-emerald-500' : 'border-slate-200 bg-slate-50/50/40'
-                }`}>
+                <label className={`p-4 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between ${waMode === 'empty' ? 'border-emerald-500 bg-emerald-50/50/40 ring-1 ring-emerald-500' : 'border-slate-200 bg-slate-50/50/40'
+                  }`}>
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-xs font-bold text-slate-900">Apenas Link</span>
                     <input
@@ -230,9 +282,8 @@ export default function ConfiguracoesView({
                   <p className="text-[11px] text-slate-500">Abre a conversa do WhatsApp sem texto pré-preenchido.</p>
                 </label>
 
-                <label className={`p-4 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between ${
-                  waMode === 'standard' ? 'border-emerald-500 bg-emerald-50/50/40 ring-1 ring-emerald-500' : 'border-slate-200 bg-slate-50/50/40'
-                }`}>
+                <label className={`p-4 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between ${waMode === 'standard' ? 'border-emerald-500 bg-emerald-50/50/40 ring-1 ring-emerald-500' : 'border-slate-200 bg-slate-50/50/40'
+                  }`}>
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-xs font-bold text-slate-900">Padrão Sistema</span>
                     <input
@@ -247,9 +298,8 @@ export default function ConfiguracoesView({
                   <p className="text-[11px] text-slate-500">Mensagem padrão amigável informando o saldo e vencimento.</p>
                 </label>
 
-                <label className={`p-4 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between ${
-                  waMode === 'custom' ? 'border-emerald-500 bg-emerald-50/50/40 ring-1 ring-emerald-500' : 'border-slate-200 bg-slate-50/50/40'
-                }`}>
+                <label className={`p-4 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between ${waMode === 'custom' ? 'border-emerald-500 bg-emerald-50/50/40 ring-1 ring-emerald-500' : 'border-slate-200 bg-slate-50/50/40'
+                  }`}>
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-xs font-bold text-slate-900">Personalizada</span>
                     <input

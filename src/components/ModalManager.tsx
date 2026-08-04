@@ -231,9 +231,9 @@ export default function ModalManager({
       {/* Confirmation: load demo data */}
       <ConfirmModal
         isOpen={activeModal === 'confirm_load_demo'}
-        title="Restaurar Dados Demonstrativos"
-        message="Isso substituirá a base atual pelos registros demonstrativos padrão."
-        confirmText="Restaurar"
+        title="Gerar 100 Clientes Fictícios de Teste"
+        message="Isso preencherá sua conta com 100 clientes brasileiros fictícios, incluindo telefones, descrições, valores, datas de vencimento e histórico de pagamentos."
+        confirmText="Gerar 100 Clientes"
         type="warning"
         onClose={onCloseModal}
         onConfirm={onConfirmLoadDemo}

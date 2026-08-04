@@ -12,6 +12,7 @@ import {
   deletePaymentFromDb 
 } from '../lib/supabaseService';
 import { getTodayString, formatDate, getEffectivePaidAmount } from '../utils/dateUtils';
+import { generate100DemoDebts } from '../utils/demoDataGenerator';
 
 export const INITIAL_DEBTS: Debt[] = [
   {
@@ -509,10 +510,11 @@ export function useDebts(currentUser: User | null, triggerToast: (msg: string) =
     triggerToast('Toda a base de dados foi limpa.');
   }, [triggerToast, updateDebtsState]);
 
-  // Load Demo Data
+  // Load Demo Data (100 fictitious clients)
   const confirmLoadDemoData = useCallback(() => {
-    updateDebtsState(INITIAL_DEBTS);
-    triggerToast('Dados demonstrativos recarregados com sucesso.');
+    const demoDebts = generate100DemoDebts();
+    updateDebtsState(demoDebts);
+    triggerToast('100 clientes fictícios e cobranças recarregados com sucesso!');
   }, [triggerToast, updateDebtsState]);
 
   // Notifications Count
