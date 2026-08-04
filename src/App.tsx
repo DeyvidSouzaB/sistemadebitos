@@ -25,22 +25,6 @@ const PrazosVencimentosView = React.lazy(() => import('./components/PrazosVencim
 const ConfiguracoesView     = React.lazy(() => import('./components/ConfiguracoesView'));
 const RelatoriosView        = React.lazy(() => import('./components/RelatoriosView'));
 
-// ── Shared fallbacks ─────────────────────────────────────────────────────────
-const LoadingSpinner = ({ label = 'Carregando...' }: { label?: string }) => (
-  <div className="min-h-screen bg-slate-950 text-white flex flex-col items-center justify-center p-4">
-    <div className="w-12 h-12 border-4 border-emerald-500/20 border-t-emerald-500 rounded-full animate-spin mb-4" />
-    <p className="text-xs font-bold text-slate-400 tracking-wider uppercase">{label}</p>
-  </div>
-);
-
-// Inline fallback for inner views (inside the app shell)
-const ViewFallback = () => (
-  <div className="flex items-center justify-center p-16 text-slate-400">
-    <div className="w-7 h-7 border-2 border-emerald-500/20 border-t-emerald-500 rounded-full animate-spin mr-3" />
-    <span className="text-sm font-medium">Carregando...</span>
-  </div>
-);
-
 export default function App() {
   // ── Global hooks ──────────────────────────────────────────────────────────
   const { toast, toastMessage, triggerToast } = useToast();
@@ -110,7 +94,7 @@ export default function App() {
 
   if (!currentUser || showAuthModal) {
     return (
-      <Suspense fallback={<LoadingSpinner label="Carregando..." />}>
+      <Suspense fallback={null}>
         <div className="relative">
           <AuthView
             onLoginSuccess={(user) => {
@@ -134,7 +118,7 @@ export default function App() {
   // ── Main authenticated app ────────────────────────────────────────────────
   return (
     <>
-      <Suspense fallback={<LoadingSpinner />}>
+      <Suspense fallback={null}>
         <AppShell
           activeSidebarOption={activeSidebarOption}
           currentUser={currentUser}
@@ -158,7 +142,7 @@ export default function App() {
               transition={{ duration: 0.1, ease: 'easeOut' }}
             >
               {activeSidebarOption === 'dashboard' && (
-                <Suspense fallback={<ViewFallback />}>
+                <Suspense fallback={null}>
                   <Dashboard
                     debts={debts}
                     onOpenAddModal={openAddModal}
@@ -175,7 +159,7 @@ export default function App() {
               )}
 
               {activeSidebarOption === 'clientes' && (
-                <Suspense fallback={<ViewFallback />}>
+                <Suspense fallback={null}>
                   <DevedoresView
                     debts={debts}
                     sortedDebts={sortedDebts}
@@ -196,7 +180,7 @@ export default function App() {
               )}
 
               {activeSidebarOption === 'prazos' && (
-                <Suspense fallback={<ViewFallback />}>
+                <Suspense fallback={null}>
                   <PrazosVencimentosView
                     debts={debts}
                     onSelectDebt={openDetailModal}
@@ -206,7 +190,7 @@ export default function App() {
               )}
 
               {activeSidebarOption === 'relatorios' && (
-                <Suspense fallback={<ViewFallback />}>
+                <Suspense fallback={null}>
                   <RelatoriosView
                     debts={debts}
                     onSelectDebt={openDetailModal}
@@ -217,7 +201,7 @@ export default function App() {
               )}
 
               {activeSidebarOption === 'configuracoes' && (
-                <Suspense fallback={<ViewFallback />}>
+                <Suspense fallback={null}>
                   <ConfiguracoesView
                     userName={currentUser.name}
                     userEmail={currentUser.email}

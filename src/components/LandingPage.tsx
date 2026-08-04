@@ -463,7 +463,7 @@ export default function LandingPage({ onEnterApp, onOpenAuth, liveDebts }: Landi
       {/* SECTION: LIVE SYSTEM METRICS (DADOS DO SISTEMA AO VIVO)        */}
       {/* ------------------------------------------------------------- */}
       <section id="numeros-ao-vivo" className="relative z-20 -mt-10 mb-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-28">
-        <React.Suspense fallback={<SectionSkeleton />}>
+        <React.Suspense fallback={null}>
           <LiveStatsModern stats={stats} />
         </React.Suspense>
       </section>
@@ -473,7 +473,7 @@ export default function LandingPage({ onEnterApp, onOpenAuth, liveDebts }: Landi
       {/* ------------------------------------------------------------- */}
       <section id="problema" className="py-16 scroll-mt-24 bg-white border-y border-slate-200/80 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <React.Suspense fallback={<SectionSkeleton />}>
+          <React.Suspense fallback={null}>
             <PainPointsBento />
           </React.Suspense>
         </div>
@@ -484,7 +484,7 @@ export default function LandingPage({ onEnterApp, onOpenAuth, liveDebts }: Landi
       {/* ------------------------------------------------------------- */}
       <section id="solucao" className="py-16 scroll-mt-24 bg-slate-50/80 relative border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <React.Suspense fallback={<SectionSkeleton />}>
+          <React.Suspense fallback={null}>
             <HowItWorksBento />
           </React.Suspense>
 
@@ -503,7 +503,7 @@ export default function LandingPage({ onEnterApp, onOpenAuth, liveDebts }: Landi
 
       <section id="recursos" className="py-16 scroll-mt-24 bg-white border-y border-slate-200/80 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <React.Suspense fallback={<SectionSkeleton />}>
+          <React.Suspense fallback={null}>
             <FeaturesBento />
           </React.Suspense>
         </div>
@@ -554,7 +554,7 @@ export default function LandingPage({ onEnterApp, onOpenAuth, liveDebts }: Landi
       {/* ------------------------------------------------------------- */}
       {/* FAQ SECTION                                                   */}
       {/* ------------------------------------------------------------- */}
-      <React.Suspense fallback={<SectionSkeleton />}>
+      <React.Suspense fallback={null}>
         <LandingFaq />
       </React.Suspense>
 
