@@ -173,12 +173,17 @@ export default function DebtModal({
             {/* Debtor Name */}
             <div>
               <label htmlFor="input-debt-name" className="block text-xs font-extrabold text-slate-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                <User className="w-3.5 h-3.5 text-emerald-600" /> Nome do Devedor *
+                <User className="w-3.5 h-3.5 text-emerald-600" /> Nome do Devedor
+                <span aria-hidden="true" className="text-rose-500 ml-0.5">*</span>
               </label>
               <input
                 id="input-debt-name"
                 type="text"
                 required
+                autoFocus
+                aria-required="true"
+                aria-invalid={errors.name ? 'true' : undefined}
+                aria-describedby={errors.name ? 'error-debt-name' : undefined}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Ex: Carlos Silva Santos"
@@ -188,7 +193,9 @@ export default function DebtModal({
                     : 'border-slate-200 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/15'
                 } rounded-2xl focus:outline-none transition-all text-sm`}
               />
-              {errors.name && <p className="text-xs text-rose-500 mt-1.5 font-bold flex items-center gap-1">⚠️ {errors.name}</p>}
+              {errors.name && (
+                <p id="error-debt-name" role="alert" className="text-xs text-rose-500 mt-1.5 font-bold flex items-center gap-1">⚠️ {errors.name}</p>
+              )}
             </div>
 
             {/* Debtor Phone / WhatsApp */}
@@ -227,6 +234,9 @@ export default function DebtModal({
                     step="0.01"
                     min="0.01"
                     required
+                    aria-required="true"
+                    aria-invalid={errors.originalAmount ? 'true' : undefined}
+                    aria-describedby={errors.originalAmount ? 'error-debt-amount' : undefined}
                     value={originalAmount}
                     onChange={(e) => setOriginalAmount(e.target.value)}
                     placeholder="0,00"
@@ -238,7 +248,7 @@ export default function DebtModal({
                   />
                 </div>
                 {errors.originalAmount && (
-                  <p className="text-xs text-rose-500 mt-1.5 font-bold flex items-center gap-1">⚠️ {errors.originalAmount}</p>
+                  <p id="error-debt-amount" role="alert" className="text-xs text-rose-500 mt-1.5 font-bold flex items-center gap-1">⚠️ {errors.originalAmount}</p>
                 )}
               </div>
 
@@ -251,6 +261,9 @@ export default function DebtModal({
                   id="input-debt-created-at"
                   type="date"
                   required
+                  aria-required="true"
+                  aria-invalid={errors.createdAt ? 'true' : undefined}
+                  aria-describedby={errors.createdAt ? 'error-debt-created-at' : undefined}
                   value={createdAt}
                   onChange={(e) => setCreatedAt(e.target.value)}
                   className={`w-full px-4 py-3 bg-slate-50/80 focus:bg-white text-slate-900 font-bold border ${
@@ -259,7 +272,9 @@ export default function DebtModal({
                       : 'border-slate-200 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/15'
                   } rounded-2xl focus:outline-none transition-all text-sm`}
                 />
-                {errors.createdAt && <p className="text-xs text-rose-500 mt-1.5 font-bold flex items-center gap-1">⚠️ {errors.createdAt}</p>}
+                {errors.createdAt && (
+                  <p id="error-debt-created-at" role="alert" className="text-xs text-rose-500 mt-1.5 font-bold flex items-center gap-1">⚠️ {errors.createdAt}</p>
+                )}
               </div>
             </div>
 
@@ -271,6 +286,8 @@ export default function DebtModal({
               <input
                 id="input-debt-due-date"
                 type="date"
+                aria-invalid={errors.dueDate ? 'true' : undefined}
+                aria-describedby={errors.dueDate ? 'error-debt-due-date' : undefined}
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}
                 className={`w-full px-4 py-3 bg-slate-50/80 focus:bg-white text-slate-900 font-bold border ${
@@ -279,7 +296,9 @@ export default function DebtModal({
                     : 'border-slate-200 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/15'
                 } rounded-2xl focus:outline-none transition-all text-sm`}
               />
-              {errors.dueDate && <p className="text-xs text-rose-500 mt-1.5 font-bold flex items-center gap-1">⚠️ {errors.dueDate}</p>}
+              {errors.dueDate && (
+                <p id="error-debt-due-date" role="alert" className="text-xs text-rose-500 mt-1.5 font-bold flex items-center gap-1">⚠️ {errors.dueDate}</p>
+              )}
             </div>
 
             {/* Description */}

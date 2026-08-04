@@ -1,14 +1,13 @@
 # 💚 Pagmefy - Sistema de Gestão de Débitos e Cobranças no WhatsApp
 
-![Build Status](https://img.shields.io/badge/Build-Passing-emerald?style=for-the-badge&logo=github-actions)
-![Tests](https://img.shields.io/badge/Tests-17%20Passed-emerald?style=for-the-badge&logo=vitest)
-![Coverage](https://img.shields.io/badge/Coverage-98%25-brightgreen?style=for-the-badge&logo=codecov)
+[![CI](https://github.com/DeyvidSouzaB/sistemadebitos/actions/workflows/ci.yml/badge.svg)](https://github.com/DeyvidSouzaB/sistemadebitos/actions/workflows/ci.yml)
+![Tests](https://img.shields.io/badge/Tests-29%20Passed-22c55e?style=for-the-badge&logo=vitest)
 ![React](https://img.shields.io/badge/React-19.0-61DAFB?style=for-the-badge&logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?style=for-the-badge&logo=typescript)
 ![Vite](https://img.shields.io/badge/Vite-6.2-646CFF?style=for-the-badge&logo=vite)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-38BDF8?style=for-the-badge&logo=tailwindcss)
 ![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?style=for-the-badge&logo=supabase)
-![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 
 **Pagmefy** é uma solução SaaS financeira moderna, de alta performance e totalmente responsiva para gestão de devedores, controle de cobranças com suporte a amortização parcial/total e automação de lembretes e notificações via WhatsApp.
 
@@ -139,13 +138,17 @@ erDiagram
 O repositório possui uma suíte robusta de testes unitários desenvolvida com **Vitest**, cobrindo todas as regras críticas de negócio financeiro e utilitários.
 
 ```
- ✓ src/__tests__/financialCalculations.test.ts (5 tests)
- ✓ src/__tests__/dateUtils.test.ts (7 tests)
- ✓ src/__tests__/useDebtCalculations.test.ts (2 tests)
- ✓ src/__tests__/phoneUtils.test.ts (3 tests)
+ ✓ src/__tests__/financialCalculations.test.ts  (5 tests)
+ ✓ src/__tests__/dateUtils.test.ts              (7 tests)
+ ✓ src/__tests__/useDebtCalculations.test.ts   (2 tests)
+ ✓ src/__tests__/phoneUtils.test.ts             (3 tests)
+ ✓ src/__tests__/useDebtFilters.test.ts         (5 tests)
+ ✓ src/__tests__/useDashboardMetrics.test.ts    (4 tests)
+ ✓ src/__tests__/debtorService.test.ts          (3 tests)
 
- Test Files  4 passed (4)
-      Tests  17 passed (17)
+ Test Files  7 passed (7)
+      Tests  29 passed (29)
+   Duration  ~1.5s
 ```
 
 ### Regras Testadas:
@@ -153,14 +156,17 @@ O repositório possui uma suíte robusta de testes unitários desenvolvida com *
 - 🟢 **Transição de Status**: Alteração automática de `pending` -> `partial` -> `paid`.
 - 🟢 **Isolamento de Datas**: Garantia de que datas de vencimento não sofrem regressão de fuso horário.
 - 🟢 **Sanitização de Telefones & WhatsApp**: Formatação e geração de mensagens pré-formatadas para cobrança direta.
+- 🟢 **Filtros de Devedores**: Ordenação, busca e filtragem por status e vencimento.
+- 🟢 **Métricas do Dashboard**: Cálculo correto de totais, inadimplência e recebíveis.
+- 🟢 **Serviço de Devedores**: Busca e agregação de dados por cliente.
 
 ### Como Executar os Testes
 ```bash
 # Rodar todos os testes unitários
 npm run test
 
-# Gerar relatório de cobertura
-npx vitest run --coverage
+# Gerar relatório de cobertura (requer @vitest/coverage-v8)
+npm run test:coverage
 ```
 
 ---

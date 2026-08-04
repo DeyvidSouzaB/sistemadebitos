@@ -107,18 +107,27 @@ export const AuthFormFields: React.FC<AuthFormFieldsProps> = ({
               <input
                 id="input-auth-email"
                 type="email"
+                autoFocus
                 value={email}
                 onBlur={() => setTouchedEmail(true)}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="seu.email@exemplo.com"
+                required
+                aria-required="true"
+                aria-invalid={touchedEmail && !email ? 'true' : undefined}
+                aria-describedby={touchedEmail && !email ? 'error-auth-email' : undefined}
                 className={`w-full pl-10 pr-4 py-3 bg-slate-50/80 border rounded-2xl focus:ring-4 text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-all ${
                   touchedEmail && !email 
                     ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500/10' 
                     : 'border-slate-200 focus:border-emerald-500 focus:ring-emerald-500/10'
                 }`}
-                required
               />
             </div>
+            {touchedEmail && !email && (
+              <p id="error-auth-email" role="alert" className="text-xs text-rose-500 font-bold mt-1.5 flex items-center gap-1">
+                ⚠️ Informe seu e-mail
+              </p>
+            )}
           </div>
         )}
 
@@ -213,22 +222,30 @@ export const AuthFormFields: React.FC<AuthFormFieldsProps> = ({
                 onBlur={() => setTouchedPassword(true)}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
+                required
+                aria-required="true"
+                aria-invalid={touchedPassword && !password ? 'true' : undefined}
+                aria-describedby={touchedPassword && !password ? 'error-auth-password' : undefined}
                 className={`w-full pl-10 pr-10 py-3 bg-slate-50/80 border rounded-2xl focus:ring-4 text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-all ${
                   touchedPassword && !password 
                     ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500/10' 
                     : 'border-slate-200 focus:border-emerald-500 focus:ring-emerald-500/10'
                 }`}
-                required
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3.5 top-3.5 text-slate-400 hover:text-slate-600 cursor-pointer"
-                title={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
               >
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>
+            {touchedPassword && !password && (
+              <p id="error-auth-password" role="alert" className="text-xs text-rose-500 font-bold mt-1.5 flex items-center gap-1">
+                ⚠️ Informe sua senha
+              </p>
+            )}
           </div>
         )}
 
@@ -248,8 +265,11 @@ export const AuthFormFields: React.FC<AuthFormFieldsProps> = ({
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full pl-10 pr-4 py-3 bg-slate-50/80 border border-slate-200 rounded-2xl focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-all"
                 required
+                aria-required="true"
+                aria-invalid={password && confirmPassword && password !== confirmPassword ? 'true' : undefined}
+                aria-describedby={password && confirmPassword && password !== confirmPassword ? 'error-auth-confirm-password' : undefined}
+                className="w-full pl-10 pr-4 py-3 bg-slate-50/80 border border-slate-200 rounded-2xl focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-all"
               />
             </div>
             {password && confirmPassword && (
@@ -259,7 +279,7 @@ export const AuthFormFields: React.FC<AuthFormFieldsProps> = ({
                     <Check className="w-3.5 h-3.5" /> Senhas coincidem
                   </span>
                 ) : (
-                  <span className="text-rose-600">As senhas não coincidem</span>
+                  <span id="error-auth-confirm-password" role="alert" className="text-rose-600">As senhas não coincidem</span>
                 )}
               </div>
             )}
@@ -269,8 +289,10 @@ export const AuthFormFields: React.FC<AuthFormFieldsProps> = ({
         {/* REMEMBER ME OPTION (Login mode only) */}
         {mode === 'login' && (
           <div className="flex items-center justify-between pt-1 select-none">
-            <button
+          <button
               type="button"
+              role="checkbox"
+              aria-checked={rememberMe}
               onClick={() => setRememberMe(!rememberMe)}
               className="flex items-center gap-2 text-xs font-semibold text-slate-600 hover:text-slate-900 cursor-pointer group py-1"
             >

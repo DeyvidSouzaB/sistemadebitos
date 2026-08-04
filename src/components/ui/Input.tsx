@@ -22,11 +22,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       rightIcon,
       id,
       disabled,
+      required,
       ...props
     },
     ref
   ) => {
     const inputId = id || (label ? label.toLowerCase().replace(/\s+/g, '-') : undefined);
+    const errorId = inputId ? `${inputId}-error` : undefined;
+    const helperId = inputId ? `${inputId}-helper` : undefined;
+    const describedBy = error ? errorId : helperText ? helperId : undefined;
 
     return (
       <div className={cn('space-y-1.5 w-full', containerClassName)}>
@@ -36,6 +40,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             className="flex items-center gap-1.5 text-[10px] sm:text-xs font-extrabold uppercase tracking-wider text-slate-600"
           >
             {label}
+            {required && <span aria-hidden="true" className="text-rose-500 ml-0.5">*</span>}
           </label>
         )}
         <div className="relative flex items-center">
@@ -48,6 +53,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             id={inputId}
             ref={ref}
             disabled={disabled}
+            required={required}
+            aria-required={required ? 'true' : undefined}
+            aria-invalid={error ? 'true' : undefined}
+            aria-describedby={describedBy}
             className={cn(
               // Matches system field style: slate-50/80 bg, emerald focus ring, rounded-2xl, Inter font
               'w-full bg-slate-50/80 focus:bg-white text-slate-900 font-semibold text-sm rounded-2xl border px-4 py-3 outline-none transition-all duration-150 placeholder:text-slate-400 placeholder:font-normal focus:ring-2 disabled:opacity-50 disabled:bg-slate-100 disabled:cursor-not-allowed',
@@ -67,11 +76,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           )}
         </div>
         {error ? (
-          <p className="flex items-center gap-1 text-[11px] text-rose-500 font-bold">
+          <p id={errorId} role="alert" className="flex items-center gap-1 text-[11px] text-rose-500 font-bold">
             ⚠️ {error}
           </p>
         ) : helperText ? (
-          <p className="text-[11px] text-slate-400 font-medium">{helperText}</p>
+          <p id={helperId} className="text-[11px] text-slate-400 font-medium">{helperText}</p>
         ) : null}
       </div>
     );

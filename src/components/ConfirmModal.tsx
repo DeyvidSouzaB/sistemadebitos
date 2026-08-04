@@ -144,7 +144,7 @@ export default function ConfirmModal({
       <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5 bg-white">
         {/* Message Card */}
         <div className={`p-4 sm:p-5 rounded-2xl border ${style.messageBg}`}>
-          <div className={`text-xs sm:text-sm font-medium leading-relaxed ${style.messageText}`}>
+          <div id="confirm-modal-description" className={`text-xs sm:text-sm font-medium leading-relaxed ${style.messageText}`}>
             {message}
           </div>
         </div>
