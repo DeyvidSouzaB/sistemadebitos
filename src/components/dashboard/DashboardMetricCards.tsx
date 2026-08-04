@@ -173,12 +173,7 @@ export const DashboardMetricCards: React.FC<DashboardMetricCardsProps> = ({
           overdueDebts.length > 0 ? 'bg-gradient-to-r from-amber-300 via-rose-300 to-white' : 'bg-gradient-to-r from-rose-500 to-red-500'
         }`} />
 
-        {overdueDebts.length > 0 && (
-          <>
-            <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl pointer-events-none" />
-            <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-amber-500/20 rounded-full blur-xl pointer-events-none" />
-          </>
-        )}
+
 
         <div className="flex items-start justify-between gap-3 mb-4 pt-1 relative z-10">
           <div>

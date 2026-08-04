@@ -43,11 +43,6 @@ export const AuthFeatureSidebar: React.FC = () => {
           backgroundSize: '24px 24px',
         }}
       />
-      {/* Glow blobs */}
-      <div className="absolute top-0 right-0 w-72 h-72 rounded-full blur-3xl pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.18), transparent 70%)' }} />
-      <div className="absolute bottom-0 left-0 w-56 h-56 rounded-full blur-3xl pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.10), transparent 70%)' }} />
 
       <div className="relative z-10 flex flex-col h-full p-10 lg:p-12 space-y-8">
 

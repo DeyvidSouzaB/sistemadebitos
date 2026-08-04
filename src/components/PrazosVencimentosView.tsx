@@ -70,9 +70,14 @@ function PrazosVencimentosView({ debts, onSelectDebt, onPayFull }: PrazosVencime
     >
       {/* 1. HERO HEADER */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 text-white p-6 sm:p-8 shadow-2xl border border-slate-800/80">
-        {/* Ambient background glows */}
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+        {/* Calendar grid watermark for Deadlines view */}
+        <div className="absolute right-8 top-1/2 -translate-y-1/2 opacity-[0.04] pointer-events-none hidden sm:block">
+          <div className="grid grid-cols-4 gap-2 w-48 h-32 border border-emerald-400 p-2 rounded-xl">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="border border-emerald-400/50 rounded-md" />
+            ))}
+          </div>
+        </div>
         <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-emerald-400 via-teal-400 to-emerald-600 rounded-l-3xl" />
 
         <div className="relative z-10 space-y-2.5 max-w-2xl">
