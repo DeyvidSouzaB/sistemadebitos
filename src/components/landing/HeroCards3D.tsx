@@ -54,14 +54,14 @@ export function HeroCards3D({ liveDebts = [] }: HeroCards3DProps) {
     <div className="relative w-full max-w-5xl mx-auto py-4 px-1 sm:px-6 lg:px-8 overflow-hidden">
       {/* View Switcher Toggle Bar (Mobile first, Desktop second) */}
       <div className="flex items-center justify-center gap-2 mb-4 relative z-20">
-        <div className="bg-slate-100 dark:bg-slate-800 p-1 rounded-full border border-slate-200/80 dark:border-slate-700 shadow-sm flex items-center gap-1">
+        <div className="bg-slate-100 p-1 rounded-full border border-slate-200/80 shadow-sm flex items-center gap-1">
           <button
             type="button"
             onClick={() => setViewMode('mobile')}
             className={`px-4 py-1.5 rounded-full text-xs font-black transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
               viewMode === 'mobile'
                 ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md'
-                : 'text-slate-600 dark:text-slate-300 hover:text-slate-900'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             <Smartphone className="w-3.5 h-3.5" />
@@ -74,7 +74,7 @@ export function HeroCards3D({ liveDebts = [] }: HeroCards3DProps) {
             className={`px-4 py-1.5 rounded-full text-xs font-black transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
               viewMode === 'desktop'
                 ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md'
-                : 'text-slate-600 dark:text-slate-300 hover:text-slate-900'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             <Laptop className="w-3.5 h-3.5" />

@@ -51,10 +51,10 @@ export const MobilePhoneMockup: React.FC<MobilePhoneMockupProps> = ({
         <div className="absolute -right-[7px] top-32 w-[3px] h-16 bg-slate-700 rounded-r-sm" />
 
         {/* Screen Container */}
-        <div className="relative w-full h-full bg-slate-50 dark:bg-slate-950 rounded-[40px] overflow-hidden flex flex-col justify-between border border-slate-800/40 font-sans">
+        <div className="relative w-full h-full bg-slate-50 rounded-[40px] overflow-hidden flex flex-col justify-between border border-slate-800/40 font-sans">
           
           {/* Top Speaker / Dynamic Island */}
-          <div className="sticky top-0 z-30 pt-2 bg-white dark:bg-slate-900 pb-1 border-b border-slate-100 dark:border-slate-800/80">
+          <div className="sticky top-0 z-30 pt-2 bg-white pb-1 border-b border-slate-100/80">
             <div className="w-28 h-4 bg-black rounded-full mx-auto flex items-center justify-between px-2.5 shadow-md">
               <div className="w-2 h-2 rounded-full bg-slate-900 border border-slate-700" />
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-900" />
@@ -63,11 +63,11 @@ export const MobilePhoneMockup: React.FC<MobilePhoneMockupProps> = ({
             {/* Mobile Header Bar */}
             <div className="px-3.5 pt-2 pb-1.5 flex items-center justify-between gap-2">
               <div className="flex items-center gap-2.5 min-w-0">
-                <div className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 shrink-0 border border-slate-200/60 dark:border-slate-700">
+                <div className="w-8 h-8 rounded-xl bg-slate-100 flex items-center justify-center text-slate-600 shrink-0 border border-slate-200/60">
                   <Menu className="w-4 h-4" />
                 </div>
                 <div className="min-w-0">
-                  <h3 className="text-xs font-black text-slate-900 dark:text-white tracking-tight font-display leading-tight truncate">
+                  <h3 className="text-xs font-black text-slate-900 tracking-tight font-display leading-tight truncate">
                     Painel Dashboard
                   </h3>
                   <p className="text-[9px] text-slate-400 font-medium truncate leading-tight">
@@ -77,7 +77,7 @@ export const MobilePhoneMockup: React.FC<MobilePhoneMockupProps> = ({
               </div>
 
               <div className="flex items-center gap-1.5 shrink-0">
-                <div className="relative w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700">
+                <div className="relative w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 border border-slate-200/60">
                   <Bell className="w-3.5 h-3.5" />
                   <span className="absolute top-0 right-0 w-3.5 h-3.5 bg-rose-500 text-white font-black text-[8px] rounded-full flex items-center justify-center ring-1 ring-white">
                     1
@@ -91,7 +91,7 @@ export const MobilePhoneMockup: React.FC<MobilePhoneMockupProps> = ({
           </div>
 
           {/* Scrollable Screen Content Body */}
-          <div className="flex-1 overflow-y-auto space-y-3.5 px-3 py-3 scrollbar-none text-slate-900 dark:text-white">
+          <div className="flex-1 overflow-y-auto space-y-3.5 px-3 py-3 scrollbar-none text-slate-900">
             
             {/* Dark Mobile Hero Banner */}
             <div className="relative rounded-2xl bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 text-white p-4 shadow-md border border-slate-800/80 overflow-hidden">
@@ -155,60 +155,60 @@ export const MobilePhoneMockup: React.FC<MobilePhoneMockupProps> = ({
             </div>
 
             {/* Mobile Metric Card 1: TOTAL A RECEBER */}
-            <div className="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-slate-200/80 dark:border-slate-800 shadow-xs space-y-3">
+            <div className="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs space-y-3">
               <div className="flex items-start justify-between">
                 <div>
-                  <span className="text-[10px] font-black uppercase text-emerald-600 dark:text-emerald-400 font-mono flex items-center gap-1">
+                  <span className="text-[10px] font-black uppercase text-emerald-600 font-mono flex items-center gap-1">
                     <DollarSign className="w-3 h-3" /> TOTAL A RECEBER
                   </span>
                   <p className="text-[9px] text-slate-400 font-medium">Saldo pendente em aberto</p>
                 </div>
-                <div className="w-8 h-8 bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 rounded-xl flex items-center justify-center shrink-0 border border-emerald-100 dark:border-emerald-900/50">
+                <div className="w-8 h-8 bg-emerald-50/60 text-emerald-600 rounded-xl flex items-center justify-center shrink-0 border border-emerald-100/50">
                   <DollarSign className="w-4 h-4" />
                 </div>
               </div>
 
               <div>
-                <h3 className="text-xl font-black text-slate-900 dark:text-white font-display tracking-tight">
+                <h3 className="text-xl font-black text-slate-900 font-display tracking-tight">
                   {formatCurrency(totalRemaining)}
                 </h3>
               </div>
 
-              <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[10px]">
+              <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[10px]">
                 <span className="text-slate-400 font-mono font-bold flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Fluxo projetado
                 </span>
-                <span className="font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-0.5">
+                <span className="font-bold text-emerald-600 flex items-center gap-0.5">
                   Detalhar <ChevronRight className="w-3 h-3" />
                 </span>
               </div>
             </div>
 
             {/* Mobile Metric Card 2: RECEBIDO NO MÊS */}
-            <div className="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-slate-200/80 dark:border-slate-800 shadow-xs space-y-3">
+            <div className="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs space-y-3">
               <div className="flex items-start justify-between">
                 <div>
-                  <span className="text-[10px] font-black uppercase text-teal-600 dark:text-teal-400 font-mono flex items-center gap-1">
+                  <span className="text-[10px] font-black uppercase text-teal-600 font-mono flex items-center gap-1">
                     <CheckCircle2 className="w-3 h-3" /> RECEBIDO NO MÊS
                   </span>
                   <p className="text-[9px] text-slate-400 font-medium">Entradas em Agosto</p>
                 </div>
-                <div className="w-8 h-8 bg-teal-50 dark:bg-teal-950/60 text-teal-600 dark:text-teal-400 rounded-xl flex items-center justify-center shrink-0 border border-teal-100 dark:border-teal-900/50">
+                <div className="w-8 h-8 bg-teal-50/60 text-teal-600 rounded-xl flex items-center justify-center shrink-0 border border-teal-100/50">
                   <CheckCircle2 className="w-4 h-4" />
                 </div>
               </div>
 
               <div>
-                <h3 className="text-xl font-black text-slate-900 dark:text-white font-display tracking-tight">
+                <h3 className="text-xl font-black text-slate-900 font-display tracking-tight">
                   {formatCurrency(totalPaid)}
                 </h3>
               </div>
 
-              <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[10px]">
-                <span className="text-teal-600 dark:text-teal-400 font-mono font-bold flex items-center gap-1">
+              <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[10px]">
+                <span className="text-teal-600 font-mono font-bold flex items-center gap-1">
                   <TrendingUp className="w-3 h-3" /> Liquidado
                 </span>
-                <span className="font-bold text-teal-600 dark:text-teal-400 flex items-center gap-0.5">
+                <span className="font-bold text-teal-600 flex items-center gap-0.5">
                   Ver extrato <ChevronRight className="w-3 h-3" />
                 </span>
               </div>
@@ -247,8 +247,8 @@ export const MobilePhoneMockup: React.FC<MobilePhoneMockupProps> = ({
           </div>
 
           {/* Bottom Home Indicator Bar */}
-          <div className="py-2 flex justify-center items-center bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800">
-            <div className="w-32 h-1 bg-slate-300 dark:bg-slate-700 rounded-full" />
+          <div className="py-2 flex justify-center items-center bg-white border-t border-slate-100">
+            <div className="w-32 h-1 bg-slate-300 rounded-full" />
           </div>
 
         </div>

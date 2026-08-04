@@ -91,16 +91,16 @@ export function LandingFaq() {
         
         {/* Section Header */}
         <div className="text-center space-y-4 mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-xs font-black uppercase tracking-wider backdrop-blur-md shadow-xs">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 text-xs font-black uppercase tracking-wider backdrop-blur-md shadow-xs">
             <Sparkles className="w-4 h-4 text-emerald-500 animate-pulse" />
             <span>Tira-Dúvidas Rápido</span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight font-display leading-tight">
+          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight font-display leading-tight">
             Perguntas <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700">Frequentes</span>
           </h2>
 
-          <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base font-medium max-w-xl mx-auto leading-relaxed">
+          <p className="text-slate-600 text-sm sm:text-base font-medium max-w-xl mx-auto leading-relaxed">
             Tudo o que você precisa saber sobre o Pagmefy: segurança, envio pelo WhatsApp e funcionamento sem custos.
           </p>
         </div>
@@ -120,8 +120,8 @@ export function LandingFaq() {
                 transition={{ duration: 0.3, delay: index * 0.05 }}
                 className={`relative rounded-3xl transition-all duration-300 overflow-hidden border ${
                   isOpen
-                    ? 'bg-white dark:bg-slate-900 border-emerald-500/60 shadow-[0_15px_35px_-10px_rgba(16,185,129,0.18)] ring-1 ring-emerald-500/30'
-                    : 'bg-white/90 dark:bg-slate-900/90 hover:bg-white border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-md hover:border-emerald-300/80'
+                    ? 'bg-white border-emerald-500/60 shadow-[0_15px_35px_-10px_rgba(16,185,129,0.18)] ring-1 ring-emerald-500/30'
+                    : 'bg-white/90/90 hover:bg-white border-slate-200/90 shadow-sm hover:shadow-md hover:border-emerald-300/80'
                 }`}
               >
                 {/* Left Active Accent Line */}
@@ -142,7 +142,7 @@ export function LandingFaq() {
                       className={`w-10 h-10 sm:w-11 sm:h-11 rounded-2xl flex items-center justify-center shrink-0 transition-all duration-300 font-mono font-black text-xs sm:text-sm ${
                         isOpen
                           ? 'bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-md shadow-emerald-500/30 scale-105'
-                          : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 group-hover:bg-emerald-50 group-hover:text-emerald-600'
+                          : 'bg-slate-100 text-slate-500 group-hover:bg-emerald-50 group-hover:text-emerald-600'
                       }`}
                     >
                       {item.number}
@@ -151,7 +151,7 @@ export function LandingFaq() {
                     <div className="space-y-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
                         <h3 className={`text-base sm:text-lg font-black tracking-tight font-display transition-colors ${
-                          isOpen ? 'text-emerald-700 dark:text-emerald-400' : 'text-slate-900 dark:text-white group-hover:text-emerald-600'
+                          isOpen ? 'text-emerald-700' : 'text-slate-900 group-hover:text-emerald-600'
                         }`}>
                           {item.q}
                         </h3>
@@ -160,8 +160,8 @@ export function LandingFaq() {
                       {item.badge && (
                         <span className={`inline-block text-[10px] font-bold px-2.5 py-0.5 rounded-full border transition-all ${
                           isOpen 
-                            ? 'bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border-emerald-200'
-                            : 'bg-slate-50 dark:bg-slate-800 text-slate-400 border-slate-200/80'
+                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                            : 'bg-slate-50 text-slate-400 border-slate-200/80'
                         }`}>
                           {item.badge}
                         </span>
@@ -174,7 +174,7 @@ export function LandingFaq() {
                     className={`w-9 h-9 sm:w-10 sm:h-10 rounded-2xl flex items-center justify-center shrink-0 transition-all duration-300 ${
                       isOpen
                         ? 'bg-emerald-500 text-white rotate-180 shadow-md shadow-emerald-500/30'
-                        : 'bg-slate-100 dark:bg-slate-800 text-slate-400 group-hover:bg-slate-200 group-hover:text-slate-700'
+                        : 'bg-slate-100 text-slate-400 group-hover:bg-slate-200 group-hover:text-slate-700'
                     }`}
                   >
                     <ChevronDown className="w-5 h-5 stroke-[2.5]" />
@@ -191,10 +191,10 @@ export function LandingFaq() {
                       transition={{ duration: 0.25, ease: 'easeInOut' }}
                       className="overflow-hidden"
                     >
-                      <div className="px-5 sm:px-6 pb-6 pt-1 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-medium border-t border-slate-100 dark:border-slate-800/60 mt-1 space-y-3">
+                      <div className="px-5 sm:px-6 pb-6 pt-1 text-sm sm:text-base text-slate-600 leading-relaxed font-medium border-t border-slate-100/60 mt-1 space-y-3">
                         <p>{item.a}</p>
                         
-                        <div className="flex items-center gap-2 pt-2 text-xs font-bold text-emerald-600 dark:text-emerald-400">
+                        <div className="flex items-center gap-2 pt-2 text-xs font-bold text-emerald-600">
                           <IconComp className="w-4 h-4 text-emerald-500 shrink-0" />
                           <span>Destaque: {item.badge}</span>
                         </div>

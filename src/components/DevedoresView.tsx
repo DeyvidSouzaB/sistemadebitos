@@ -82,7 +82,7 @@ function DevedoresView({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
-      className="space-y-6 text-slate-900 dark:text-slate-100 max-w-[1600px] mx-auto pb-10"
+      className="space-y-6 text-slate-900 max-w-[1600px] mx-auto pb-10"
     >
       {/* 1. Header Banner Metrics */}
       <DevedoresHeaderMetrics
@@ -150,17 +150,17 @@ function DevedoresView({
           <motion.div
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 rounded-3xl p-12 text-center shadow-sm space-y-4 w-full my-4"
+            className="bg-white/90 border border-slate-200/80 rounded-3xl p-12 text-center shadow-sm space-y-4 w-full my-4"
           >
-            <div className="w-16 h-16 bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/50 rounded-3xl flex items-center justify-center mx-auto">
+            <div className="w-16 h-16 bg-emerald-50/60 text-emerald-600 border border-emerald-100/50 rounded-3xl flex items-center justify-center mx-auto">
               <Users className="w-8 h-8" />
             </div>
 
             <div className="space-y-1">
-              <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tight font-display">
+              <h3 className="text-xl font-black text-slate-900 tracking-tight font-display">
                 Nenhum devedor encontrado
               </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 max-w-md mx-auto leading-relaxed font-medium">
+              <p className="text-xs text-slate-500 max-w-md mx-auto leading-relaxed font-medium">
                 {search || statusFilter !== 'all'
                   ? 'Nenhuma cobrança corresponde aos filtros selecionados. Tente redefinir a busca.'
                   : 'Sua caderneta digital está limpa! Adicione seu primeiro devedor para iniciar o controle de cobranças de forma profissional.'}
@@ -174,7 +174,7 @@ function DevedoresView({
                   setStatusFilter('all');
                   setDueDatePreset('all');
                 }}
-                className="px-5 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold rounded-xl transition-all cursor-pointer border border-slate-200/80 dark:border-slate-700"
+                className="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold rounded-xl transition-all cursor-pointer border border-slate-200/80"
               >
                 Limpar Filtros e Busca
               </button>

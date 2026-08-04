@@ -6,6 +6,7 @@ export const STORAGE_KEYS = {
   REMEMBER_ME: 'pagmefy_remember_me',
   REGISTERED_EMAILS: 'pagmefy_registered_emails',
   WHATSAPP_CONFIG: 'pagmefy_wa_config',
+  THEME: 'pagmefy_theme',
 } as const;
 
 export const LEGACY_STORAGE_KEYS = {

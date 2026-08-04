@@ -100,7 +100,7 @@ function RelatoriosView({ debts, onSelectDebt, onAddPaymentClick, onPayFull }: R
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
-      className="space-y-6 sm:space-y-7 text-slate-900 dark:text-slate-100 max-w-[1600px] mx-auto pb-12"
+      className="space-y-6 sm:space-y-7 text-slate-900 max-w-[1600px] mx-auto pb-12"
     >
       {/* 1. HERO HEADER */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 text-white p-6 sm:p-8 shadow-2xl border border-slate-800/80">
@@ -149,21 +149,21 @@ function RelatoriosView({ debts, onSelectDebt, onAddPaymentClick, onPayFull }: R
       </div>
 
       {/* 2. FILTER BAR CARD */}
-      <div className="bg-white dark:bg-slate-900/90 rounded-3xl p-5 sm:p-6 border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-4">
+      <div className="bg-white/90 rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-sm space-y-4">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
-            <div className="p-2.5 bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 rounded-2xl border border-emerald-100 dark:border-emerald-900/50">
+            <div className="p-2.5 bg-emerald-50/60 text-emerald-600 rounded-2xl border border-emerald-100/50">
               <Filter className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-sm font-black text-slate-900 dark:text-white font-display">Filtros de Período</h3>
+              <h3 className="text-sm font-black text-slate-900 font-display">Filtros de Período</h3>
               <p className="text-xs text-slate-400 font-medium font-mono">{periodLabel}</p>
             </div>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
             {/* Period selector */}
-            <div className="flex items-center bg-slate-100/80 dark:bg-slate-800/80 p-1 rounded-2xl border border-slate-200/60 dark:border-slate-700/60">
+            <div className="flex items-center bg-slate-100/80/80 p-1 rounded-2xl border border-slate-200/60/60">
               {[
                 { key: 'this_month', label: 'Este Mês' },
                 { key: 'last_month', label: 'Mês Passado' },
@@ -176,8 +176,8 @@ function RelatoriosView({ debts, onSelectDebt, onAddPaymentClick, onPayFull }: R
                   onClick={() => setPeriodFilter(item.key as PeriodFilterType)}
                   className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer ${
                     periodFilter === item.key
-                      ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs font-black'
-                      : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200'
+                      ? 'bg-white text-slate-900 shadow-xs font-black'
+                      : 'text-slate-500 hover:text-slate-900'
                   }`}
                 >
                   {item.label}
@@ -189,7 +189,7 @@ function RelatoriosView({ debts, onSelectDebt, onAddPaymentClick, onPayFull }: R
             <select
               value={dateBasis}
               onChange={(e) => setDateBasis(e.target.value as DateBasisType)}
-              className="bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 py-2 px-3 rounded-xl focus:outline-none focus:border-emerald-500 cursor-pointer"
+              className="bg-slate-50/80 border border-slate-200 text-xs font-bold text-slate-700 py-2 px-3 rounded-xl focus:outline-none focus:border-emerald-500 cursor-pointer"
             >
               <option value="paymentDate">Base: Data do Pagamento</option>
               <option value="dueDate">Base: Data de Vencimento</option>
@@ -200,19 +200,19 @@ function RelatoriosView({ debts, onSelectDebt, onAddPaymentClick, onPayFull }: R
 
         {/* Custom date range inputs */}
         {periodFilter === 'custom' && (
-          <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center gap-3">
+          <div className="pt-3 border-t border-slate-100 flex items-center gap-3">
             <input
               type="date"
               value={customStart}
               onChange={(e) => setCustomStart(e.target.value)}
-              className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 text-xs text-slate-800 dark:text-white font-mono"
+              className="bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 font-mono"
             />
             <span className="text-xs text-slate-400 font-bold">até</span>
             <input
               type="date"
               value={customEnd}
               onChange={(e) => setCustomEnd(e.target.value)}
-              className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 text-xs text-slate-800 dark:text-white font-mono"
+              className="bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 font-mono"
             />
           </div>
         )}
@@ -221,81 +221,81 @@ function RelatoriosView({ debts, onSelectDebt, onAddPaymentClick, onPayFull }: R
       {/* 3. EXECUTIVE KPI METRIC CARDS */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
         {/* Total Pago */}
-        <div className="bg-white dark:bg-slate-900/90 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-800 shadow-sm relative overflow-hidden group hover:shadow-xl hover:shadow-emerald-500/10 transition-all duration-300">
+        <div className="bg-white/90 rounded-3xl p-6 border border-slate-200/80 shadow-sm relative overflow-hidden group hover:shadow-xl hover:shadow-emerald-500/10 transition-all duration-300">
           <div className="absolute top-0 left-6 right-6 h-1 rounded-b-full bg-gradient-to-r from-emerald-500 to-teal-400" />
           <div className="flex items-start justify-between mb-4">
             <div>
-              <span className="text-[11px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 font-mono">Recebido no Período</span>
+              <span className="text-[11px] font-black uppercase tracking-wider text-emerald-600 font-mono">Recebido no Período</span>
               <p className="text-xs text-slate-400 font-medium mt-0.5">Total de entradas liquidadas</p>
             </div>
-            <div className="w-11 h-11 bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 rounded-2xl flex items-center justify-center shrink-0 border border-emerald-100 dark:border-emerald-800">
+            <div className="w-11 h-11 bg-emerald-50/60 text-emerald-600 rounded-2xl flex items-center justify-center shrink-0 border border-emerald-100">
               <CheckCircle2 className="w-5 h-5" />
             </div>
           </div>
-          <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white font-display">
+          <h3 className="text-2xl sm:text-3xl font-black text-slate-900 font-display">
             {formatCurrency(totalPaid)}
           </h3>
-          <p className="text-xs font-bold text-emerald-600 dark:text-emerald-400 mt-2 flex items-center gap-1 font-mono">
+          <p className="text-xs font-bold text-emerald-600 mt-2 flex items-center gap-1 font-mono">
             <TrendingUp className="w-3.5 h-3.5" /> {periodPayments.length} pagamentos efetuados
           </p>
         </div>
 
         {/* Saldo Restante */}
-        <div className="bg-white dark:bg-slate-900/90 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-800 shadow-sm relative overflow-hidden group hover:shadow-xl hover:shadow-amber-500/10 transition-all duration-300">
+        <div className="bg-white/90 rounded-3xl p-6 border border-slate-200/80 shadow-sm relative overflow-hidden group hover:shadow-xl hover:shadow-amber-500/10 transition-all duration-300">
           <div className="absolute top-0 left-6 right-6 h-1 rounded-b-full bg-gradient-to-r from-amber-500 to-orange-400" />
           <div className="flex items-start justify-between mb-4">
             <div>
-              <span className="text-[11px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400 font-mono">Saldo Pendente</span>
+              <span className="text-[11px] font-black uppercase tracking-wider text-amber-600 font-mono">Saldo Pendente</span>
               <p className="text-xs text-slate-400 font-medium mt-0.5">Valores em aberto no filtro</p>
             </div>
-            <div className="w-11 h-11 bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 rounded-2xl flex items-center justify-center shrink-0 border border-amber-100 dark:border-amber-800">
+            <div className="w-11 h-11 bg-amber-50/60 text-amber-600 rounded-2xl flex items-center justify-center shrink-0 border border-amber-100">
               <DollarSign className="w-5 h-5" />
             </div>
           </div>
-          <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white font-display">
+          <h3 className="text-2xl sm:text-3xl font-black text-slate-900 font-display">
             {formatCurrency(totalRemaining)}
           </h3>
-          <p className="text-xs font-bold text-amber-600 dark:text-amber-400 mt-2 font-mono">
+          <p className="text-xs font-bold text-amber-600 mt-2 font-mono">
             {pendingDebts.length + partialDebts.length} títulos pendentes
           </p>
         </div>
 
         {/* Total em Atraso */}
-        <div className="bg-white dark:bg-slate-900/90 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-800 shadow-sm relative overflow-hidden group hover:shadow-xl hover:shadow-rose-500/10 transition-all duration-300">
+        <div className="bg-white/90 rounded-3xl p-6 border border-slate-200/80 shadow-sm relative overflow-hidden group hover:shadow-xl hover:shadow-rose-500/10 transition-all duration-300">
           <div className="absolute top-0 left-6 right-6 h-1 rounded-b-full bg-gradient-to-r from-rose-500 to-red-600" />
           <div className="flex items-start justify-between mb-4">
             <div>
-              <span className="text-[11px] font-black uppercase tracking-wider text-rose-600 dark:text-rose-400 font-mono">Total em Atraso</span>
+              <span className="text-[11px] font-black uppercase tracking-wider text-rose-600 font-mono">Total em Atraso</span>
               <p className="text-xs text-slate-400 font-medium mt-0.5">Valores com vencimento expirado</p>
             </div>
-            <div className="w-11 h-11 bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 rounded-2xl flex items-center justify-center shrink-0 border border-rose-100 dark:border-rose-800">
+            <div className="w-11 h-11 bg-rose-50/60 text-rose-600 rounded-2xl flex items-center justify-center shrink-0 border border-rose-100">
               <AlertTriangle className="w-5 h-5" />
             </div>
           </div>
-          <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white font-display">
+          <h3 className="text-2xl sm:text-3xl font-black text-slate-900 font-display">
             {formatCurrency(totalOverdueAmount)}
           </h3>
-          <p className="text-xs font-bold text-rose-600 dark:text-rose-400 mt-2 font-mono">
+          <p className="text-xs font-bold text-rose-600 mt-2 font-mono">
             {overdueDebts.length} cobranças em atraso
           </p>
         </div>
 
         {/* Taxa de Recuperação */}
-        <div className="bg-white dark:bg-slate-900/90 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-800 shadow-sm relative overflow-hidden group hover:shadow-xl hover:shadow-indigo-500/10 transition-all duration-300">
+        <div className="bg-white/90 rounded-3xl p-6 border border-slate-200/80 shadow-sm relative overflow-hidden group hover:shadow-xl hover:shadow-indigo-500/10 transition-all duration-300">
           <div className="absolute top-0 left-6 right-6 h-1 rounded-b-full bg-gradient-to-r from-indigo-500 to-teal-400" />
           <div className="flex items-start justify-between mb-4">
             <div>
-              <span className="text-[11px] font-black uppercase tracking-wider text-indigo-600 dark:text-indigo-400 font-mono">Taxa de Adimplência</span>
+              <span className="text-[11px] font-black uppercase tracking-wider text-indigo-600 font-mono">Taxa de Adimplência</span>
               <p className="text-xs text-slate-400 font-medium mt-0.5">% do volume total quitado</p>
             </div>
-            <div className="w-11 h-11 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 rounded-2xl flex items-center justify-center shrink-0 border border-indigo-100 dark:border-indigo-800">
+            <div className="w-11 h-11 bg-indigo-50/60 text-indigo-600 rounded-2xl flex items-center justify-center shrink-0 border border-indigo-100">
               <PieChart className="w-5 h-5" />
             </div>
           </div>
-          <h3 className="text-2xl sm:text-3xl font-black text-indigo-600 dark:text-indigo-400 font-display">
+          <h3 className="text-2xl sm:text-3xl font-black text-indigo-600 font-display">
             {Number(recoveryRate).toFixed(1)}%
           </h3>
-          <div className="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden mt-3">
+          <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden mt-3">
             <div
               className="bg-gradient-to-r from-indigo-500 to-teal-400 h-full rounded-full transition-all duration-500"
               style={{ width: `${Math.min(100, Number(recoveryRate))}%` }}
@@ -307,11 +307,11 @@ function RelatoriosView({ debts, onSelectDebt, onAddPaymentClick, onPayFull }: R
       {/* 4. GRAPH & TOP DEBTORS SECTION */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Distribution Pie Chart */}
-        <div className="bg-white dark:bg-slate-900/90 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+        <div className="bg-white/90 rounded-3xl p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between">
           <div>
-            <div className="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
-              <PieChart className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-              <h3 className="text-base font-black text-slate-900 dark:text-white font-display">
+            <div className="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+              <PieChart className="w-5 h-5 text-emerald-600" />
+              <h3 className="text-base font-black text-slate-900 font-display">
                 Distribuição de Cobranças por Status
               </h3>
             </div>
@@ -343,14 +343,14 @@ function RelatoriosView({ debts, onSelectDebt, onAddPaymentClick, onPayFull }: R
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs font-mono">
+          <div className="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-slate-100 text-xs font-mono">
             {pieChartData.map((item, idx) => (
-              <div key={idx} className="flex items-center justify-between p-2 rounded-xl bg-slate-50 dark:bg-slate-800/40">
-                <span className="flex items-center gap-1.5 text-slate-600 dark:text-slate-300 font-bold">
+              <div key={idx} className="flex items-center justify-between p-2 rounded-xl bg-slate-50/40">
+                <span className="flex items-center gap-1.5 text-slate-600 font-bold">
                   <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: item.color }} />
                   {item.name}
                 </span>
-                <span className="font-black text-slate-900 dark:text-white">
+                <span className="font-black text-slate-900">
                   {item.count === 0 || item.name === 'Sem dados' ? formatCurrency(0) : formatCurrency(item.value)}
                 </span>
               </div>
@@ -359,17 +359,17 @@ function RelatoriosView({ debts, onSelectDebt, onAddPaymentClick, onPayFull }: R
         </div>
 
         {/* Top Debtors Ranking */}
-        <div className="bg-white dark:bg-slate-900/90 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+        <div className="bg-white/90 rounded-3xl p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
+            <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
               <div className="flex items-center gap-2">
-                <Users className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-                <h3 className="text-base font-black text-slate-900 dark:text-white font-display">
+                <Users className="w-5 h-5 text-indigo-600" />
+                <h3 className="text-base font-black text-slate-900 font-display">
                   Ranking de Maiores Devedores
                 </h3>
               </div>
               {isUsingOverallTopDebtors && (
-                <span className="text-[10px] font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60 px-2.5 py-1 rounded-full border border-amber-200/80 dark:border-amber-800/80">
+                <span className="text-[10px] font-bold text-amber-600 bg-amber-50/60 px-2.5 py-1 rounded-full border border-amber-200/80/80">
                   Ranking Geral
                 </span>
               )}
@@ -377,11 +377,11 @@ function RelatoriosView({ debts, onSelectDebt, onAddPaymentClick, onPayFull }: R
 
             {topDebtors.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-10 text-center space-y-3">
-                <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800/80 flex items-center justify-center text-slate-400">
+                <div className="w-12 h-12 rounded-2xl bg-slate-100/80 flex items-center justify-center text-slate-400">
                   <Users className="w-6 h-6 stroke-[1.5]" />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-slate-700 dark:text-slate-300">
+                  <p className="text-xs font-bold text-slate-700">
                     Nenhum devedor com saldo pendente
                   </p>
                   <p className="text-[11px] text-slate-400 font-medium mt-0.5">
@@ -395,19 +395,19 @@ function RelatoriosView({ debts, onSelectDebt, onAddPaymentClick, onPayFull }: R
                   <div 
                     key={`top-debtor-${debtor.id || idx}`}
                     onClick={() => onSelectDebt?.(debtor)}
-                    className="p-3.5 bg-slate-50 dark:bg-slate-800/40 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center justify-between gap-3 cursor-pointer transition-all duration-200"
+                    className="p-3.5 bg-slate-50/40 hover:bg-slate-100 rounded-2xl border border-slate-100 flex items-center justify-between gap-3 cursor-pointer transition-all duration-200"
                   >
                     <div className="flex items-center gap-3 min-w-0">
-                      <span className="w-7 h-7 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 font-black text-xs flex items-center justify-center font-mono shrink-0">
+                      <span className="w-7 h-7 rounded-xl bg-emerald-100 text-emerald-800 font-black text-xs flex items-center justify-center font-mono shrink-0">
                         #{idx + 1}
                       </span>
                       <div className="min-w-0">
-                        <p className="text-xs font-black text-slate-900 dark:text-white truncate font-display">{debtor.name}</p>
+                        <p className="text-xs font-black text-slate-900 truncate font-display">{debtor.name}</p>
                         <p className="text-[10px] text-slate-400 font-mono">Original: {formatCurrency(debtor.originalAmount)}</p>
                       </div>
                     </div>
 
-                    <span className="text-sm font-black text-rose-600 dark:text-rose-400 font-mono shrink-0">
+                    <span className="text-sm font-black text-rose-600 font-mono shrink-0">
                       {formatCurrency(debtor.currentAmount)}
                     </span>
                   </div>

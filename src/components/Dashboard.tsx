@@ -45,7 +45,7 @@ export default function Dashboard({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
-      className="space-y-6 sm:space-y-7 text-slate-900 dark:text-slate-100 max-w-[1600px] mx-auto pb-10"
+      className="space-y-6 sm:space-y-7 text-slate-900 max-w-[1600px] mx-auto pb-10"
     >
       {/* 1. HERO HEADER */}
       <DashboardHero

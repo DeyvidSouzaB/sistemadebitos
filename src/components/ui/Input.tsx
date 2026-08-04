@@ -58,7 +58,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             aria-invalid={error ? 'true' : undefined}
             aria-describedby={describedBy}
             className={cn(
-              // Matches system field style: slate-50/80 bg, emerald focus ring, rounded-2xl, Inter font
               'w-full bg-slate-50/80 focus:bg-white text-slate-900 font-semibold text-sm rounded-2xl border px-4 py-3 outline-none transition-all duration-150 placeholder:text-slate-400 placeholder:font-normal focus:ring-2 disabled:opacity-50 disabled:bg-slate-100 disabled:cursor-not-allowed',
               error
                 ? 'border-rose-400 focus:border-rose-500 focus:ring-rose-500/15'

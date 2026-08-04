@@ -47,7 +47,7 @@ export const DevedoresToolbar: React.FC<DevedoresToolbarProps> = ({
   counts,
 }) => {
   return (
-    <div className="bg-white dark:bg-slate-900/90 rounded-3xl p-5 sm:p-6 border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-4">
+    <div className="bg-white/90 rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-sm space-y-4">
       {/* Row 1: Search & Export Options */}
       <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3.5">
         {/* Search Field */}
@@ -59,12 +59,12 @@ export const DevedoresToolbar: React.FC<DevedoresToolbarProps> = ({
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Pesquisar por nome do devedor, telefone ou observação..."
-            className="w-full pl-11 pr-10 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700/80 focus:border-emerald-500 focus:bg-white dark:focus:bg-slate-900 rounded-2xl focus:outline-none focus:ring-2 focus:ring-emerald-500/30 text-xs sm:text-sm placeholder:text-slate-400 text-slate-900 dark:text-white font-medium transition-all duration-200"
+            className="w-full pl-11 pr-10 py-3 bg-slate-50/50 border border-slate-200/80/80 focus:border-emerald-500 focus:bg-white rounded-2xl focus:outline-none focus:ring-2 focus:ring-emerald-500/30 text-xs sm:text-sm placeholder:text-slate-400 text-slate-900 font-medium transition-all duration-200"
           />
           {search && (
             <button
               onClick={() => setSearch('')}
-              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors p-1"
+              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors p-1"
               title="Limpar busca"
             >
               <X className="w-4 h-4" />
@@ -78,7 +78,7 @@ export const DevedoresToolbar: React.FC<DevedoresToolbarProps> = ({
             id="btn-devedores-export-pdf"
             onClick={onOpenPdfModal}
             disabled={dateFilteredDebts.length === 0}
-            className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-extrabold text-slate-700 dark:text-slate-200 bg-slate-100/80 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/80 dark:border-slate-700/80 rounded-2xl transition-all duration-200 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shadow-2xs"
+            className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-extrabold text-slate-700 bg-slate-100/80/80 hover:bg-slate-200 border border-slate-200/80/80 rounded-2xl transition-all duration-200 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shadow-2xs"
           >
             <FileDown className="w-4 h-4 text-rose-500 shrink-0" />
             <span>Exportar PDF</span>
@@ -88,7 +88,7 @@ export const DevedoresToolbar: React.FC<DevedoresToolbarProps> = ({
             id="btn-devedores-export-excel"
             onClick={() => exportToExcel(dateFilteredDebts)}
             disabled={dateFilteredDebts.length === 0}
-            className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-extrabold text-slate-700 dark:text-slate-200 bg-slate-100/80 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/80 dark:border-slate-700/80 rounded-2xl transition-all duration-200 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shadow-2xs"
+            className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-extrabold text-slate-700 bg-slate-100/80/80 hover:bg-slate-200 border border-slate-200/80/80 rounded-2xl transition-all duration-200 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shadow-2xs"
           >
             <FileDown className="w-4 h-4 text-emerald-500 shrink-0" />
             <span>Exportar Excel</span>
@@ -97,17 +97,17 @@ export const DevedoresToolbar: React.FC<DevedoresToolbarProps> = ({
       </div>
 
       {/* Row 2: Status Filter Tabs & Sorting */}
-      <div className="flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-3.5 pt-4 border-t border-slate-100 dark:border-slate-800">
+      <div className="flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-3.5 pt-4 border-t border-slate-100">
         <div className="flex flex-wrap items-center gap-2">
           {/* Status Tabs */}
-          <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-1 bg-slate-100/80 dark:bg-slate-800/80 p-1 rounded-2xl border border-slate-200/60 dark:border-slate-700/60">
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-1 bg-slate-100/80/80 p-1 rounded-2xl border border-slate-200/60/60">
             <button
               id="tab-status-all"
               onClick={() => setStatusFilter('all')}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition-all duration-200 cursor-pointer ${
                 statusFilter === 'all'
                   ? 'bg-emerald-600 text-white shadow-xs'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Todos ({counts.totalCount})
@@ -119,7 +119,7 @@ export const DevedoresToolbar: React.FC<DevedoresToolbarProps> = ({
               className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition-all duration-200 cursor-pointer ${
                 statusFilter === 'pending'
                   ? 'bg-rose-600 text-white shadow-xs'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Atrasados / Pendentes ({counts.pendingCount})
@@ -131,7 +131,7 @@ export const DevedoresToolbar: React.FC<DevedoresToolbarProps> = ({
               className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition-all duration-200 cursor-pointer ${
                 statusFilter === 'partial'
                   ? 'bg-amber-600 text-white shadow-xs'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Parciais ({counts.partialCount})
@@ -143,7 +143,7 @@ export const DevedoresToolbar: React.FC<DevedoresToolbarProps> = ({
               className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition-all duration-200 cursor-pointer ${
                 statusFilter === 'paid'
                   ? 'bg-emerald-600 text-white shadow-xs'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Em Dia / Quitados ({counts.paidCount})
@@ -156,7 +156,7 @@ export const DevedoresToolbar: React.FC<DevedoresToolbarProps> = ({
               id="select-devedores-date-preset"
               value={dueDatePreset}
               onChange={(e) => setDueDatePreset(e.target.value as any)}
-              className="bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 py-2 px-3 rounded-xl focus:outline-none focus:border-emerald-500 cursor-pointer"
+              className="bg-slate-50/80 border border-slate-200 text-xs font-bold text-slate-700 py-2 px-3 rounded-xl focus:outline-none focus:border-emerald-500 cursor-pointer"
             >
               <option value="all">Todas as Datas</option>
               <option value="overdue">Apenas Vencidos / Atrasados</option>
@@ -170,12 +170,12 @@ export const DevedoresToolbar: React.FC<DevedoresToolbarProps> = ({
         {/* Right Group: Sorting and View Toggle */}
         <div className="flex items-center justify-between xl:justify-end gap-3">
           {/* View Switcher */}
-          <div className="flex items-center bg-slate-100/80 dark:bg-slate-800/80 p-1 rounded-2xl border border-slate-200/60 dark:border-slate-700/60">
+          <div className="flex items-center bg-slate-100/80/80 p-1 rounded-2xl border border-slate-200/60/60">
             <button
               id="btn-devedores-view-table"
               onClick={() => setViewType('table')}
               className={`p-2 rounded-xl transition-all duration-200 cursor-pointer ${
-                viewType === 'table' ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs font-bold' : 'text-slate-500 hover:text-slate-800 dark:text-slate-400'
+                viewType === 'table' ? 'bg-white text-slate-900 shadow-xs font-bold' : 'text-slate-500 hover:text-slate-800'
               }`}
               title="Tabela detalhada"
             >
@@ -185,7 +185,7 @@ export const DevedoresToolbar: React.FC<DevedoresToolbarProps> = ({
               id="btn-devedores-view-grid"
               onClick={() => setViewType('grid')}
               className={`p-2 rounded-xl transition-all duration-200 cursor-pointer ${
-                viewType === 'grid' ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs font-bold' : 'text-slate-500 hover:text-slate-800 dark:text-slate-400'
+                viewType === 'grid' ? 'bg-white text-slate-900 shadow-xs font-bold' : 'text-slate-500 hover:text-slate-800'
               }`}
               title="Grade em blocos"
             >
@@ -200,7 +200,7 @@ export const DevedoresToolbar: React.FC<DevedoresToolbarProps> = ({
               id="select-devedores-sort"
               value={sortOption}
               onChange={(e) => setSortOption(e.target.value as DebtSortOption)}
-              className="bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 py-2 px-3.5 rounded-xl focus:outline-none focus:border-emerald-500 cursor-pointer"
+              className="bg-slate-50/80 border border-slate-200 text-xs font-bold text-slate-700 py-2 px-3.5 rounded-xl focus:outline-none focus:border-emerald-500 cursor-pointer"
             >
               <option value="amount_desc">Valor: Maior Devedor</option>
               <option value="amount_asc">Valor: Menor Devedor</option>

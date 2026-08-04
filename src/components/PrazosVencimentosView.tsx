@@ -66,7 +66,7 @@ function PrazosVencimentosView({ debts, onSelectDebt, onPayFull }: PrazosVencime
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
-      className="space-y-6 sm:space-y-7 text-slate-900 dark:text-slate-100 max-w-[1600px] mx-auto pb-10"
+      className="space-y-6 sm:space-y-7 text-slate-900 max-w-[1600px] mx-auto pb-10"
     >
       {/* 1. HERO HEADER */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 text-white p-6 sm:p-8 shadow-2xl border border-slate-800/80">
@@ -101,10 +101,10 @@ function PrazosVencimentosView({ debts, onSelectDebt, onPayFull }: PrazosVencime
             overdueDebts.length === 0
               ? timeFilter === 'overdue'
                 ? 'bg-gradient-to-br from-emerald-950/60 via-slate-900 to-emerald-900/40 border-2 border-emerald-500 text-white'
-                : 'bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 text-slate-900 dark:text-white hover:border-emerald-400'
+                : 'bg-white/90 border border-slate-200/80 text-slate-900 hover:border-emerald-400'
               : timeFilter === 'overdue'
                 ? 'bg-gradient-to-br from-rose-600 via-rose-700 to-red-800 text-white border-2 border-rose-400 shadow-rose-950/20'
-                : 'bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 text-slate-900 dark:text-white hover:border-rose-400'
+                : 'bg-white/90 border border-slate-200/80 text-slate-900 hover:border-rose-400'
           }`}
         >
           <div className={`absolute top-0 left-6 right-6 h-1 rounded-b-full ${
@@ -116,7 +116,7 @@ function PrazosVencimentosView({ debts, onSelectDebt, onPayFull }: PrazosVencime
           <div className="flex items-start justify-between gap-3 mb-4 pt-1">
             <div>
               <span className={`text-[11px] font-black uppercase tracking-widest flex items-center gap-1.5 font-mono ${
-                overdueDebts.length === 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'
+                overdueDebts.length === 0 ? 'text-emerald-600' : 'text-rose-600'
               }`}>
                 {overdueDebts.length === 0 ? (
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
@@ -125,15 +125,15 @@ function PrazosVencimentosView({ debts, onSelectDebt, onPayFull }: PrazosVencime
                 )} 
                 Cobranças Atrasadas
               </span>
-              <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">
+              <p className="text-[11px] text-slate-400 font-medium mt-0.5">
                 {overdueDebts.length === 0 ? 'Tudo em dia e sem pendências!' : 'Prazos expirados pendentes'}
               </p>
             </div>
 
             <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform duration-300 ${
               overdueDebts.length === 0
-                ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-800'
-                : 'bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 border border-rose-100 dark:border-rose-800'
+                ? 'bg-emerald-50/60 text-emerald-600 border border-emerald-100'
+                : 'bg-rose-50/60 text-rose-600 border border-rose-100'
             }`}>
               {overdueDebts.length === 0 ? (
                 <CheckCircle2 className="w-6 h-6 stroke-[2.2]" />
@@ -150,20 +150,20 @@ function PrazosVencimentosView({ debts, onSelectDebt, onPayFull }: PrazosVencime
               </h3>
             </div>
             
-            <div className="flex items-center justify-between gap-2 mt-4 pt-3 border-t border-slate-100 dark:border-slate-800">
+            <div className="flex items-center justify-between gap-2 mt-4 pt-3 border-t border-slate-100">
               <span className={`text-xs font-black font-mono px-2.5 py-1 rounded-xl border ${
                 overdueDebts.length === 0
-                  ? 'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 border-emerald-100 dark:border-emerald-800'
-                  : 'text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/60 border-rose-100 dark:border-rose-800'
+                  ? 'text-emerald-700 bg-emerald-50/60 border-emerald-100'
+                  : 'text-rose-700 bg-rose-50/60 border-rose-100'
               }`}>
                 {formatCurrency(totalOverdueAmount)}
               </span>
               {overdueDebts.length > 0 ? (
-                <span className="inline-flex items-center gap-1.5 text-[10px] font-black text-rose-600 dark:text-rose-400 uppercase tracking-wider">
+                <span className="inline-flex items-center gap-1.5 text-[10px] font-black text-rose-600 uppercase tracking-wider">
                   <span className="h-2 w-2 rounded-full bg-rose-500 animate-pulse" /> Atenção Exigida
                 </span>
               ) : (
-                <span className="inline-flex items-center gap-1 text-[10px] font-extrabold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-lg border border-emerald-100 dark:border-emerald-800">
+                <span className="inline-flex items-center gap-1 text-[10px] font-extrabold text-emerald-600 bg-emerald-50/60 px-2 py-0.5 rounded-lg border border-emerald-100">
                   <Sparkles className="w-3 h-3 text-emerald-500" /> Tudo em dia! 🎉
                 </span>
               )}
@@ -177,19 +177,19 @@ function PrazosVencimentosView({ debts, onSelectDebt, onPayFull }: PrazosVencime
           className={`group relative rounded-3xl p-6 transition-all duration-300 cursor-pointer overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1 ${
             timeFilter === 'today'
               ? 'bg-gradient-to-br from-amber-500 to-orange-600 text-white border-2 border-amber-300 shadow-amber-950/20'
-              : 'bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 text-slate-900 dark:text-white hover:border-amber-400'
+              : 'bg-white/90 border border-slate-200/80 text-slate-900 hover:border-amber-400'
           }`}
         >
           <div className="absolute top-0 left-6 right-6 h-1 rounded-b-full bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500" />
 
           <div className="flex items-start justify-between gap-3 mb-4 pt-1">
             <div>
-              <span className="text-[11px] font-black text-amber-600 dark:text-amber-400 uppercase tracking-widest flex items-center gap-1.5 font-mono">
+              <span className="text-[11px] font-black text-amber-600 uppercase tracking-widest flex items-center gap-1.5 font-mono">
                 <Clock className="w-3.5 h-3.5 text-amber-500" /> Vencem Hoje
               </span>
-              <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Compromissos para a data</p>
+              <p className="text-[11px] text-slate-400 font-medium mt-0.5">Compromissos para a data</p>
             </div>
-            <div className="w-12 h-12 bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-100 dark:border-amber-800 rounded-2xl flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform duration-300">
+            <div className="w-12 h-12 bg-amber-50/60 text-amber-600 border border-amber-100 rounded-2xl flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform duration-300">
               <Clock className="w-6 h-6 stroke-[2.2]" />
             </div>
           </div>
@@ -201,11 +201,11 @@ function PrazosVencimentosView({ debts, onSelectDebt, onPayFull }: PrazosVencime
               </h3>
             </div>
 
-            <div className="flex items-center justify-between gap-2 mt-4 pt-3 border-t border-slate-100 dark:border-slate-800">
-              <span className="text-xs font-black font-mono text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 px-2.5 py-1 rounded-xl border border-amber-100 dark:border-amber-800">
+            <div className="flex items-center justify-between gap-2 mt-4 pt-3 border-t border-slate-100">
+              <span className="text-xs font-black font-mono text-amber-700 bg-amber-50/60 px-2.5 py-1 rounded-xl border border-amber-100">
                 {formatCurrency(totalTodayAmount)}
               </span>
-              <span className="text-[10px] font-extrabold text-amber-600 dark:text-amber-400 uppercase tracking-wider">
+              <span className="text-[10px] font-extrabold text-amber-600 uppercase tracking-wider">
                 Vencimento do dia
               </span>
             </div>
@@ -218,19 +218,19 @@ function PrazosVencimentosView({ debts, onSelectDebt, onPayFull }: PrazosVencime
           className={`group relative rounded-3xl p-6 transition-all duration-300 cursor-pointer overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1 ${
             timeFilter === 'upcoming'
               ? 'bg-gradient-to-br from-emerald-600 to-teal-700 text-white border-2 border-emerald-300 shadow-emerald-950/20'
-              : 'bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 text-slate-900 dark:text-white hover:border-emerald-400'
+              : 'bg-white/90 border border-slate-200/80 text-slate-900 hover:border-emerald-400'
           }`}
         >
           <div className="absolute top-0 left-6 right-6 h-1 rounded-b-full bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-600" />
 
           <div className="flex items-start justify-between gap-3 mb-4 pt-1">
             <div>
-              <span className="text-[11px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest flex items-center gap-1.5 font-mono">
+              <span className="text-[11px] font-black text-emerald-600 uppercase tracking-widest flex items-center gap-1.5 font-mono">
                 <CalendarCheck className="w-3.5 h-3.5 text-emerald-500" /> Próximos Vencimentos
               </span>
-              <p className="text-[11px] text-slate-400 dark:text-slate-500 font-medium mt-0.5">Previsão de recebimento</p>
+              <p className="text-[11px] text-slate-400 font-medium mt-0.5">Previsão de recebimento</p>
             </div>
-            <div className="w-12 h-12 bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-800 rounded-2xl flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform duration-300">
+            <div className="w-12 h-12 bg-emerald-50/60 text-emerald-600 border border-emerald-100 rounded-2xl flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform duration-300">
               <CalendarCheck className="w-6 h-6 stroke-[2.2]" />
             </div>
           </div>
@@ -242,11 +242,11 @@ function PrazosVencimentosView({ debts, onSelectDebt, onPayFull }: PrazosVencime
               </h3>
             </div>
 
-            <div className="flex items-center justify-between gap-2 mt-4 pt-3 border-t border-slate-100 dark:border-slate-800">
-              <span className="text-xs font-black font-mono text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 px-2.5 py-1 rounded-xl border border-emerald-100 dark:border-emerald-800">
+            <div className="flex items-center justify-between gap-2 mt-4 pt-3 border-t border-slate-100">
+              <span className="text-xs font-black font-mono text-emerald-700 bg-emerald-50/60 px-2.5 py-1 rounded-xl border border-emerald-100">
                 {formatCurrency(totalUpcomingAmount)}
               </span>
-              <span className="text-[10px] font-extrabold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
+              <span className="text-[10px] font-extrabold text-emerald-600 uppercase tracking-wider">
                 Futuros previstos
               </span>
             </div>
@@ -262,35 +262,35 @@ function PrazosVencimentosView({ debts, onSelectDebt, onPayFull }: PrazosVencime
       />
 
       {/* 4. MAIN TIMELINE LISTING */}
-      <div className="bg-white dark:bg-slate-900/90 rounded-3xl p-5 sm:p-6 border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-4">
+      <div className="bg-white/90 rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-sm space-y-4">
         {/* Header with Title and Segmented Tabs */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b border-slate-100">
           <div>
-            <h3 className="text-lg font-black text-slate-900 dark:text-white tracking-tight font-display">
+            <h3 className="text-lg font-black text-slate-900 tracking-tight font-display">
               {timeFilter === 'all' && 'Todos os Compromissos em Aberto'}
               {timeFilter === 'overdue' && 'Cobranças Atrasadas'}
               {timeFilter === 'today' && 'Compromissos para Quitação Hoje'}
               {timeFilter === 'upcoming' && 'Agenda de Recebíveis Próximos'}
             </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+            <p className="text-xs text-slate-500 font-medium">
               Listagem filtrada por cronograma de vencimento
             </p>
           </div>
 
           {/* Unified Filter Tabs */}
-          <div className="flex items-center gap-1 bg-slate-100/80 dark:bg-slate-800/80 p-1 rounded-2xl overflow-x-auto max-w-full border border-slate-200/60 dark:border-slate-700/60">
+          <div className="flex items-center gap-1 bg-slate-100/80/80 p-1 rounded-2xl overflow-x-auto max-w-full border border-slate-200/60/60">
             <button
               id="btn-time-filter-all"
               onClick={() => setTimeFilter('all')}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
                 timeFilter === 'all'
-                  ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs font-black'
-                  : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200'
+                  ? 'bg-white text-slate-900 shadow-xs font-black'
+                  : 'text-slate-500 hover:text-slate-900'
               }`}
             >
               <span>Todos</span>
               <span className={`px-2 py-0.5 rounded-full text-[10px] font-black ${
-                timeFilter === 'all' ? 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300' : 'bg-slate-200/70 dark:bg-slate-700/70 text-slate-500'
+                timeFilter === 'all' ? 'bg-slate-100 text-slate-700' : 'bg-slate-200/70/70 text-slate-500'
               }`}>
                 {unpaidDebts.length}
               </span>
@@ -302,12 +302,12 @@ function PrazosVencimentosView({ debts, onSelectDebt, onPayFull }: PrazosVencime
               className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
                 timeFilter === 'overdue'
                   ? 'bg-rose-500 text-white shadow-xs font-black'
-                  : 'text-slate-500 hover:text-rose-600 dark:text-slate-400'
+                  : 'text-slate-500 hover:text-rose-600'
               }`}
             >
               <span>Atrasados</span>
               <span className={`px-2 py-0.5 rounded-full text-[10px] font-black ${
-                timeFilter === 'overdue' ? 'bg-white/20 text-white' : 'bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300'
+                timeFilter === 'overdue' ? 'bg-white/20 text-white' : 'bg-rose-100 text-rose-700'
               }`}>
                 {overdueDebts.length}
               </span>
@@ -319,12 +319,12 @@ function PrazosVencimentosView({ debts, onSelectDebt, onPayFull }: PrazosVencime
               className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
                 timeFilter === 'today'
                   ? 'bg-amber-500 text-white shadow-xs font-black'
-                  : 'text-slate-500 hover:text-amber-600 dark:text-slate-400'
+                  : 'text-slate-500 hover:text-amber-600'
               }`}
             >
               <span>Hoje</span>
               <span className={`px-2 py-0.5 rounded-full text-[10px] font-black ${
-                timeFilter === 'today' ? 'bg-white/20 text-white' : 'bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300'
+                timeFilter === 'today' ? 'bg-white/20 text-white' : 'bg-amber-100 text-amber-800'
               }`}>
                 {dueTodayDebts.length}
               </span>
@@ -336,12 +336,12 @@ function PrazosVencimentosView({ debts, onSelectDebt, onPayFull }: PrazosVencime
               className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
                 timeFilter === 'upcoming'
                   ? 'bg-emerald-600 text-white shadow-xs font-black'
-                  : 'text-slate-500 hover:text-emerald-700 dark:text-slate-400'
+                  : 'text-slate-500 hover:text-emerald-700'
               }`}
             >
               <span>Futuros</span>
               <span className={`px-2 py-0.5 rounded-full text-[10px] font-black ${
-                timeFilter === 'upcoming' ? 'bg-white/20 text-white' : 'bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300'
+                timeFilter === 'upcoming' ? 'bg-white/20 text-white' : 'bg-emerald-100 text-emerald-800'
               }`}>
                 {upcomingDebts.length}
               </span>
@@ -363,22 +363,22 @@ function PrazosVencimentosView({ debts, onSelectDebt, onPayFull }: PrazosVencime
                   <motion.div 
                     initial={{ opacity: 0, scale: 0.96 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="text-center py-10 px-6 border-2 border-dashed border-emerald-200 dark:border-emerald-900 bg-emerald-50/40 dark:bg-emerald-950/20 rounded-3xl space-y-3"
+                    className="text-center py-10 px-6 border-2 border-dashed border-emerald-200 bg-emerald-50/40/20 rounded-3xl space-y-3"
                   >
                     <div className="w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-600 text-white rounded-2xl flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/20">
                       <CheckCircle2 className="w-7 h-7" />
                     </div>
                     <div>
-                      <h4 className="text-base font-black text-slate-900 dark:text-white flex items-center justify-center gap-1.5 font-display">
+                      <h4 className="text-base font-black text-slate-900 flex items-center justify-center gap-1.5 font-display">
                         Tudo em dia! <span className="text-lg">🎉</span>
                       </h4>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 font-medium max-w-md mx-auto mt-1">
+                      <p className="text-xs text-slate-500 font-medium max-w-md mx-auto mt-1">
                         Parabéns! Nenhuma cobrança está em atraso no momento. Todas as contas estão rigorosamente dentro do prazo de vencimento.
                       </p>
                     </div>
                     <div className="pt-1">
-                      <span className="inline-flex items-center gap-1.5 text-[11px] font-extrabold text-emerald-700 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-950 px-3.5 py-1.5 rounded-full border border-emerald-200 dark:border-emerald-800 shadow-2xs">
-                        <Sparkles className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> Excelente saúde financeira!
+                      <span className="inline-flex items-center gap-1.5 text-[11px] font-extrabold text-emerald-700 bg-emerald-100 px-3.5 py-1.5 rounded-full border border-emerald-200 shadow-2xs">
+                        <Sparkles className="w-3.5 h-3.5 text-emerald-600" /> Excelente saúde financeira!
                       </span>
                     </div>
                   </motion.div>
@@ -386,10 +386,10 @@ function PrazosVencimentosView({ debts, onSelectDebt, onPayFull }: PrazosVencime
               }
 
               return (
-                <div className="text-center py-10 px-6 border border-dashed border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 rounded-2xl space-y-2">
-                  <Calendar className="w-8 h-8 text-slate-300 dark:text-slate-600 mx-auto" />
-                  <p className="text-xs text-slate-500 dark:text-slate-400 font-bold">Nenhuma cobrança cadastrada neste critério.</p>
-                  <p className="text-[11px] text-slate-400 dark:text-slate-500">Alterne o filtro ou adicione novos lançamentos no sistema.</p>
+                <div className="text-center py-10 px-6 border border-dashed border-slate-200 bg-slate-50/50/40 rounded-2xl space-y-2">
+                  <Calendar className="w-8 h-8 text-slate-300 mx-auto" />
+                  <p className="text-xs text-slate-500 font-bold">Nenhuma cobrança cadastrada neste critério.</p>
+                  <p className="text-[11px] text-slate-400">Alterne o filtro ou adicione novos lançamentos no sistema.</p>
                 </div>
               );
             }
@@ -423,7 +423,7 @@ function PrazosVencimentosView({ debts, onSelectDebt, onPayFull }: PrazosVencime
                           exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
                           transition={{ duration: 0.25, ease: "easeOut", delay: index * 0.03 }}
                           onClick={() => onSelectDebt?.(debt)}
-                          className="p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-800/40 hover:bg-white dark:hover:bg-slate-800 hover:border-emerald-300 dark:hover:border-emerald-800 transition-all duration-200 shadow-2xs hover:shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 cursor-pointer group"
+                          className="p-4 rounded-2xl border border-slate-200/80 bg-slate-50/60/40 hover:bg-white hover:border-emerald-300 transition-all duration-200 shadow-2xs hover:shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 cursor-pointer group"
                         >
                           <div className="min-w-0 flex-1 flex items-center gap-3.5">
                             {/* Avatar */}
@@ -433,21 +433,21 @@ function PrazosVencimentosView({ debts, onSelectDebt, onPayFull }: PrazosVencime
 
                             <div className="min-w-0">
                               <div className="flex items-center gap-2">
-                                <h4 className="text-sm font-black text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors truncate font-display">{debt.name}</h4>
+                                <h4 className="text-sm font-black text-slate-900 group-hover:text-emerald-600 transition-colors truncate font-display">{debt.name}</h4>
                                 <span className={`text-[9px] font-black px-2 py-0.5 rounded-md uppercase tracking-wider ${
                                   debt.status === 'partial' ? 'bg-amber-100 text-amber-800 border border-amber-200' : 'bg-slate-100 text-slate-700 border border-slate-200'
                                 }`}>
                                   {debt.status === 'partial' ? 'Parcial' : 'Pendente'}
                                 </span>
                               </div>
-                              <div className="flex flex-wrap items-center gap-3 mt-1 text-xs text-slate-500 dark:text-slate-400">
+                              <div className="flex flex-wrap items-center gap-3 mt-1 text-xs text-slate-500">
                                 <span className="flex items-center gap-1 font-medium">
                                   <Clock className="w-3.5 h-3.5 text-slate-400" />
-                                  Vencimento: <strong className="font-mono text-slate-800 dark:text-slate-200">{debt.dueDate ? formatDate(debt.dueDate) : 'Indeterminado'}</strong>
+                                  Vencimento: <strong className="font-mono text-slate-800">{debt.dueDate ? formatDate(debt.dueDate) : 'Indeterminado'}</strong>
                                 </span>
                                 {daysLeft !== null && (
                                   <span className={`font-bold font-mono text-[11px] ${
-                                    daysLeft < 0 ? 'text-rose-600 dark:text-rose-400' : daysLeft === 0 ? 'text-amber-500 dark:text-amber-400' : 'text-emerald-600 dark:text-emerald-400'
+                                    daysLeft < 0 ? 'text-rose-600' : daysLeft === 0 ? 'text-amber-500' : 'text-emerald-600'
                                   }`}>
                                     {daysLeft < 0 
                                       ? `(${Math.abs(daysLeft)} dias atrasado)` 
@@ -461,10 +461,10 @@ function PrazosVencimentosView({ debts, onSelectDebt, onPayFull }: PrazosVencime
                             </div>
                           </div>
 
-                          <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-3 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-200/60 dark:border-slate-800">
+                          <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-3 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-200/60">
                             <div className="text-left sm:text-right mr-1 font-mono">
-                              <p className="text-sm font-black text-slate-900 dark:text-white">{formatCurrency(debt.currentAmount)}</p>
-                              <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">saldo devido</p>
+                              <p className="text-sm font-black text-slate-900">{formatCurrency(debt.currentAmount)}</p>
+                              <p className="text-[10px] text-slate-400 font-medium">saldo devido</p>
                             </div>
 
                             {/* Action Buttons */}
@@ -475,7 +475,7 @@ function PrazosVencimentosView({ debts, onSelectDebt, onPayFull }: PrazosVencime
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   onClick={(e) => e.stopPropagation()}
-                                  className="p-2 bg-emerald-50 dark:bg-emerald-950/60 hover:bg-emerald-500 text-emerald-700 dark:text-emerald-400 hover:text-white rounded-xl border border-emerald-200 dark:border-emerald-800 transition-all duration-200 cursor-pointer flex items-center justify-center shadow-2xs active:scale-95"
+                                  className="p-2 bg-emerald-50/60 hover:bg-emerald-500 text-emerald-700 hover:text-white rounded-xl border border-emerald-200 transition-all duration-200 cursor-pointer flex items-center justify-center shadow-2xs active:scale-95"
                                   title="Cobrar via WhatsApp"
                                   id={`btn-vencimento-wa-${debt.id}`}
                                 >
@@ -489,7 +489,7 @@ function PrazosVencimentosView({ debts, onSelectDebt, onPayFull }: PrazosVencime
                                     e.stopPropagation();
                                     onSelectDebt(debt);
                                   }}
-                                  className="p-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl transition-all duration-200 cursor-pointer flex items-center justify-center shadow-2xs active:scale-95"
+                                  className="p-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl transition-all duration-200 cursor-pointer flex items-center justify-center shadow-2xs active:scale-95"
                                   title="Ver Detalhes do Cliente"
                                   id={`btn-vencimento-detail-${debt.id}`}
                                 >

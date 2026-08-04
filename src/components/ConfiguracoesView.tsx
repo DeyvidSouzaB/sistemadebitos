@@ -69,7 +69,7 @@ export default function ConfiguracoesView({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
-      className="space-y-6 sm:space-y-7 text-slate-900 dark:text-slate-100 max-w-[1600px] mx-auto pb-12"
+      className="space-y-6 sm:space-y-7 text-slate-900 max-w-[1600px] mx-auto pb-12"
     >
       {/* 1. HERO HEADER */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 text-white p-6 sm:p-8 shadow-2xl border border-slate-800/80">
@@ -107,9 +107,9 @@ export default function ConfiguracoesView({
         {/* LEFT COLUMN: User Profile & Database Tools */}
         <div className="space-y-6">
           {/* User Profile Card */}
-          <div className="bg-white dark:bg-slate-900/90 p-6 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-4">
-            <h3 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 pb-3 font-mono">
-              <User className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> Perfil do Usuário
+          <div className="bg-white/90 p-6 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+            <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider flex items-center gap-2 border-b border-slate-100 pb-3 font-mono">
+              <User className="w-4 h-4 text-emerald-600" /> Perfil do Usuário
             </h3>
 
             <div className="flex items-center gap-3.5 py-2">
@@ -117,29 +117,29 @@ export default function ConfiguracoesView({
                 {userName.slice(0, 2).toUpperCase()}
               </div>
               <div className="min-w-0">
-                <p className="text-sm font-black text-slate-900 dark:text-white truncate font-display">{userName}</p>
+                <p className="text-sm font-black text-slate-900 truncate font-display">{userName}</p>
                 <p className="text-xs text-slate-400 truncate">{userEmail}</p>
               </div>
             </div>
 
             <div className="space-y-3 pt-2">
               <div>
-                <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Razão Social / Operador</label>
+                <label className="block text-xs font-bold text-slate-600 mb-1">Razão Social / Operador</label>
                 <input
                   type="text"
                   readOnly
                   value={userName}
-                  className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-mono px-3.5 py-2.5 rounded-xl"
+                  className="w-full bg-slate-50 border border-slate-200 text-slate-800 text-xs font-mono px-3.5 py-2.5 rounded-xl"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">E-mail Cadastrado</label>
+                <label className="block text-xs font-bold text-slate-600 mb-1">E-mail Cadastrado</label>
                 <input
                   type="text"
                   readOnly
                   value={userEmail}
-                  className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-mono px-3.5 py-2.5 rounded-xl"
+                  className="w-full bg-slate-50 border border-slate-200 text-slate-800 text-xs font-mono px-3.5 py-2.5 rounded-xl"
                 />
               </div>
             </div>
@@ -148,10 +148,10 @@ export default function ConfiguracoesView({
 
         {/* RIGHT COLUMN: WhatsApp Live Template Simulator & Preferences */}
         <div className="lg:col-span-2 space-y-6">
-          <form onSubmit={handleSavePreferences} className="bg-white dark:bg-slate-900/90 p-6 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-6">
-            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
-              <h3 className="text-base font-black text-slate-900 dark:text-white font-display flex items-center gap-2">
-                <MessageCircle className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+          <form onSubmit={handleSavePreferences} className="bg-white/90 p-6 rounded-3xl border border-slate-200/80 shadow-sm space-y-6">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+              <h3 className="text-base font-black text-slate-900 font-display flex items-center gap-2">
+                <MessageCircle className="w-5 h-5 text-emerald-600" />
                 Configurador de Mensagem WhatsApp
               </h3>
 
@@ -172,10 +172,10 @@ export default function ConfiguracoesView({
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <label className={`p-4 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between ${
-                  waMode === 'empty' ? 'border-emerald-500 bg-emerald-50/50 dark:bg-emerald-950/40 ring-1 ring-emerald-500' : 'border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/40'
+                  waMode === 'empty' ? 'border-emerald-500 bg-emerald-50/50/40 ring-1 ring-emerald-500' : 'border-slate-200 bg-slate-50/50/40'
                 }`}>
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-bold text-slate-900 dark:text-white">Apenas Link</span>
+                    <span className="text-xs font-bold text-slate-900">Apenas Link</span>
                     <input
                       type="radio"
                       name="waMode"
@@ -185,14 +185,14 @@ export default function ConfiguracoesView({
                       className="accent-emerald-600"
                     />
                   </div>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400">Abre a conversa do WhatsApp sem texto pré-preenchido.</p>
+                  <p className="text-[11px] text-slate-500">Abre a conversa do WhatsApp sem texto pré-preenchido.</p>
                 </label>
 
                 <label className={`p-4 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between ${
-                  waMode === 'standard' ? 'border-emerald-500 bg-emerald-50/50 dark:bg-emerald-950/40 ring-1 ring-emerald-500' : 'border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/40'
+                  waMode === 'standard' ? 'border-emerald-500 bg-emerald-50/50/40 ring-1 ring-emerald-500' : 'border-slate-200 bg-slate-50/50/40'
                 }`}>
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-bold text-slate-900 dark:text-white">Padrão Sistema</span>
+                    <span className="text-xs font-bold text-slate-900">Padrão Sistema</span>
                     <input
                       type="radio"
                       name="waMode"
@@ -202,14 +202,14 @@ export default function ConfiguracoesView({
                       className="accent-emerald-600"
                     />
                   </div>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400">Mensagem padrão amigável informando o saldo e vencimento.</p>
+                  <p className="text-[11px] text-slate-500">Mensagem padrão amigável informando o saldo e vencimento.</p>
                 </label>
 
                 <label className={`p-4 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between ${
-                  waMode === 'custom' ? 'border-emerald-500 bg-emerald-50/50 dark:bg-emerald-950/40 ring-1 ring-emerald-500' : 'border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/40'
+                  waMode === 'custom' ? 'border-emerald-500 bg-emerald-50/50/40 ring-1 ring-emerald-500' : 'border-slate-200 bg-slate-50/50/40'
                 }`}>
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-bold text-slate-900 dark:text-white">Personalizada</span>
+                    <span className="text-xs font-bold text-slate-900">Personalizada</span>
                     <input
                       type="radio"
                       name="waMode"
@@ -219,7 +219,7 @@ export default function ConfiguracoesView({
                       className="accent-emerald-600"
                     />
                   </div>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400">Crie seu modelo próprio com variáveis dinâmicas.</p>
+                  <p className="text-[11px] text-slate-500">Crie seu modelo próprio com variáveis dinâmicas.</p>
                 </label>
               </div>
             </div>
@@ -236,7 +236,7 @@ export default function ConfiguracoesView({
                   value={waCustomText}
                   onChange={(e) => setWaCustomText(e.target.value)}
                   placeholder="Digite sua mensagem personalizada aqui..."
-                  className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 text-xs font-mono text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 text-xs font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
 
                 <div className="flex items-center gap-2 flex-wrap text-xs">
@@ -244,21 +244,21 @@ export default function ConfiguracoesView({
                   <button
                     type="button"
                     onClick={() => setWaCustomText(prev => prev + ' {nome}')}
-                    className="px-2 py-1 bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 rounded-lg font-mono text-[11px] font-bold border border-emerald-200 dark:border-emerald-800"
+                    className="px-2 py-1 bg-emerald-50 text-emerald-700 rounded-lg font-mono text-[11px] font-bold border border-emerald-200"
                   >
                     + &#123;nome&#125;
                   </button>
                   <button
                     type="button"
                     onClick={() => setWaCustomText(prev => prev + ' {valor}')}
-                    className="px-2 py-1 bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 rounded-lg font-mono text-[11px] font-bold border border-emerald-200 dark:border-emerald-800"
+                    className="px-2 py-1 bg-emerald-50 text-emerald-700 rounded-lg font-mono text-[11px] font-bold border border-emerald-200"
                   >
                     + &#123;valor&#125;
                   </button>
                   <button
                     type="button"
                     onClick={() => setWaCustomText(prev => prev + ' {vencimento}')}
-                    className="px-2 py-1 bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 rounded-lg font-mono text-[11px] font-bold border border-emerald-200 dark:border-emerald-800"
+                    className="px-2 py-1 bg-emerald-50 text-emerald-700 rounded-lg font-mono text-[11px] font-bold border border-emerald-200"
                   >
                     + &#123;vencimento&#125;
                   </button>
