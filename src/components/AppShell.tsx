@@ -157,7 +157,7 @@ export default function AppShell({
 
         {/* ── Top Header ── */}
         <header className="bg-white/95 backdrop-blur-md border-b border-slate-100 sticky top-0 z-30 shadow-2xs">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between gap-4">
+          <div className="max-w-6xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between gap-4">
 
             {/* Left: burger + page title */}
             <div className="flex items-center gap-3.5">
@@ -225,7 +225,7 @@ export default function AppShell({
         </header>
 
         {/* ── Main workspace ── */}
-        <main className="max-w-6xl mx-auto px-4 sm:px-6 mt-6 w-full">
+        <main className="max-w-6xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 mt-6 w-full">
           {children}
         </main>
 

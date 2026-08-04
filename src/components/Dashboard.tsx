@@ -65,19 +65,24 @@ export default function Dashboard({
         onSelectOption={onSelectOption}
       />
 
-      {/* 3. 6-MONTH EVOLUTION CHART */}
-      <DashboardChart
-        monthlyChartData={monthlyChartData}
-        maxChartValue={maxChartValue}
-      />
+      {/* 3. 6-MONTH EVOLUTION CHART & UPCOMING DEBTS GRID (Side-by-side on 2xl Ultrawide Screens) */}
+      <div className="grid grid-cols-1 2xl:grid-cols-12 gap-6 items-start">
+        <div className="2xl:col-span-7">
+          <DashboardChart
+            monthlyChartData={monthlyChartData}
+            maxChartValue={maxChartValue}
+          />
+        </div>
 
-      {/* 4. UPCOMING DEBTS & AGENDA */}
-      <DashboardUpcomingDebts
-        upcomingDebts={upcomingDebts}
-        onSelectOption={onSelectOption}
-        onPayFull={onPayFull}
-        getStatusInfo={getStatusInfo}
-      />
+        <div className="2xl:col-span-5">
+          <DashboardUpcomingDebts
+            upcomingDebts={upcomingDebts}
+            onSelectOption={onSelectOption}
+            onPayFull={onPayFull}
+            getStatusInfo={getStatusInfo}
+          />
+        </div>
+      </div>
     </motion.div>
   );
 }
