@@ -30,18 +30,18 @@ export const DevedoresTable: React.FC<DevedoresTableProps> = ({
 }) => {
   return (
     <div className="overflow-x-auto bg-white/90 rounded-3xl border border-slate-200/80 shadow-sm scrollbar-thin scrollbar-thumb-slate-300">
-      <table className="w-full text-left border-collapse min-w-[1020px] table-fixed">
+      <table className="w-full text-left border-collapse min-w-[1180px] table-fixed">
         <caption className="sr-only">Tabela de Clientes e Cobranças Registradas</caption>
         
-        {/* Strict Column Widths */}
+        {/* Balanced Column Widths */}
         <colgroup>
-          <col className="w-[28%]" /> {/* Devedor / Cliente */}
-          <col className="w-[13%]" /> {/* Status */}
-          <col className="w-[12%]" /> {/* Vencimento */}
+          <col className="w-[22%]" /> {/* Devedor / Cliente */}
+          <col className="w-[11%]" /> {/* Status */}
+          <col className="w-[10%]" /> {/* Vencimento */}
           <col className="w-[11%]" /> {/* Valor Original */}
           <col className="w-[11%]" /> {/* Valor Pago */}
-          <col className="w-[12%]" /> {/* Valor Devido */}
-          <col className="w-[13%]" /> {/* Ações Rápidas */}
+          <col className="w-[13%]" /> {/* Valor Devido */}
+          <col className="w-[22%]" /> {/* Ações Rápidas */}
         </colgroup>
 
         <thead>
@@ -175,8 +175,8 @@ export const DevedoresTable: React.FC<DevedoresTableProps> = ({
                   </td>
 
                   {/* Actions */}
-                  <td className="py-3.5 pl-3 pr-6 align-middle text-right" onClick={(e) => e.stopPropagation()}>
-                    <div className="flex items-center justify-end gap-1.5" onClick={(e) => e.stopPropagation()}>
+                  <td className="py-3.5 pl-3 pr-6 align-middle text-right whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
+                    <div className="flex items-center justify-end gap-1.5 shrink-0" onClick={(e) => e.stopPropagation()}>
                       {debt.currentAmount > 0 ? (
                         <>
                           <a
@@ -184,7 +184,7 @@ export const DevedoresTable: React.FC<DevedoresTableProps> = ({
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={(e) => e.stopPropagation()}
-                            className="p-1.5 bg-emerald-50 hover:bg-emerald-500 text-emerald-700 hover:text-white rounded-xl transition-all duration-150 cursor-pointer border border-emerald-200 shadow-2xs active:scale-95 shrink-0"
+                            className="w-8 h-8 flex items-center justify-center bg-emerald-50 hover:bg-emerald-500 text-emerald-700 hover:text-white rounded-xl transition-all duration-150 cursor-pointer border border-emerald-200 shadow-2xs active:scale-95 shrink-0"
                             title="Cobrar via WhatsApp"
                           >
                             <MessageCircle className="w-4 h-4" />
@@ -193,20 +193,20 @@ export const DevedoresTable: React.FC<DevedoresTableProps> = ({
                           <button
                             type="button"
                             onClick={(e) => { e.stopPropagation(); onAddPaymentClick(debt); }}
-                            className="p-1.5 bg-teal-50 hover:bg-teal-500 text-teal-700 hover:text-white rounded-xl transition-all duration-150 cursor-pointer border border-teal-200 shadow-2xs active:scale-95 shrink-0"
+                            className="w-8 h-8 flex items-center justify-center bg-teal-50 hover:bg-teal-500 text-teal-700 hover:text-white rounded-xl transition-all duration-150 cursor-pointer border border-teal-200 shadow-2xs active:scale-95 shrink-0"
                             title="Registrar pagamento"
                           >
                             <PlusCircle className="w-4 h-4" />
                           </button>
                         </>
                       ) : (
-                        <div className="w-[62px] shrink-0" />
+                        <div className="w-[70px] shrink-0" />
                       )}
 
                       <button
                         type="button"
                         onClick={(e) => { e.stopPropagation(); onEdit(debt); }}
-                        className="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl transition-all duration-150 cursor-pointer border border-slate-200 shadow-2xs active:scale-95 shrink-0"
+                        className="w-8 h-8 flex items-center justify-center bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl transition-all duration-150 cursor-pointer border border-slate-200 shadow-2xs active:scale-95 shrink-0"
                         title="Editar cobrança"
                       >
                         <Edit3 className="w-4 h-4" />
@@ -215,7 +215,7 @@ export const DevedoresTable: React.FC<DevedoresTableProps> = ({
                       <button
                         type="button"
                         onClick={(e) => { e.stopPropagation(); onSelectDebtor(debt); }}
-                        className="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl transition-all duration-150 cursor-pointer border border-slate-200 shadow-2xs active:scale-95 shrink-0"
+                        className="w-8 h-8 flex items-center justify-center bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl transition-all duration-150 cursor-pointer border border-slate-200 shadow-2xs active:scale-95 shrink-0"
                         title="Ver Detalhes do Devedor"
                       >
                         <ChevronRight className="w-4 h-4" />
@@ -224,7 +224,7 @@ export const DevedoresTable: React.FC<DevedoresTableProps> = ({
                       <button
                         type="button"
                         onClick={(e) => { e.stopPropagation(); onDelete(debt.id); }}
-                        className="p-1.5 bg-rose-50 hover:bg-rose-600 text-rose-600 hover:text-white rounded-xl transition-all duration-150 cursor-pointer border border-rose-200 shadow-2xs active:scale-95 shrink-0"
+                        className="w-8 h-8 flex items-center justify-center bg-rose-50 hover:bg-rose-600 text-rose-600 hover:text-white rounded-xl transition-all duration-150 cursor-pointer border border-rose-200 shadow-2xs active:scale-95 shrink-0"
                         title="Excluir cobrança"
                       >
                         <Trash2 className="w-4 h-4" />
