@@ -102,7 +102,7 @@ export default function ConfirmModal({
       ariaLabelledBy="confirm-modal-title"
     >
       {/* Header — dark slate matching navbar */}
-      <div className="shrink-0 bg-slate-900 text-white p-4 sm:p-6 relative border-b border-slate-800/80 overflow-hidden">
+      <div className="shrink-0 bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-4 sm:p-6 relative border-b border-emerald-500/30 overflow-hidden">
         {/* Left accent bar */}
         <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${style.accentBar}`} />
 

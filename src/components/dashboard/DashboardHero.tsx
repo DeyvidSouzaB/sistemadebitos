@@ -25,28 +25,28 @@ export const DashboardHero: React.FC<DashboardHeroProps> = ({
       initial={{ opacity: 0, y: -12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-      className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 text-white p-6 sm:p-8 shadow-2xl border border-slate-800/80"
+      className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 text-white p-6 sm:p-8 shadow-2xl border border-emerald-400/40"
     >
       {/* Subtle geometric grid background pattern for executive dashboard */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b15_1px,transparent_1px),linear-gradient(to_bottom,#1e293b15_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
-      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-emerald-400 via-teal-400 to-emerald-600 rounded-l-3xl" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-white/40 via-white/20 to-white/40 rounded-l-3xl" />
 
       <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
         <div className="space-y-3 max-w-2xl">
           <div className="flex items-center gap-2 flex-wrap">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold backdrop-blur-md">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 border border-white/30 text-white text-xs font-bold backdrop-blur-md">
+              <ShieldCheck className="w-3.5 h-3.5 text-white" />
               <span>Painel Financeiro</span>
             </div>
             
             {overdueCount > 0 ? (
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-bold backdrop-blur-md">
-                <span className="w-2 h-2 rounded-full bg-amber-400" />
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/30 border border-amber-300/40 text-amber-100 text-xs font-bold backdrop-blur-md">
+                <span className="w-2 h-2 rounded-full bg-amber-300" />
                 <span>{overdueCount} {overdueCount === 1 ? 'vencimento pendente' : 'vencimentos pendentes'}</span>
               </div>
             ) : (
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold backdrop-blur-md">
-                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 border border-white/30 text-white text-xs font-bold backdrop-blur-md">
+                <span className="w-2 h-2 rounded-full bg-white" />
                 <span>Contas em dia</span>
               </div>
             )}
@@ -56,17 +56,17 @@ export const DashboardHero: React.FC<DashboardHeroProps> = ({
             Visão Geral de Recebíveis
           </h1>
           
-          <p className="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed max-w-xl">
+          <p className="text-xs sm:text-sm text-emerald-50 font-medium leading-relaxed max-w-xl">
             Acompanhe o fluxo financeiro em tempo real, gerencie vencimentos com alertas automatizados e envie cobranças amigáveis no WhatsApp.
           </p>
 
-          <div className="pt-1 flex items-center gap-4 text-xs text-slate-400 font-medium flex-wrap">
-            <span className="flex items-center gap-1 text-slate-300">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" /> Dados protegidos
+          <div className="pt-1 flex items-center gap-4 text-xs text-emerald-100 font-medium flex-wrap">
+            <span className="flex items-center gap-1 text-white">
+              <ShieldCheck className="w-4 h-4 text-white/80" /> Dados protegidos
             </span>
-            <span className="text-slate-600">•</span>
-            <span className="flex items-center gap-1 text-slate-300">
-              <Zap className="w-4 h-4 text-amber-400" /> Cobrança em 1-clique
+            <span className="text-white/40">•</span>
+            <span className="flex items-center gap-1 text-white">
+              <Zap className="w-4 h-4 text-amber-300" /> Cobrança em 1-clique
             </span>
           </div>
         </div>
@@ -91,9 +91,9 @@ export const DashboardHero: React.FC<DashboardHeroProps> = ({
                 onSelectOption('prazos');
               }
             }}
-            className="px-4 py-3.5 bg-white/10 hover:bg-white/15 active:scale-95 border border-white/15 text-slate-100 text-xs sm:text-sm font-bold rounded-2xl backdrop-blur-md transition-all duration-200 cursor-pointer flex items-center gap-2 relative shadow-lg hover:border-emerald-400/40"
+            className="px-4 py-3.5 bg-white/20 hover:bg-white/30 active:scale-95 border border-white/30 text-white text-xs sm:text-sm font-bold rounded-2xl backdrop-blur-md transition-all duration-200 cursor-pointer flex items-center gap-2 relative shadow-lg hover:border-white/40"
           >
-            <Bell className="w-4 h-4 text-emerald-400" />
+            <Bell className="w-4 h-4 text-white" />
             <span>Lembretes</span>
             {overdueCount > 0 && (
               <span className="flex h-2.5 w-2.5 absolute top-2 right-2">
@@ -105,7 +105,7 @@ export const DashboardHero: React.FC<DashboardHeroProps> = ({
 
           <button
             onClick={() => onSelectOption('relatorios')}
-            className="px-3.5 py-3.5 bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 text-slate-300 hover:text-white text-xs sm:text-sm font-semibold rounded-2xl transition-all duration-200 cursor-pointer flex items-center gap-1.5"
+            className="px-3.5 py-3.5 bg-white/15 hover:bg-white/25 border border-white/25 text-white text-xs sm:text-sm font-semibold rounded-2xl transition-all duration-200 cursor-pointer flex items-center gap-1.5"
             title="Abrir Relatórios Financeiros"
           >
             <span>Relatórios</span>

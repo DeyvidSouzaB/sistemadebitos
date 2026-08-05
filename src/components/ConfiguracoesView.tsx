@@ -96,19 +96,19 @@ export default function ConfiguracoesView({
       className="space-y-6 sm:space-y-7 text-slate-900 max-w-[1600px] mx-auto pb-12"
     >
       {/* 1. HERO HEADER */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 text-white p-6 sm:p-8 shadow-2xl border border-slate-800/80">
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 text-white p-6 sm:p-8 shadow-2xl border border-emerald-400/40">
         {/* Subtle security/settings watermark for Settings view */}
-        <div className="absolute right-8 top-1/2 -translate-y-1/2 opacity-[0.04] pointer-events-none hidden sm:block">
-          <div className="w-36 h-36 rounded-full border-4 border-dashed border-emerald-400 flex items-center justify-center">
-            <div className="w-20 h-20 rounded-full border-2 border-emerald-400" />
+        <div className="absolute right-8 top-1/2 -translate-y-1/2 opacity-[0.08] pointer-events-none hidden sm:block">
+          <div className="w-36 h-36 rounded-full border-4 border-dashed border-white flex items-center justify-center">
+            <div className="w-20 h-20 rounded-full border-2 border-white" />
           </div>
         </div>
-        <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-emerald-400 via-teal-400 to-emerald-600 rounded-l-3xl" />
+        <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-white/40 via-white/20 to-white/40 rounded-l-3xl" />
 
         <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="space-y-2.5 max-w-2xl">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold backdrop-blur-md">
-              <User className="w-3.5 h-3.5 text-emerald-400" />
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 border border-white/30 text-white text-xs font-bold backdrop-blur-md">
+              <User className="w-3.5 h-3.5 text-white" />
               <span>CONFIGURAÇÕES & SEGURANÇA</span>
             </div>
 
@@ -116,14 +116,14 @@ export default function ConfiguracoesView({
               Configurações do Sistema
             </h1>
 
-            <p className="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed">
+            <p className="text-xs sm:text-sm text-emerald-50 font-medium leading-relaxed">
               Personalize modelos de cobrança via WhatsApp, gerencie credenciais de usuário e controle backups de segurança.
             </p>
           </div>
 
           {savedSuccess && (
-            <div className="flex items-center gap-2 px-4 py-3 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 backdrop-blur-md rounded-2xl text-xs font-black shadow-lg">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            <div className="flex items-center gap-2 px-4 py-3 bg-white/20 text-white border border-white/30 backdrop-blur-md rounded-2xl text-xs font-black shadow-lg">
+              <CheckCircle2 className="w-4 h-4 text-white" />
               <span>Configurações Salvas com Sucesso!</span>
             </div>
           )}

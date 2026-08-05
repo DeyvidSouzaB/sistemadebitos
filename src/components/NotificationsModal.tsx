@@ -55,19 +55,19 @@ export default function NotificationsModal({
       ariaLabelledBy="notifications-modal-title"
     >
       {/* Header */}
-          <div className="p-5 sm:p-6 bg-slate-900 text-white flex items-center justify-between gap-4">
+          <div className="p-5 sm:p-6 bg-gradient-to-r from-emerald-600 to-teal-600 text-white flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 rounded-2xl bg-white/20 text-white border border-white/30 flex items-center justify-center shrink-0">
                 <Bell className="w-5 h-5" />
               </div>
               <div>
                 <h3 id="notifications-modal-title" className="text-lg font-extrabold text-white tracking-tight flex items-center gap-2">
                   Notificações & Lembretes
-                  <span className="text-xs px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 font-bold">
+                  <span className="text-xs px-2.5 py-0.5 rounded-full bg-white/20 text-white border border-white/30 font-bold">
                     {overdueDebts.length + dueSoonDebts.length} pendentes
                   </span>
                 </h3>
-                <p className="text-xs text-slate-400 mt-0.5">
+                <p className="text-xs text-emerald-100 mt-0.5">
                   Lembretes automáticos de vencimento e alertas de cobranças em atraso
                 </p>
               </div>
@@ -77,7 +77,7 @@ export default function NotificationsModal({
               type="button"
               onClick={onClose}
               aria-label="Fechar janela de notificações"
-              className="p-2 text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-xl transition-all cursor-pointer border border-slate-700/50 shrink-0"
+              className="p-2 text-white/70 hover:text-white bg-white/10 hover:bg-white/20 rounded-xl transition-all cursor-pointer border border-white/20 shrink-0"
               title="Fechar"
             >
               <X className="w-5 h-5" />

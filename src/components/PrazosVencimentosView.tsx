@@ -69,20 +69,20 @@ function PrazosVencimentosView({ debts, onSelectDebt, onPayFull }: PrazosVencime
       className="space-y-6 sm:space-y-7 text-slate-900 max-w-[1600px] mx-auto pb-10"
     >
       {/* 1. HERO HEADER */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 text-white p-6 sm:p-8 shadow-2xl border border-slate-800/80">
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 text-white p-6 sm:p-8 shadow-2xl border border-emerald-400/40">
         {/* Calendar grid watermark for Deadlines view */}
-        <div className="absolute right-8 top-1/2 -translate-y-1/2 opacity-[0.04] pointer-events-none hidden sm:block">
-          <div className="grid grid-cols-4 gap-2 w-48 h-32 border border-emerald-400 p-2 rounded-xl">
+        <div className="absolute right-8 top-1/2 -translate-y-1/2 opacity-[0.08] pointer-events-none hidden sm:block">
+          <div className="grid grid-cols-4 gap-2 w-48 h-32 border border-white p-2 rounded-xl">
             {Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} className="border border-emerald-400/50 rounded-md" />
+              <div key={i} className="border border-white/50 rounded-md" />
             ))}
           </div>
         </div>
-        <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-emerald-400 via-teal-400 to-emerald-600 rounded-l-3xl" />
+        <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-white/40 via-white/20 to-white/40 rounded-l-3xl" />
 
         <div className="relative z-10 space-y-2.5 max-w-2xl">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold backdrop-blur-md">
-            <Calendar className="w-3.5 h-3.5 text-emerald-400" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 border border-white/30 text-white text-xs font-bold backdrop-blur-md">
+            <Calendar className="w-3.5 h-3.5 text-white" />
             <span>GESTÃO PREVENTIVA DE VENCIMENTOS</span>
           </div>
 
@@ -90,7 +90,7 @@ function PrazosVencimentosView({ debts, onSelectDebt, onPayFull }: PrazosVencime
             Prazos & Vencimentos
           </h1>
 
-          <p className="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed">
+          <p className="text-xs sm:text-sm text-emerald-50 font-medium leading-relaxed">
             Acompanhe o cronograma completo de cobranças, previna atrasos fatais e controle os vencimentos diários.
           </p>
         </div>

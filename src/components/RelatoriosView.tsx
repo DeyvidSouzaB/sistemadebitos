@@ -103,28 +103,28 @@ function RelatoriosView({ debts, onSelectDebt, onAddPaymentClick, onPayFull }: R
       className="space-y-6 sm:space-y-7 text-slate-900 max-w-[1600px] mx-auto pb-12"
     >
       {/* 1. HERO HEADER */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 text-white p-6 sm:p-8 shadow-2xl border border-slate-800/80">
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 text-white p-6 sm:p-8 shadow-2xl border border-emerald-400/40">
         {/* Subtle chart pattern watermark for Reports view */}
-        <div className="absolute right-6 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none hidden sm:block">
-          <svg className="w-64 h-32 text-emerald-400" viewBox="0 0 200 100" fill="none" stroke="currentColor" strokeWidth="3">
+        <div className="absolute right-6 top-1/2 -translate-y-1/2 opacity-[0.08] pointer-events-none hidden sm:block">
+          <svg className="w-64 h-32 text-white" viewBox="0 0 200 100" fill="none" stroke="currentColor" strokeWidth="3">
             <path d="M 0 80 Q 40 20 80 60 T 160 30 T 200 10" />
             <path d="M 0 90 Q 50 40 100 70 T 200 40" strokeOpacity="0.5" strokeDasharray="4 4" />
           </svg>
         </div>
-        <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-emerald-400 via-teal-400 to-emerald-600 rounded-l-3xl" />
+        <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-white/40 via-white/20 to-white/40 rounded-l-3xl" />
 
         <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="space-y-2.5 max-w-2xl">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold backdrop-blur-md">
-              <FileText className="w-3.5 h-3.5 text-emerald-400" />
-              <span>RELATÓRIOS & DEPURADORES FINANCEIROS</span>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 border border-white/30 text-white text-xs font-bold backdrop-blur-md">
+              <FileText className="w-3.5 h-3.5 text-white" />
+              <span>RELATÓRIOS &amp; DEPURADORES FINANCEIROS</span>
             </div>
 
             <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-white font-display leading-tight">
               Relatórios Financeiros
             </h1>
 
-            <p className="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed">
+            <p className="text-xs sm:text-sm text-emerald-50 font-medium leading-relaxed">
               Analise métricas consolidadas de liquidação, acompanhe entradas por período e exporte balancetes em PDF/Excel.
             </p>
           </div>

@@ -254,18 +254,17 @@ export default function BackupModal({
       bodyClassName="p-0 flex flex-col h-full"
       ariaLabelledBy="backup-modal-title"
     >
-      {/* Header Card Section */}
-      <div className="shrink-0 bg-slate-900 text-white p-4 sm:p-6 relative border-b border-slate-800">
+      <div className="shrink-0 bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-4 sm:p-6 relative border-b border-emerald-500/30">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-600 flex items-center justify-center text-white shadow-lg shadow-emerald-600/25 shrink-0">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white/20 flex items-center justify-center text-white border border-white/30 shrink-0">
               <HardDrive className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
             <div>
               <h3 id="backup-modal-title" className="text-base sm:text-lg font-black tracking-tight flex items-center gap-2">
-                Backup & Restauração
+                Backup &amp; Restauração
               </h3>
-              <p className="text-[11px] sm:text-xs text-slate-300 mt-0.5">
+              <p className="text-[11px] sm:text-xs text-emerald-100 mt-0.5">
                 Exporte ou importe seus dados em arquivo seguro .JSON
               </p>
             </div>
@@ -276,7 +275,7 @@ export default function BackupModal({
             type="button"
             onClick={onClose}
             aria-label="Fechar janela de backup"
-            className="p-1.5 sm:p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-xl transition-all cursor-pointer"
+            className="p-1.5 sm:p-2 text-white/70 hover:text-white hover:bg-white/20 rounded-xl transition-all cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
