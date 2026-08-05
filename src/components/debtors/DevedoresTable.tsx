@@ -30,29 +30,18 @@ export const DevedoresTable: React.FC<DevedoresTableProps> = ({
 }) => {
   return (
     <div className="overflow-x-auto bg-white/90 rounded-3xl border border-slate-200/80 shadow-sm scrollbar-thin scrollbar-thumb-slate-300">
-      <table className="w-full text-left border-collapse min-w-[1180px] table-fixed">
+      <table className="w-full text-left border-collapse min-w-[1100px]">
         <caption className="sr-only">Tabela de Clientes e Cobranças Registradas</caption>
-        
-        {/* Balanced Column Widths */}
-        <colgroup>
-          <col className="w-[22%]" /> {/* Devedor / Cliente */}
-          <col className="w-[11%]" /> {/* Status */}
-          <col className="w-[10%]" /> {/* Vencimento */}
-          <col className="w-[11%]" /> {/* Valor Original */}
-          <col className="w-[11%]" /> {/* Valor Pago */}
-          <col className="w-[13%]" /> {/* Valor Devido */}
-          <col className="w-[22%]" /> {/* Ações Rápidas */}
-        </colgroup>
 
         <thead>
           <tr className="border-b border-slate-200/80 text-[11px] font-black uppercase tracking-wider text-slate-500 bg-slate-50/90 font-mono">
-            <th scope="col" className="py-4 pl-6 pr-3 text-left">Devedor / Cliente</th>
-            <th scope="col" className="py-4 px-3 text-center">Status</th>
-            <th scope="col" className="py-4 px-3 text-center">Vencimento</th>
-            <th scope="col" className="py-4 px-3 text-right">Original</th>
-            <th scope="col" className="py-4 px-3 text-right">Valor Pago</th>
-            <th scope="col" className="py-4 px-3 text-right">Saldo Devido</th>
-            <th scope="col" className="py-4 pl-3 pr-6 text-right">Ações</th>
+            <th scope="col" className="py-4 pl-6 pr-3 text-left w-[24%]">Devedor / Cliente</th>
+            <th scope="col" className="py-4 px-3 text-center w-[12%]">Status</th>
+            <th scope="col" className="py-4 px-3 text-center w-[11%]">Vencimento</th>
+            <th scope="col" className="py-4 px-3 text-right w-[10%]">Original</th>
+            <th scope="col" className="py-4 px-3 text-right w-[10%]">Valor Pago</th>
+            <th scope="col" className="py-4 px-3 text-right w-[11%]">Saldo Devido</th>
+            <th scope="col" className="py-4 pl-3 pr-6 text-right w-[22%]">Ações</th>
           </tr>
         </thead>
 
@@ -175,8 +164,8 @@ export const DevedoresTable: React.FC<DevedoresTableProps> = ({
                   </td>
 
                   {/* Actions */}
-                  <td className="py-3.5 pl-3 pr-6 align-middle text-right whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
-                    <div className="flex items-center justify-end gap-1.5 shrink-0" onClick={(e) => e.stopPropagation()}>
+                  <td className="py-3.5 pl-2 pr-4 align-middle" onClick={(e) => e.stopPropagation()}>
+                    <div className="flex items-center justify-end gap-1 flex-nowrap" onClick={(e) => e.stopPropagation()}>
                       {debt.currentAmount > 0 ? (
                         <>
                           <a
@@ -184,50 +173,50 @@ export const DevedoresTable: React.FC<DevedoresTableProps> = ({
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={(e) => e.stopPropagation()}
-                            className="w-8 h-8 flex items-center justify-center bg-emerald-50 hover:bg-emerald-500 text-emerald-700 hover:text-white rounded-xl transition-all duration-150 cursor-pointer border border-emerald-200 shadow-2xs active:scale-95 shrink-0"
+                            className="w-7 h-7 flex items-center justify-center bg-emerald-50 hover:bg-emerald-500 text-emerald-700 hover:text-white rounded-lg transition-all duration-150 cursor-pointer border border-emerald-200 active:scale-95 shrink-0"
                             title="Cobrar via WhatsApp"
                           >
-                            <MessageCircle className="w-4 h-4" />
+                            <MessageCircle className="w-3.5 h-3.5" />
                           </a>
 
                           <button
                             type="button"
                             onClick={(e) => { e.stopPropagation(); onAddPaymentClick(debt); }}
-                            className="w-8 h-8 flex items-center justify-center bg-teal-50 hover:bg-teal-500 text-teal-700 hover:text-white rounded-xl transition-all duration-150 cursor-pointer border border-teal-200 shadow-2xs active:scale-95 shrink-0"
+                            className="w-7 h-7 flex items-center justify-center bg-teal-50 hover:bg-teal-500 text-teal-700 hover:text-white rounded-lg transition-all duration-150 cursor-pointer border border-teal-200 active:scale-95 shrink-0"
                             title="Registrar pagamento"
                           >
-                            <PlusCircle className="w-4 h-4" />
+                            <PlusCircle className="w-3.5 h-3.5" />
                           </button>
                         </>
                       ) : (
-                        <div className="w-[70px] shrink-0" />
+                        <div className="w-[60px] shrink-0" />
                       )}
 
                       <button
                         type="button"
                         onClick={(e) => { e.stopPropagation(); onEdit(debt); }}
-                        className="w-8 h-8 flex items-center justify-center bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl transition-all duration-150 cursor-pointer border border-slate-200 shadow-2xs active:scale-95 shrink-0"
+                        className="w-7 h-7 flex items-center justify-center bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition-all duration-150 cursor-pointer border border-slate-200 active:scale-95 shrink-0"
                         title="Editar cobrança"
                       >
-                        <Edit3 className="w-4 h-4" />
+                        <Edit3 className="w-3.5 h-3.5" />
                       </button>
 
                       <button
                         type="button"
                         onClick={(e) => { e.stopPropagation(); onSelectDebtor(debt); }}
-                        className="w-8 h-8 flex items-center justify-center bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl transition-all duration-150 cursor-pointer border border-slate-200 shadow-2xs active:scale-95 shrink-0"
+                        className="w-7 h-7 flex items-center justify-center bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition-all duration-150 cursor-pointer border border-slate-200 active:scale-95 shrink-0"
                         title="Ver Detalhes do Devedor"
                       >
-                        <ChevronRight className="w-4 h-4" />
+                        <ChevronRight className="w-3.5 h-3.5" />
                       </button>
 
                       <button
                         type="button"
                         onClick={(e) => { e.stopPropagation(); onDelete(debt.id); }}
-                        className="w-8 h-8 flex items-center justify-center bg-rose-50 hover:bg-rose-600 text-rose-600 hover:text-white rounded-xl transition-all duration-150 cursor-pointer border border-rose-200 shadow-2xs active:scale-95 shrink-0"
+                        className="w-7 h-7 flex items-center justify-center bg-rose-50 hover:bg-rose-600 text-rose-600 hover:text-white rounded-lg transition-all duration-150 cursor-pointer border border-rose-200 active:scale-95 shrink-0"
                         title="Excluir cobrança"
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <Trash2 className="w-3.5 h-3.5" />
                       </button>
                     </div>
                   </td>
